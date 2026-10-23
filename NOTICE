@@ -17,5 +17,5 @@ established. Extraction and attribution are not a rights grant.
 httpx, cryptography and curl_cffi are separate dependencies subject to their own
 licenses. KORAIL and other third-party marks belong to their respective owners.
 
-See LEGAL.md, THIRD_PARTY_NOTICES.md and PROVENANCE.md for scope, source details,
+See docs/LEGAL.md, THIRD_PARTY_NOTICES.md and docs/PROVENANCE.md for scope, source details,
 redistribution conditions and limits. This NOTICE does not modify Apache-2.0.

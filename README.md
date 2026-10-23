@@ -8,15 +8,15 @@
 
 # korail-api
 
-> **Legal notice:** This is an unofficial client, unaffiliated with KORAIL. Apache-2.0 covers material the maintainer can license; it grants no service-access or trademark rights. Vendor message data has separate rights, and no independent redistribution grant has been established. Read [LEGAL.md](LEGAL.md), [NOTICE](NOTICE), [third-party notices](THIRD_PARTY_NOTICES.md) and [provenance](PROVENANCE.md) before use or redistribution.
+> **Legal notice:** This is an unofficial client, unaffiliated with KORAIL. Apache-2.0 covers material the maintainer can license; it grants no service-access or trademark rights. Vendor message data has separate rights, and no independent redistribution grant has been established. Read [LEGAL.md](docs/LEGAL.md), [NOTICE](NOTICE), [third-party notices](THIRD_PARTY_NOTICES.md) and [provenance](docs/PROVENANCE.md) before use or redistribution.
 
 [![Python: 3.11+](https://img.shields.io/badge/Python-3.11%2B-3776AB?logo=python&logoColor=white)](pyproject.toml)
 [![Code license: Apache-2.0](https://img.shields.io/badge/Code_license-Apache--2.0-14b8a6)](LICENSE)
-[![Stability: experimental](https://img.shields.io/badge/Stability-experimental-f59e0b)](VALIDATION.md)
+[![Stability: experimental](https://img.shields.io/badge/Stability-experimental-f59e0b)](docs/VALIDATION.md)
 
 A synchronous Python client for the KORAIL protocol, organized around separate transport, protocol, service and model layers. Import the public client and models from `korail_api`.
 
-**[Documentation](https://thsqaz123-dot.github.io/korail-api_v2/)** · **[Architecture](ARCHITECTURE.md)** · **[Validation](VALIDATION.md)** · **[Contributing](CONTRIBUTING.md)** · **[Legal notice](LEGAL.md)**
+**[Documentation](https://thsqaz123-dot.github.io/korail-api_v2/)** · **[Architecture](docs/ARCHITECTURE.md)** · **[Validation](docs/VALIDATION.md)** · **[Contributing](CONTRIBUTING.md)** · **[Legal notice](docs/LEGAL.md)**
 
 ## What it supports
 
@@ -105,11 +105,11 @@ src/
     └── resources/       Protocol contracts and vendor message data
 ```
 
-See [ARCHITECTURE.md](ARCHITECTURE.md) for ownership boundaries and locations for behavioral changes. The package builds and runs from this repository.
+See [ARCHITECTURE.md](docs/ARCHITECTURE.md) for ownership boundaries and locations for behavioral changes. The package builds and runs from this repository.
 
 ## Validation and performance
 
-The standalone suite contains **271 offline tests**. Another **1,915 synthetic decoder outcomes** are checked by the development validator. See [VALIDATION.md](VALIDATION.md) for the checks and their limits.
+The standalone suite contains **271 offline tests**. Another **1,915 synthetic decoder outcomes** are checked by the development validator. See [VALIDATION.md](docs/VALIDATION.md) for the checks and their limits.
 
 Offline benchmarks exercise mock transports and do not establish real KORAIL request latency or acceptance.
 
@@ -131,6 +131,6 @@ Tests block network traffic and use synthetic data. See [CONTRIBUTING.md](CONTRI
 
 ## License and provenance
 
-The maintainer-authored software is offered under [Apache-2.0](LICENSE), subject to the scope and notices in [LEGAL.md](LEGAL.md), [NOTICE](NOTICE) and [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
+The maintainer-authored software is offered under [Apache-2.0](LICENSE), subject to the scope and notices in [LEGAL.md](docs/LEGAL.md), [NOTICE](NOTICE) and [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
 
-Material provenance is recorded in [PROVENANCE.md](PROVENANCE.md). Third-party data, runtime dependencies, trademarks and service-access permissions retain their respective rights. No live login, reservation, cancellation, payment or refund has been used to validate this release.
+Material provenance is recorded in [PROVENANCE.md](docs/PROVENANCE.md). Third-party data, runtime dependencies, trademarks and service-access permissions retain their respective rights. No live login, reservation, cancellation, payment or refund has been used to validate this release.
