@@ -3,6 +3,7 @@
 from typing import assert_type
 
 from korail_api import Korail, StationDataResponse
+from korail_api.maintenance import MaintenanceDeferredError, MaintenancePolicy
 from korail_mobile_api import (
     KorailClient,
     KorailConfig,
@@ -26,3 +27,12 @@ assert_type(passengers.total, int)
 room = SelfSeatChangeInfoRequest("20991230", "90001", "9001", "9002", "FUTURE")
 assert_type(room.room_class_code, str | None)
 SelfSeatChangeInfoRequest("20991230", "90001", "9001", "9002", 1)  # type: ignore[arg-type]
+
+
+def maintenance_types(policy: MaintenancePolicy, error: MaintenanceDeferredError) -> None:
+    client = KorailClient(maintenance=policy)
+    assert_type(client.maintenance, MaintenancePolicy)
+    assert_type(error.next_probe_at, float)
+    assert_type(error.retry_after, float)
+    assert_type(policy.failure("https://api.example.invalid", error), float | None)
+    client.close()

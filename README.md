@@ -69,6 +69,32 @@ from korail_mobile_api import KorailClient, KorailConfig, TrainSearchQuery
 - Business rejection, malformed responses, session expiry and protocol-access rejection remain distinct.
 - HTTP cookies have one owner; curl responses are adapted without a second decompression pass. Credential and payment fields are hidden from generated model representations.
 
+## Maintenance and recovery
+
+Explicit maintenance/rate-limit responses (including HTTP 429/503) block subsequent requests to the same configured API origin. Two consecutive transport failures also open a cooldown. Defaults are 30 minutes, 1 hour, 2 hours, then 4 hours, plus up to 10% positive jitter; a longer server `Retry-After` takes precedence. Errors expose `status_code`, `retry_after` (seconds) and `next_probe_at` (UTC Unix timestamp) when available. Invalid `strResult` values raise `KorailProtocolError` and retain `raw`.
+
+During cooldown, login, queue admission and ordinary API calls fail locally. Once the deadline passes, only a caller-requested `get_service_status()` may probe recovery, and only one probe can run at a time. A successful status response permits ordinary calls again; it does not prove that every login or transaction endpoint is healthy. The library starts no timer, worker or background traffic. Applications should schedule one status check at `next_probe_at` only while work is pending, then resume reads gradually. Never replay an ambiguous reservation/payment automatically.
+
+For a single-process application, use the default in-memory policy with no database configuration. Clients in that process share cooldowns and recovery-probe exclusion. Restarting the process clears this state, so the next call may contact the server again.
+
+```python
+from korail_api import KorailApiError, KorailClient
+
+with KorailClient() as client:
+    try:
+        status = client.get_service_status()
+    except KorailApiError as error:
+        if error.next_probe_at is None:
+            raise
+        next_check_at = error.next_probe_at  # Schedule; do not loop immediately.
+```
+
+SQLite remains an optional advanced setting for restart persistence or multiple processes: create a `MaintenancePolicy(state_path="/app/data/korail-maintenance.sqlite3")` from `korail_api.maintenance` and pass it as `KorailClient(maintenance=policy)`. The parent directory must already exist on a local filesystem. The database stores only origins, counters, deadlines and probe leases, without credentials or response bodies; separate hosts need application-level coordination. Set `probe_lease` longer than your longest possible status request when customizing timeouts beyond the default 5-minute lease. Separate policy objects without `state_path` have independent state.
+
+Queue transport errors no longer bypass admission to send the API request. Error retries check the remaining queue budget before sleeping or sending again, and there is no sleep after the final failure. Queue admission has a 300-second default budget; explicitly setting `KorailConfig(netfunnel_wait_limit=None)` restores unlimited normal queue waiting. The budget does not cancel an already-running HTTP request or delay token cleanup.
+
+These are deliberate behavior corrections: `raise_on_fail=False` cannot bypass maintenance/rate-limit protection, and malformed result envelopes are rejected before later steps in a transaction. Account errors, application-update requirements and protocol-access rejections alone do not establish maintenance.
+
 ## Architecture
 
 ```text

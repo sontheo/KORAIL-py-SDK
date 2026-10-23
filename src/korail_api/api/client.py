@@ -45,16 +45,19 @@ def order_fields(values, order):
 
 
 class KorailClient:
-    def __init__(self, config=None, *, transport=None):
+    def __init__(self, config=None, *, transport=None, maintenance=None):
         self.config = config or REGISTRY["KorailConfig"]()
-        self.http = KorailHttpClient(self.config, transport=transport)
+        self.http = KorailHttpClient(self.config, transport=transport, maintenance=maintenance)
+        self.maintenance = self.http.maintenance
         self.session = KorailSessionClient(self.http)
         self.netfunnel = None
         self._closed = False
         self._station_names = None
         try:
             if self.config.netfunnel_enabled:
-                self.netfunnel = KorailNetFunnelClient(self.config, transport=transport)
+                self.netfunnel = KorailNetFunnelClient(
+                    self.config, transport=transport, maintenance=self.maintenance
+                )
         except BaseException as error:
             close_resources([self.http], error)
             raise
@@ -172,6 +175,8 @@ class KorailClient:
     def _invoke(self, name, arguments):
         from korail_api.services.operations import finish, prepare
 
+        if name != "get_service_status":
+            self.maintenance.check(self.config.base_url)
         recipe = load("requests")[name]
         authorization = load("authorization")[name]
         if authorization["session"]:

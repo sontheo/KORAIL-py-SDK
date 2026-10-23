@@ -11,6 +11,9 @@ from typing import Any, Callable, Literal, Mapping, Self, Sequence
 import httpx
 
 class KorailApiError(Exception):
+    status_code: int | None
+    retry_after: float | None
+    next_probe_at: float | None
     raw: object
     parser_raw: object
     code: str | None

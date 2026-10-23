@@ -8,6 +8,13 @@ from curl_cffi.requests import Session
 
 
 @pytest.fixture(autouse=True)
+def isolate_maintenance(monkeypatch):
+    from korail_api import maintenance
+
+    monkeypatch.setattr(maintenance, "_DEFAULT_POLICY", maintenance.MaintenancePolicy(jitter=lambda _: 0))
+
+
+@pytest.fixture(autouse=True)
 def deny_network(monkeypatch):
     def denied(*args, **kwargs):
         raise AssertionError("Tests require a synthetic transport")

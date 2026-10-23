@@ -7,6 +7,7 @@ from urllib.parse import urlencode
 
 import httpx
 
+from korail_api.maintenance import SERVICE_STATUS_PATH, default_policy, http_error_details
 from korail_api.models import errors as E
 from korail_api.protocol.envelope import decode_envelope
 from korail_api.protocol.schema import load
@@ -19,6 +20,10 @@ def parse_base_response(
     if require_result is not None:
         require_envelope = require_result
     response = decode_envelope(raw)
+    if "strResult" in raw and response.str_result not in {"SUCC", "FAIL"}:
+        error = E.KorailProtocolError("Invalid strResult in response envelope")
+        error.raw = raw
+        raise error
     failed = response.str_result == "FAIL" or (require_envelope and "strResult" not in raw)
     common_failed = response.str_result == "FAIL" or "strResult" not in raw
     if (
@@ -33,10 +38,11 @@ def parse_base_response(
 
 
 class KorailHttpClient:
-    def __init__(self, config=None, *, transport=None):
+    def __init__(self, config=None, *, transport=None, maintenance=None):
         from korail_api.models.records import KorailConfig
 
         self.config = config or KorailConfig()
+        self.maintenance = maintenance if maintenance is not None else default_policy()
         chosen = build_transport(self.config, transport)
         options = {
             "base_url": self.config.base_url,
@@ -125,6 +131,50 @@ class KorailHttpClient:
     ):
         if self._closed:
             raise E.KorailProtocolError("Client is closed")
+        if route == SERVICE_STATUS_PATH:
+            # Only an explicitly successful status response can recover service.
+            require_envelope = raise_on_fail = True
+        result = None
+        try:
+            with self.maintenance.request(self.config.base_url, probe=route == SERVICE_STATUS_PATH):
+                result = self._exchange(
+                    route,
+                    fields,
+                    method=method,
+                    include_common=include_common,
+                    include_dynapath=include_dynapath,
+                    require_envelope=require_envelope,
+                    raise_on_fail=raise_on_fail,
+                    omit_empty_fields=omit_empty_fields,
+                    query=query,
+                    content_type=content_type,
+                )
+        except Exception as error:
+            if result is not None:
+                raised = E.KorailProtocolError(
+                    "Maintenance state update failed after a response; verify its outcome before retrying"
+                )
+                raised.raw = result.raw
+                raise raised from error
+            raise
+        return result
+
+    def _exchange(
+        self,
+        route,
+        fields=None,
+        *,
+        method="POST",
+        include_common=True,
+        include_dynapath=False,
+        require_envelope=True,
+        raise_on_fail=True,
+        omit_empty_fields=True,
+        query=None,
+        content_type="application/x-www-form-urlencoded",
+    ):
+        if self._closed:
+            raise E.KorailProtocolError("Client is closed")
         pairs = list(self.common_fields().items()) if include_common else []
         if fields:
             pairs.extend(fields.items() if isinstance(fields, Mapping) else fields)
@@ -158,7 +208,7 @@ class KorailHttpClient:
             if not response.is_success:
                 error = E.KorailTransportError("HTTP server returned an error response")
                 error.raw = response.content
-            raise error
+            raise http_error_details(error, response, self.maintenance.clock())
         protected = route in load("constants")["DYNAPATH_ALLOWLIST_PATHS"]["items"]
         if protected and isinstance(raw, dict):
             blocked_numbers = {-1203, -1406, -2000, -8005, -8201, -8202, -8203}
@@ -166,20 +216,31 @@ class KorailHttpClient:
             if explicit or any(type(v) is int and v in blocked_numbers for v in raw.values()):
                 error = E.KorailDynaPathError("Server rejected protocol access")
                 error.raw = raw
-                raise error
+                raise http_error_details(error, response, self.maintenance.clock())
         if not response.is_success:
             error = E.KorailTransportError(f"HTTP server returned status {response.status_code}")
             error.raw = raw
-            raise error
+            raise http_error_details(error, response, self.maintenance.clock())
         common = route.startswith("/classes/") and not route.endswith(
             ("common.stationdata", "common.stationinfo")
         )
-        return parse_base_response(
-            raw,
-            raise_on_fail=raise_on_fail,
-            require_envelope=require_envelope,
-            common_out=common or require_envelope,
-        )
+        try:
+            result = parse_base_response(
+                raw,
+                raise_on_fail=raise_on_fail,
+                require_envelope=require_envelope,
+                common_out=common or require_envelope,
+            )
+        except E.KorailApiError as error:
+            http_error_details(error, response, self.maintenance.clock())
+            raise
+        # A maintenance response must stop multi-step operations even when the
+        # caller requested an inspectable business-failure envelope.
+        if result.str_result == "FAIL":
+            error = E.classify_app_error(result.h_msg_cd, result.h_msg_txt, raw=raw)
+            if isinstance(error, (E.KorailServiceUnavailableError, E.KorailRateLimitError)):
+                raise http_error_details(error, response, self.maintenance.clock())
+        return result
 
     def _endpoint_url(self, method, route):
         # Resolve static endpoints once through httpx's public URL semantics.

@@ -10,6 +10,7 @@ from typing import Any, Callable, Literal, Mapping, Self, Sequence
 
 import httpx
 
+from korail_api.maintenance import MaintenancePolicy
 from korail_api.models.records import *
 from korail_api.services.authentication import KorailSessionClient
 from korail_api.transport.http import KorailHttpClient
@@ -18,7 +19,14 @@ class KorailClient:
     config: KorailConfig
     session: KorailSessionClient
     http: KorailHttpClient
-    def __init__(self, config: KorailConfig | None = ..., *, transport: Any = ...) -> None: ...
+    maintenance: MaintenancePolicy
+    def __init__(
+        self,
+        config: KorailConfig | None = ...,
+        *,
+        transport: Any = ...,
+        maintenance: MaintenancePolicy | None = ...,
+    ) -> None: ...
     def __enter__(self) -> Self: ...
     def __exit__(self, *exc: Any) -> None: ...
     def add_to_cart(self, request: CartAddRequest) -> CartAddResponse: ...

@@ -6972,7 +6972,7 @@
           "init": true,
           "kw_only": false,
           "compare": true,
-          "default": null
+          "default": 300.0
         },
         {
           "name": "netfunnel_actions",
@@ -7135,7 +7135,7 @@
           "name": "netfunnel_wait_limit",
           "kind": "POSITIONAL_OR_KEYWORD",
           "annotation": "float | None",
-          "default": null
+          "default": 300.0
         },
         {
           "name": "netfunnel_actions",

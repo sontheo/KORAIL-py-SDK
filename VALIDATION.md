@@ -1,12 +1,16 @@
 # Validation record
 
+## Maintenance corrections (2026-10-23)
+
+Maintenance protection defaults to shared in-memory state, without database setup. Single recovery probes, long backoff intervals, server retry metadata, optional restart persistence, queue budgets, strict result envelopes and transaction response preservation are covered by the standalone synthetic suite. No live requests were made. In this checkout, 271 standalone tests, all 1,915 recorded decoder comparisons, strict mypy, Ruff lint/format and the strict documentation build passed locally on 2026-10-23. The standalone suite includes a separate-process probe exclusion test and retained response context after bookkeeping failures.
+
 ## Checks for this repository
 
 The current implementation is the root package, version `0.1.0.dev0`. Local publication checks use Python 3.12.3 on Linux ARM64. The CI matrix is configured for Python 3.11–3.14 with current dependencies and Python 3.11 with declared runtime/build lower bounds. Remote outcomes must be read from the actual workflow results.
 
 | Check | Local result |
 | --- | --- |
-| Standalone contract and failure suite | 220 tests passed |
+| Standalone contract and failure suite | 271 tests passed |
 | Captured synthetic decoder outcomes | All 1,915 equivalent |
 | Public namespace inventory | All 239 exports available in both namespaces |
 | Client method inventory | All 86 public methods preserved |

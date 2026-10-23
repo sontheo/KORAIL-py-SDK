@@ -9,6 +9,9 @@ class KorailApiError(Exception):
     raw: object = None
     parser_raw: object = None
     code: str | None = None
+    status_code: int | None = None
+    retry_after: float | None = None
+    next_probe_at: float | None = None
 
     def __reduce__(self):
         return _restore_exception, (type(self), self.args, self.__dict__)

@@ -11,6 +11,7 @@ from urllib.parse import urlencode
 
 import httpx
 
+from korail_api.maintenance import default_policy, http_error_details
 from korail_api.models import errors as E
 from korail_api.protocol.schema import load
 from korail_api.transport.curl import build_transport
@@ -97,12 +98,21 @@ def parse_netfunnel_body(text):
 
 
 class Admission:
-    def __init__(self, config=None, *, transport=None, sleeper=time.sleep, clock=time.monotonic):
+    def __init__(
+        self,
+        config=None,
+        *,
+        transport=None,
+        sleeper=time.sleep,
+        clock=time.monotonic,
+        maintenance=None,
+    ):
         if config is None:
             from korail_api.models.records import KorailConfig
 
             config = KorailConfig()
         self.config = config
+        self.maintenance = maintenance if maintenance is not None else default_policy()
         self._sleep, self._clock = sleeper, clock
         chosen = build_transport(config, transport)
         options = dict(
@@ -142,7 +152,10 @@ class Admission:
             response.raise_for_status()
             return response.text
         except (httpx.HTTPError, httpx.InvalidURL) as error:
-            raise E.KorailNetFunnelError("Queue exchange failed") from error
+            raised = E.KorailNetFunnelError(None, "Queue exchange failed")
+            if isinstance(error, httpx.HTTPStatusError):
+                http_error_details(raised, error.response, self.maintenance.clock())
+            raise raised from error
 
     def _request(self, params, base=None):
         url = (base or self.config.netfunnel_url).rstrip("/") + "/ts.wseq?" + urlencode(params)
@@ -176,6 +189,7 @@ class Admission:
     def enter(self, action, *, success_only=True):
         if self._closed:
             raise E.KorailProtocolError("Queue client is closed")
+        self.maintenance.check(self.config.base_url)
         if not self.config.netfunnel_enabled:
             yield
             return
@@ -190,16 +204,22 @@ class Admission:
 
         try:
             while True:
+                self.maintenance.check(self.config.base_url)
+                limit = self.config.netfunnel_wait_limit
+                if limit is not None and self._clock() - started > limit:
+                    raise E.KorailNetFunnelError(None, "Queue wait budget exhausted")
                 try:
                     next_token = self._request(params, token.node if token else None)
-                except E.KorailNetFunnelError:
+                except E.KorailNetFunnelError as error:
                     failures += 1
-                    self._sleep(self.config.netfunnel_timeout)
-                    if failures < 2:
-                        continue
-                    if not in_budget() or success_only:
+                    blocked = self.maintenance.failure(self.config.base_url, error)
+                    retry_exhausts_budget = limit is not None and (
+                        self._clock() - started + self.config.netfunnel_timeout >= limit
+                    )
+                    if blocked or failures >= 2 or retry_exhausts_budget:
                         raise
-                    break
+                    self._sleep(self.config.netfunnel_timeout)
+                    continue
                 token = next_token
                 if not in_budget():
                     raise E.KorailNetFunnelError("Queue wait budget exhausted")
