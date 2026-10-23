@@ -6,11 +6,14 @@
 
 > **Legal notice:** This is an unofficial client, unaffiliated with KORAIL. Apache-2.0 covers material the maintainer can license; it grants no service-access or trademark rights. Vendor message data has separate rights, and no independent redistribution grant has been established. Read [LEGAL.md](LEGAL.md), [NOTICE](NOTICE), [third-party notices](THIRD_PARTY_NOTICES.md) and [provenance](PROVENANCE.md) before use or redistribution.
 
-[![CI](https://github.com/thsqaz123-dot/korail-api_v2/actions/workflows/ci.yml/badge.svg)](https://github.com/thsqaz123-dot/korail-api_v2/actions/workflows/ci.yml)
-[![Security](https://github.com/thsqaz123-dot/korail-api_v2/actions/workflows/security.yml/badge.svg)](https://github.com/thsqaz123-dot/korail-api_v2/actions/workflows/security.yml)
+[![CI on main](https://github.com/thsqaz123-dot/korail-api_v2/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/thsqaz123-dot/korail-api_v2/actions/workflows/ci.yml)
+[![Security on main](https://github.com/thsqaz123-dot/korail-api_v2/actions/workflows/security.yml/badge.svg?branch=main)](https://github.com/thsqaz123-dot/korail-api_v2/actions/workflows/security.yml)
+[![Documentation on main](https://github.com/thsqaz123-dot/korail-api_v2/actions/workflows/docs.yml/badge.svg?branch=main)](https://github.com/thsqaz123-dot/korail-api_v2/actions/workflows/docs.yml)
 [![Python: 3.11+](https://img.shields.io/badge/Python-3.11%2B-3776AB?logo=python&logoColor=white)](pyproject.toml)
 [![Code license: Apache-2.0](https://img.shields.io/badge/Code_license-Apache--2.0-14b8a6)](LICENSE)
 [![Status: experimental](https://img.shields.io/badge/Status-experimental-f59e0b)](VALIDATION.md)
+
+Workflow badges show the latest automated checks on `main`; passing checks do not indicate live KORAIL service availability or transaction success.
 
 A synchronous Python client for the KORAIL protocol, organized around separate transport, protocol, service and model layers. Import the public client and models from `korail_api`.
 
