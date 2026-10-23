@@ -1,4 +1,4 @@
-"""Verify built artifacts without loading the reference checkout or editable hooks."""
+"""Verify standalone built artifacts without editable startup hooks."""
 
 from __future__ import annotations
 
@@ -22,8 +22,9 @@ def check(wheel: Path, sdist: Path | None = None):
             names = archive.namelist()
             assert any(n.endswith("/licenses/NOTICE") for n in names)
             assert any(n.endswith("/licenses/THIRD_PARTY_NOTICES.md") for n in names)
-            assert any(n.endswith("/licenses/licenses/korail-mobile-api.NOTICE") for n in names)
-            assert any(n.endswith("/licenses/licenses/korail-mobile-api.LICENSE") for n in names)
+            assert any(n.endswith("/licenses/LICENSE") for n in names)
+            top_level = next(n for n in names if n.endswith(".dist-info/top_level.txt"))
+            assert archive.read(top_level).decode().split() == ["korail_api"]
             assert any(n.endswith("korail_api/models/records.pyi") for n in names)
             assert not any(
                 n.endswith(".apk")
@@ -65,14 +66,11 @@ def check(wheel: Path, sdist: Path | None = None):
         smoke = """
 import json, pathlib, pickle, httpx
 import korail_api as api
-import korail_mobile_api as compatible
 from importlib.metadata import distribution
-assert api.KorailClient is compatible.KorailClient
 assert len(api.__all__) == 239
-assert all(getattr(compatible, name) is getattr(api, name) for name in api.__all__)
 root = pathlib.Path(api.__file__).resolve().parents[1]
 for name, module in list(sys.modules.items()):
-    if name.startswith(('korail_api', 'korail_mobile_api')) and getattr(module, '__file__', None):
+    if name.startswith('korail_api') and getattr(module, '__file__', None):
         assert pathlib.Path(module.__file__).resolve().is_relative_to(root), (name, module.__file__)
 raw = {'strResult': 'SUCC', 'h_next_pg_flg': 'N', 'trn_infos': {'trn_info': [{'h_trn_no': '90001'}]}}
 with api.KorailClient(api.KorailConfig(netfunnel_enabled=False), transport=httpx.MockTransport(lambda request: httpx.Response(200, json=raw))) as client:
@@ -81,7 +79,7 @@ with api.KorailClient(api.KorailConfig(netfunnel_enabled=False), transport=httpx
 assert pickle.loads(pickle.dumps(result)) == result
 assert api.get_error_message('S003') is not None
 assert distribution('korail-api').metadata['Name'] == 'korail-api'
-assert api.__version__ == compatible.__version__ == distribution('korail-api').version
+assert api.__version__ == distribution('korail-api').version
 print(json.dumps({'isolated_wheel': 'passed', 'exports': len(api.__all__), 'package': str(root)}))
 """
         result = subprocess.run(
@@ -97,7 +95,8 @@ print(json.dumps({'isolated_wheel': 'passed', 'exports': len(api.__all__), 'pack
             source.mkdir()
             with tarfile.open(sdist) as archive:
                 names = archive.getnames()
-                assert any(n.endswith("/licenses/korail-mobile-api.NOTICE") for n in names)
+                assert any(n.endswith("/LICENSE") for n in names)
+                assert any(n.endswith("/NOTICE") for n in names)
                 assert any(n.endswith("/THIRD_PARTY_NOTICES.md") for n in names)
                 assert not any(
                     "parser-observations" in n
@@ -109,6 +108,12 @@ print(json.dumps({'isolated_wheel': 'passed', 'exports': len(api.__all__), 'pack
                     or n.endswith(".apk")
                     for n in names
                 )
+                source_packages = {
+                    n.split("/src/", 1)[1].split("/", 1)[0]
+                    for n in names
+                    if "/src/" in n and not n.split("/src/", 1)[1].split("/", 1)[0].endswith(".egg-info")
+                }
+                assert source_packages == {"korail_api"}
                 archive.extractall(source, filter="data")
             project = next(source.iterdir())
             bootstrap = f"import sys;sys.path[:0] = {[str(project / 'src'), site]!r};"

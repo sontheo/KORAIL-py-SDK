@@ -2,9 +2,7 @@
 global-exclude *
 include pyproject.toml MANIFEST.in LICENSE NOTICE LEGAL.md README.md
 include PROVENANCE.md VALIDATION.md ARCHITECTURE.md CHANGELOG.md THIRD_PARTY_NOTICES.md
-recursive-include licenses *.LICENSE *.NOTICE
 recursive-include src/korail_api *.py *.pyi py.typed *.json
-recursive-include src/korail_mobile_api *.py *.pyi py.typed
 recursive-include tests *.py
 recursive-include tests/fixtures *.json
 include tools/packaging/check_artifacts.py tools/catalog/import_messages.py

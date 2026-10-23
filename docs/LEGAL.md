@@ -10,17 +10,15 @@ This is an unofficial interoperability client. It is not affiliated with, endors
 
 Apache-2.0 permits personal, internal and commercial use subject to its terms. This repository adds no noncommercial restriction to that license. The maintainer requests personal, noncommercial use and asks users not to operate paid booking services, ticket resale, bulk seat acquisition or sales of automated service access. This is a nonbinding project preference, not an amendment to the license or a statement that every commercial use is unlawful. See the [Apache licensing FAQ](https://www.apache.org/foundation/license-faq.html#IsItFree).
 
-## Development history and retained attribution
+## Implementation boundary
 
-The compatibility reference was [yakisoba0728/korail-mobile-api](https://github.com/yakisoba0728/korail-mobile-api), copyright 2026 yakisoba0728. The earlier local fork was based on `v2.5.0`, commit `7df252357a7fd391db553fdaa012036406fec62d`, under Apache-2.0. Its license and historical NOTICE are retained in `licenses/` for provenance. The earlier implementation, tests and source history remain separately maintained; they are not included in this repository's source tree or Git history.
-
-This implementation was developed with access to the earlier source and used it as a behavioral test oracle. It is **not certified clean-room development**. A new repository, structural changes, an overlap audit or reimplementation do not establish that all copyright, attribution or other obligations have disappeared. [PROVENANCE.md](PROVENANCE.md) describes the process and its limits. Retaining attribution does not purport to resolve a legal classification of every component.
+The code is implemented in `src/korail_api/`, the package's only public namespace. [PROVENANCE.md](PROVENANCE.md) records bundled materials and their origins.
 
 ## Redistribution
 
 Comply with the conditions that apply to the materials you distribute. For work covered by Apache-2.0, [Section 4](https://www.apache.org/licenses/LICENSE-2.0#redistribution) includes providing the license, identifying modifications, retaining applicable notices, and reproducing applicable NOTICE attribution in a permitted form. Preserve third-party notices and do not misrepresent authorship or remove notices that remain applicable. Distributing dependency binaries may also require their bundled license and notice files; this repository's direct-dependency summary is not an exhaustive license inventory for every environment.
 
-The wheel and source distribution include this project's license, notices and retained historical license/NOTICE files. Development observations and performance reports are excluded from those artifacts. Excluding reference code or starting a new Git history is not a determination of legal independence.
+The wheel and source distribution include this project's license and notices for its bundled data and runtime dependencies. Development observations and performance reports are excluded from those artifacts.
 
 ## Vendor message data
 

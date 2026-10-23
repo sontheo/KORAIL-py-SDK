@@ -1,17 +1,18 @@
-"""A static consumer of both supported public import namespaces."""
+"""A static consumer of the public API."""
 
 from typing import assert_type
 
-from korail_api import Korail, StationDataResponse
-from korail_api.maintenance import MaintenanceDeferredError, MaintenancePolicy
-from korail_mobile_api import (
+from korail_api import (
+    Korail,
     KorailClient,
     KorailConfig,
     KorailPassengerCounts,
     SelfSeatChangeInfoRequest,
+    StationDataResponse,
     TrainSearchQuery,
     TrainSearchResult,
 )
+from korail_api.maintenance import MaintenanceDeferredError, MaintenancePolicy
 
 
 def example(client: KorailClient, facade: Korail) -> TrainSearchResult:

@@ -1,29 +1,28 @@
 # Source layout
 
-The distribution has one implementation namespace and one compatibility namespace. Runtime dependencies point to the implementation packages. The `korail_mobile_api` modules forward imports and module identity to that implementation so existing monkeypatches, exception classes and model imports resolve to the same objects.
+The distribution exposes a single public namespace, `korail_api`. Its modules separate the API, protocol, transport, services and models.
 
 ```text
 korail-api_v2/
 ├── src/
-│   ├── korail_api/
-│   │   ├── api/             # Public client, facade, type attachment
-│   │   ├── configuration/   # Device and environment configuration
-│   │   ├── models/          # Value objects and exception hierarchy
-│   │   ├── services/
-│   │   │   ├── authentication.py
-│   │   │   ├── search.py
-│   │   │   ├── reservations.py
-│   │   │   ├── payments.py
-│   │   │   ├── validation.py
-│   │   │   └── operations.py # Operation orchestration and remaining read rules
-│   │   ├── protocol/        # Request compilation, decoding, adapters, data loading
-│   │   ├── transport/       # HTTP, curl adaptation, admission, cleanup
-│   │   ├── security/        # Password transformation and token serialization
-│   │   ├── messages/        # Locale and display text handling
-│   │   └── resources/
-│   │       ├── contracts/   # Interface and wire contract data
-│   │       └── messages/    # Vendor messages and provenance
-│   └── korail_mobile_api/   # Existing import compatibility
+│   └── korail_api/
+│       ├── api/             # Public client, facade, type attachment
+│       ├── configuration/   # Device and environment configuration
+│       ├── models/          # Value objects and exception hierarchy
+│       ├── services/
+│       │   ├── authentication.py
+│       │   ├── search.py
+│       │   ├── reservations.py
+│       │   ├── payments.py
+│       │   ├── validation.py
+│       │   └── operations.py # Operation orchestration and remaining read rules
+│       ├── protocol/        # Request compilation, decoding, adapters, data loading
+│       ├── transport/       # HTTP, curl adaptation, admission, cleanup
+│       ├── security/        # Password transformation and token serialization
+│       ├── messages/        # Locale and display text handling
+│       └── resources/
+│           ├── contracts/   # Interface and wire contract data
+│           └── messages/    # Vendor messages and provenance
 ├── tests/
 │   ├── fixtures/            # Synthetic wire and mutation cases
 │   └── *.py                 # Offline behavior and typing checks
@@ -34,10 +33,10 @@ korail-api_v2/
 │   ├── performance/         # Equivalent benchmarks and profiling
 │   └── reports/             # Comparison evidence and recorded samples
 ├── docs/                    # Current documentation site
-└── licenses/                # Retained historical license and NOTICE
+└── THIRD_PARTY_NOTICES.md    # Bundled data and runtime dependency notices
 ```
 
-The wheel contains the two runtime namespaces and release documentation. The source archive also contains the standalone tests, artifact checker and catalog importer. The previous implementation and observation generators are not included. Captured decoder outcomes, validators, performance tools and reports are development-only.
+The wheel contains the runtime namespace and release documentation. The source archive also contains the standalone tests, artifact checker and catalog importer. Captured decoder outcomes, validators, performance tools and reports are development-only.
 
 ## Where to change behavior
 
@@ -53,7 +52,7 @@ The wheel contains the two runtime namespaces and release documentation. The sou
 - Queue admission, budgets and completion: `transport/admission.py`.
 - Public constructor fields and signatures: `resources/contracts/public-interface.json`; model construction in `models/records.py`, concrete method annotations in `api/annotations.py`, and declarations in colocated `.pyi` files.
 
-`services/operations.py` and the schema-driven model/decoder engines remain shared components. This reorganization establishes their ownership; it does not claim that every operation has already been converted into a separately authored explicit handler. Moving folders does not establish a copyright or attribution conclusion.
+`services/operations.py` and the schema-driven model/decoder engines remain shared components. This reorganization establishes their ownership; it does not claim that every operation has already been converted into a separately authored explicit handler.
 
 ## Cache boundaries
 

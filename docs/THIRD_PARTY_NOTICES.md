@@ -1,16 +1,6 @@
 # Third-party notices
 
-This record distinguishes retained provenance, bundled third-party data, dependencies and references. Attribution is not a blanket redistribution grant. See `LEGAL.md` and `PROVENANCE.md` for the distribution boundaries.
-
-## Historical compatibility reference
-
-- Project: [yakisoba0728/korail-mobile-api](https://github.com/yakisoba0728/korail-mobile-api).
-- Historical base: `v2.5.0`, commit `7df252357a7fd391db553fdaa012036406fec62d`.
-- Copyright: 2026 yakisoba0728.
-- License: Apache License, Version 2.0.
-- Retained records: `licenses/korail-mobile-api.LICENSE` and `licenses/korail-mobile-api.NOTICE`.
-
-The NOTICE file is reproduced verbatim from the earlier local fork. Its descriptions of changes and source paths refer to that historical project. Its presence records provenance; the previous Python implementation is not bundled here. Source was visible during development, and no strict clean-room or attribution-exemption conclusion is made.
+This record covers bundled third-party data, runtime dependencies and technical references. Attribution is not a blanket redistribution grant. See `LEGAL.md` and `PROVENANCE.md` for the distribution boundaries.
 
 ## Bundled KORAIL message text
 

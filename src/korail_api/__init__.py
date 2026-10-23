@@ -1,4 +1,4 @@
-"""Independent implementation, with the previous public Python API names."""
+"""Synchronous KORAIL protocol client and public value objects."""
 
 from typing import Callable, Literal
 
@@ -28,7 +28,7 @@ CommuterInfoRequest = (
 )
 DynapathTokenProvider = Callable[[REGISTRY["DynapathRequestContext"]], str | None]
 
-__version__ = "0.1.0.dev0"
+__version__ = "0.1.0"
 __all__ = CONTRACT["exports"]
 
 _install_annotations(globals())

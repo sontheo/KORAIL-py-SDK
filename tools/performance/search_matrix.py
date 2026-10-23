@@ -8,7 +8,7 @@ from pathlib import Path
 
 import httpx
 
-import korail_mobile_api as api
+import korail_api as api
 
 ROOT = Path(__file__).resolve().parents[2]
 case = json.loads((ROOT / "tests/fixtures/synthetic-cases.json").read_text())["search_trains"]

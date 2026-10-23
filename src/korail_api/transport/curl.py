@@ -122,9 +122,7 @@ def build_transport(config, transport):
         try:
             return httpx.HTTPTransport(proxy=httpx.Proxy(config.proxy))
         except ImportError:
-            raise ImportError(
-                "Install korail-api[socks] for korail-mobile-api[socks] import compatibility"
-            ) from None
+            raise ImportError("Install korail-api[socks] for SOCKS proxy support") from None
         except (ValueError, httpx.InvalidURL):
             raise ValueError("httpx rejected the proxy URL") from None
     return None

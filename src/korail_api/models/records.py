@@ -1,4 +1,4 @@
-"""Compatible value objects built from a public constructor contract.
+"""Value objects built from the public constructor contract.
 
 Request serialization and response decoding live in separate engines; these
 objects hold data and small, independently implemented convenience operations.
@@ -221,7 +221,7 @@ def _build_models():
                         options["default_factory"] = lambda encoded=encoded: restore(copy.deepcopy(encoded))
                 elif "factory" in f:
                     options["default_factory"] = lambda: REGISTRY["DynapathConfig"]()
-                annotation = re.sub(r"\bkorail_mobile_api\.[a-z_]+\.", "", f["type"])
+                annotation = f["type"]
                 if annotation.startswith("<class '"):
                     annotation = annotation[8:-2]
                 fields.append((f["name"], annotation, dc.field(**options)))

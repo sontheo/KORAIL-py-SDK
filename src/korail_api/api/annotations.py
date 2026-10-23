@@ -18,7 +18,6 @@ def resolve(text, namespace=None):
     if text == "<class 'inspect._empty'>":
         return inspect.Signature.empty
     text = re.sub(r"<(?:class|enum) '([^']+)'>", r"\1", text)
-    text = re.sub(r"\bkorail_mobile_api\.[a-z_]+\.", "", text)
     text = text.replace("NoneType", "None").replace("datetime.datetime", "datetime")
     names = {
         **vars(records),

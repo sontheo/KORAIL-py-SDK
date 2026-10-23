@@ -300,7 +300,7 @@
         },
         {
           "name": "version",
-          "type": "korail_mobile_api.models.AppVersionInfo | None",
+          "type": "AppVersionInfo | None",
           "repr": true,
           "init": true,
           "kw_only": false,
@@ -364,7 +364,7 @@
         {
           "name": "version",
           "kind": "POSITIONAL_OR_KEYWORD",
-          "annotation": "korail_mobile_api.models.AppVersionInfo | None",
+          "annotation": "AppVersionInfo | None",
           "default": null
         },
         {
@@ -6854,7 +6854,7 @@
         },
         {
           "name": "dynapath",
-          "type": "<class 'korail_mobile_api.dynapath.DynapathConfig'>",
+          "type": "<class 'DynapathConfig'>",
           "repr": true,
           "init": true,
           "kw_only": false,
@@ -7072,7 +7072,7 @@
         {
           "name": "dynapath",
           "kind": "POSITIONAL_OR_KEYWORD",
-          "annotation": "<class 'korail_mobile_api.dynapath.DynapathConfig'>",
+          "annotation": "<class 'DynapathConfig'>",
           "default": {
             "type": "_HAS_DEFAULT_FACTORY_CLASS"
           }
@@ -9171,7 +9171,7 @@
         },
         {
           "name": "items",
-          "type": "tuple[korail_mobile_api.models.MaasMenuItem, ...]",
+          "type": "tuple[MaasMenuItem, ...]",
           "repr": true,
           "init": true,
           "kw_only": false,
@@ -9280,7 +9280,7 @@
         {
           "name": "items",
           "kind": "POSITIONAL_OR_KEYWORD",
-          "annotation": "tuple[korail_mobile_api.models.MaasMenuItem, ...]",
+          "annotation": "tuple[MaasMenuItem, ...]",
           "default": {
             "sequence": "tuple",
             "items": []
@@ -24250,7 +24250,7 @@
         },
         {
           "name": "attributes",
-          "type": "tuple[korail_mobile_api.models.SeatAttribute, ...]",
+          "type": "tuple[SeatAttribute, ...]",
           "repr": true,
           "init": true,
           "kw_only": false,
@@ -24297,7 +24297,7 @@
         {
           "name": "attributes",
           "kind": "POSITIONAL_OR_KEYWORD",
-          "annotation": "tuple[korail_mobile_api.models.SeatAttribute, ...]"
+          "annotation": "tuple[SeatAttribute, ...]"
         },
         {
           "name": "room_class_code",
@@ -24372,7 +24372,7 @@
         },
         {
           "name": "cars",
-          "type": "tuple[korail_mobile_api.models.SeatCar, ...]",
+          "type": "tuple[SeatCar, ...]",
           "repr": true,
           "init": true,
           "kw_only": false,
@@ -24457,7 +24457,7 @@
         {
           "name": "cars",
           "kind": "POSITIONAL_OR_KEYWORD",
-          "annotation": "tuple[korail_mobile_api.models.SeatCar, ...]",
+          "annotation": "tuple[SeatCar, ...]",
           "default": {
             "sequence": "tuple",
             "items": []
@@ -24560,7 +24560,7 @@
         },
         {
           "name": "seats",
-          "type": "tuple[korail_mobile_api.models.PhysicalSeat, ...]",
+          "type": "tuple[PhysicalSeat, ...]",
           "repr": true,
           "init": true,
           "kw_only": false,
@@ -24572,7 +24572,7 @@
         },
         {
           "name": "windows",
-          "type": "tuple[korail_mobile_api.models.SeatWindow, ...]",
+          "type": "tuple[SeatWindow, ...]",
           "repr": true,
           "init": true,
           "kw_only": false,
@@ -24678,7 +24678,7 @@
         {
           "name": "seats",
           "kind": "POSITIONAL_OR_KEYWORD",
-          "annotation": "tuple[korail_mobile_api.models.PhysicalSeat, ...]",
+          "annotation": "tuple[PhysicalSeat, ...]",
           "default": {
             "sequence": "tuple",
             "items": []
@@ -24687,7 +24687,7 @@
         {
           "name": "windows",
           "kind": "POSITIONAL_OR_KEYWORD",
-          "annotation": "tuple[korail_mobile_api.models.SeatWindow, ...]",
+          "annotation": "tuple[SeatWindow, ...]",
           "default": {
             "sequence": "tuple",
             "items": []
@@ -25993,7 +25993,7 @@
         },
         {
           "name": "stations",
-          "type": "tuple[korail_mobile_api.models.KorailStation, ...]",
+          "type": "tuple[KorailStation, ...]",
           "repr": true,
           "init": true,
           "kw_only": false,
@@ -26039,7 +26039,7 @@
         {
           "name": "stations",
           "kind": "POSITIONAL_OR_KEYWORD",
-          "annotation": "tuple[korail_mobile_api.models.KorailStation, ...]",
+          "annotation": "tuple[KorailStation, ...]",
           "default": {
             "sequence": "tuple",
             "items": []
@@ -26399,7 +26399,7 @@
         },
         {
           "name": "days",
-          "type": "tuple[korail_mobile_api.models.TrainCalendarDay, ...]",
+          "type": "tuple[TrainCalendarDay, ...]",
           "repr": true,
           "init": true,
           "kw_only": false,
@@ -26445,7 +26445,7 @@
         {
           "name": "days",
           "kind": "POSITIONAL_OR_KEYWORD",
-          "annotation": "tuple[korail_mobile_api.models.TrainCalendarDay, ...]",
+          "annotation": "tuple[TrainCalendarDay, ...]",
           "default": {
             "sequence": "tuple",
             "items": []
@@ -27056,7 +27056,7 @@
       "fields": [
         {
           "name": "trains",
-          "type": "list[korail_mobile_api.models.TrainSummary]",
+          "type": "list[TrainSummary]",
           "repr": true,
           "init": true,
           "kw_only": false,
@@ -27064,7 +27064,7 @@
         },
         {
           "name": "response",
-          "type": "<class 'korail_mobile_api.models.BaseKorailResponse'>",
+          "type": "<class 'BaseKorailResponse'>",
           "repr": true,
           "init": true,
           "kw_only": false,
@@ -27081,7 +27081,7 @@
         },
         {
           "name": "metadata",
-          "type": "<class 'korail_mobile_api.models.TrainSearchMetadata'>",
+          "type": "<class 'TrainSearchMetadata'>",
           "repr": true,
           "init": true,
           "kw_only": false,
@@ -27110,7 +27110,7 @@
         },
         {
           "name": "unfiltered_trains",
-          "type": "list[korail_mobile_api.models.TrainSummary] | None",
+          "type": "list[TrainSummary] | None",
           "repr": false,
           "init": true,
           "kw_only": false,
@@ -27128,7 +27128,7 @@
             }
           ],
           "descriptor": "function",
-          "return": "korail_mobile_api.models.TrainSearchContinuation | None"
+          "return": "TrainSearchContinuation | None"
         },
         "next_query_from_last_departure": {
           "parameters": [
@@ -27140,11 +27140,11 @@
             {
               "name": "query",
               "kind": "POSITIONAL_OR_KEYWORD",
-              "annotation": "<class 'korail_mobile_api.models.TrainSearchQuery'>"
+              "annotation": "<class 'TrainSearchQuery'>"
             }
           ],
           "descriptor": "function",
-          "return": "korail_mobile_api.models.TrainSearchQuery | None"
+          "return": "TrainSearchQuery | None"
         }
       },
       "frozen": true,
@@ -27153,12 +27153,12 @@
         {
           "name": "trains",
           "kind": "POSITIONAL_OR_KEYWORD",
-          "annotation": "list[korail_mobile_api.models.TrainSummary]"
+          "annotation": "list[TrainSummary]"
         },
         {
           "name": "response",
           "kind": "POSITIONAL_OR_KEYWORD",
-          "annotation": "<class 'korail_mobile_api.models.BaseKorailResponse'>"
+          "annotation": "<class 'BaseKorailResponse'>"
         },
         {
           "name": "raw",
@@ -27171,7 +27171,7 @@
         {
           "name": "metadata",
           "kind": "POSITIONAL_OR_KEYWORD",
-          "annotation": "<class 'korail_mobile_api.models.TrainSearchMetadata'>",
+          "annotation": "<class 'TrainSearchMetadata'>",
           "default": {
             "type": "_HAS_DEFAULT_FACTORY_CLASS"
           }
@@ -27179,7 +27179,7 @@
         {
           "name": "unfiltered_trains",
           "kind": "POSITIONAL_OR_KEYWORD",
-          "annotation": "list[korail_mobile_api.models.TrainSummary] | None",
+          "annotation": "list[TrainSummary] | None",
           "default": null
         }
       ]
@@ -27234,7 +27234,7 @@
         },
         {
           "name": "stops",
-          "type": "tuple[korail_mobile_api.models.TrainScheduleStop, ...]",
+          "type": "tuple[TrainScheduleStop, ...]",
           "repr": true,
           "init": true,
           "kw_only": false,
@@ -27466,7 +27466,7 @@
         {
           "name": "stops",
           "kind": "POSITIONAL_OR_KEYWORD",
-          "annotation": "tuple[korail_mobile_api.models.TrainScheduleStop, ...]",
+          "annotation": "tuple[TrainScheduleStop, ...]",
           "default": {
             "sequence": "tuple",
             "items": []
@@ -29598,7 +29598,7 @@
       "fields": [
         {
           "name": "first",
-          "type": "<class 'korail_mobile_api.models.TrainSummary'>",
+          "type": "<class 'TrainSummary'>",
           "repr": true,
           "init": true,
           "kw_only": false,
@@ -29606,7 +29606,7 @@
         },
         {
           "name": "second",
-          "type": "<class 'korail_mobile_api.models.TrainSummary'>",
+          "type": "<class 'TrainSummary'>",
           "repr": true,
           "init": true,
           "kw_only": false,
@@ -29616,7 +29616,7 @@
       "members": {
         "legs": {
           "property": true,
-          "return": "tuple[korail_mobile_api.models.TrainSummary, ...]"
+          "return": "tuple[TrainSummary, ...]"
         },
         "transfer_station_code": {
           "property": true,
@@ -29633,12 +29633,12 @@
         {
           "name": "first",
           "kind": "POSITIONAL_OR_KEYWORD",
-          "annotation": "<class 'korail_mobile_api.models.TrainSummary'>"
+          "annotation": "<class 'TrainSummary'>"
         },
         {
           "name": "second",
           "kind": "POSITIONAL_OR_KEYWORD",
-          "annotation": "<class 'korail_mobile_api.models.TrainSummary'>"
+          "annotation": "<class 'TrainSummary'>"
         }
       ]
     },
@@ -29647,7 +29647,7 @@
       "fields": [
         {
           "name": "itineraries",
-          "type": "list[korail_mobile_api.models.TransferItinerary]",
+          "type": "list[TransferItinerary]",
           "repr": true,
           "init": true,
           "kw_only": false,
@@ -29655,7 +29655,7 @@
         },
         {
           "name": "trains",
-          "type": "list[korail_mobile_api.models.TrainSummary]",
+          "type": "list[TrainSummary]",
           "repr": true,
           "init": true,
           "kw_only": false,
@@ -29663,7 +29663,7 @@
         },
         {
           "name": "response",
-          "type": "<class 'korail_mobile_api.models.BaseKorailResponse'>",
+          "type": "<class 'BaseKorailResponse'>",
           "repr": true,
           "init": true,
           "kw_only": false,
@@ -29680,7 +29680,7 @@
         },
         {
           "name": "metadata",
-          "type": "<class 'korail_mobile_api.models.TrainSearchMetadata'>",
+          "type": "<class 'TrainSearchMetadata'>",
           "repr": true,
           "init": true,
           "kw_only": false,
@@ -29718,7 +29718,7 @@
             }
           ],
           "descriptor": "function",
-          "return": "korail_mobile_api.models.TrainSearchContinuation | None"
+          "return": "TrainSearchContinuation | None"
         }
       },
       "frozen": true,
@@ -29727,17 +29727,17 @@
         {
           "name": "itineraries",
           "kind": "POSITIONAL_OR_KEYWORD",
-          "annotation": "list[korail_mobile_api.models.TransferItinerary]"
+          "annotation": "list[TransferItinerary]"
         },
         {
           "name": "trains",
           "kind": "POSITIONAL_OR_KEYWORD",
-          "annotation": "list[korail_mobile_api.models.TrainSummary]"
+          "annotation": "list[TrainSummary]"
         },
         {
           "name": "response",
           "kind": "POSITIONAL_OR_KEYWORD",
-          "annotation": "<class 'korail_mobile_api.models.BaseKorailResponse'>"
+          "annotation": "<class 'BaseKorailResponse'>"
         },
         {
           "name": "raw",
@@ -29750,7 +29750,7 @@
         {
           "name": "metadata",
           "kind": "POSITIONAL_OR_KEYWORD",
-          "annotation": "<class 'korail_mobile_api.models.TrainSearchMetadata'>",
+          "annotation": "<class 'TrainSearchMetadata'>",
           "default": {
             "type": "_HAS_DEFAULT_FACTORY_CLASS"
           }
@@ -32419,7 +32419,7 @@
         },
         {
           "name": "stations",
-          "type": "tuple[korail_mobile_api.models.TransferStation, ...]",
+          "type": "tuple[TransferStation, ...]",
           "repr": true,
           "init": true,
           "kw_only": false,
@@ -32465,7 +32465,7 @@
         {
           "name": "stations",
           "kind": "POSITIONAL_OR_KEYWORD",
-          "annotation": "tuple[korail_mobile_api.models.TransferStation, ...]",
+          "annotation": "tuple[TransferStation, ...]",
           "default": {
             "sequence": "tuple",
             "items": []
@@ -33333,10 +33333,10 @@
         {
           "name": "request",
           "kind": "POSITIONAL_OR_KEYWORD",
-          "annotation": "<class 'korail_mobile_api.mutation_models.CartAddRequest'>"
+          "annotation": "<class 'CartAddRequest'>"
         }
       ],
-      "return": "<class 'korail_mobile_api.mutation_models.CartAddResponse'>"
+      "return": "<class 'CartAddResponse'>"
     },
     "cancel_product_reservation": {
       "parameters": [
@@ -33348,10 +33348,10 @@
         {
           "name": "detail",
           "kind": "POSITIONAL_OR_KEYWORD",
-          "annotation": "<class 'korail_mobile_api.read_models.ProductDetailResponse'>"
+          "annotation": "<class 'ProductDetailResponse'>"
         }
       ],
-      "return": "<class 'korail_mobile_api.mutation_models.ProductCancelResponse'>"
+      "return": "<class 'ProductCancelResponse'>"
     },
     "cancel_self_checkin": {
       "parameters": [
@@ -33363,10 +33363,10 @@
         {
           "name": "detail",
           "kind": "POSITIONAL_OR_KEYWORD",
-          "annotation": "<class 'korail_mobile_api.read_models.RefundTicketDetailResponse'>"
+          "annotation": "<class 'RefundTicketDetailResponse'>"
         }
       ],
-      "return": "<class 'korail_mobile_api.mutation_models.SelfCheckInCancelResponse'>"
+      "return": "<class 'SelfCheckInCancelResponse'>"
     },
     "cancel_unpaid_hold": {
       "parameters": [
@@ -33378,7 +33378,7 @@
         {
           "name": "hold",
           "kind": "POSITIONAL_OR_KEYWORD",
-          "annotation": "<class 'korail_mobile_api.mutation_models.ReservationHoldResponse'>"
+          "annotation": "<class 'ReservationHoldResponse'>"
         },
         {
           "name": "check_first",
@@ -33387,7 +33387,7 @@
           "default": true
         }
       ],
-      "return": "<class 'korail_mobile_api.models.BaseKorailResponse'>"
+      "return": "<class 'BaseKorailResponse'>"
     },
     "check_self_checkin_seat": {
       "parameters": [
@@ -33399,7 +33399,7 @@
         {
           "name": "detail",
           "kind": "POSITIONAL_OR_KEYWORD",
-          "annotation": "<class 'korail_mobile_api.read_models.RefundTicketDetailResponse'>"
+          "annotation": "<class 'RefundTicketDetailResponse'>"
         },
         {
           "name": "qr_code",
@@ -33407,7 +33407,7 @@
           "annotation": "<class 'str'>"
         }
       ],
-      "return": "<class 'korail_mobile_api.read_models.SelfCheckInSeatCheckResponse'>"
+      "return": "<class 'SelfCheckInSeatCheckResponse'>"
     },
     "check_ticket_duplication": {
       "parameters": [
@@ -33419,10 +33419,10 @@
         {
           "name": "request",
           "kind": "POSITIONAL_OR_KEYWORD",
-          "annotation": "<class 'korail_mobile_api.read_payloads.TicketDuplicationCheckRequest'>"
+          "annotation": "<class 'TicketDuplicationCheckRequest'>"
         }
       ],
-      "return": "<class 'korail_mobile_api.read_models.TicketDuplicationCheckResponse'>"
+      "return": "<class 'TicketDuplicationCheckResponse'>"
     },
     "clear_session": {
       "parameters": [
@@ -33454,7 +33454,7 @@
         {
           "name": "hold",
           "kind": "POSITIONAL_OR_KEYWORD",
-          "annotation": "<class 'korail_mobile_api.mutation_models.ReservationHoldResponse'>"
+          "annotation": "<class 'ReservationHoldResponse'>"
         },
         {
           "name": "allow_seat_class_change",
@@ -33475,7 +33475,7 @@
           "default": null
         }
       ],
-      "return": "<class 'korail_mobile_api.models.BaseKorailResponse'>"
+      "return": "<class 'BaseKorailResponse'>"
     },
     "execute_station_ticket_refund": {
       "parameters": [
@@ -33487,10 +33487,10 @@
         {
           "name": "request",
           "kind": "POSITIONAL_OR_KEYWORD",
-          "annotation": "<class 'korail_mobile_api.mutation_models.StationRefundExecutionRequest'>"
+          "annotation": "<class 'StationRefundExecutionRequest'>"
         }
       ],
-      "return": "<class 'korail_mobile_api.mutation_models.StationRefundExecutionResponse'>"
+      "return": "<class 'StationRefundExecutionResponse'>"
     },
     "extend_discount_card": {
       "parameters": [
@@ -33502,10 +33502,10 @@
         {
           "name": "ticket",
           "kind": "POSITIONAL_OR_KEYWORD",
-          "annotation": "<class 'korail_mobile_api.mutation_models.DiscountCardTicket'>"
+          "annotation": "<class 'DiscountCardTicket'>"
         }
       ],
-      "return": "<class 'korail_mobile_api.models.BaseKorailResponse'>"
+      "return": "<class 'BaseKorailResponse'>"
     },
     "get_app_data": {
       "parameters": [
@@ -33521,7 +33521,7 @@
           "default": null
         }
       ],
-      "return": "<class 'korail_mobile_api.models.AppDataResponse'>"
+      "return": "<class 'AppDataResponse'>"
     },
     "get_cart_list": {
       "parameters": [
@@ -33543,7 +33543,7 @@
           "default": ""
         }
       ],
-      "return": "<class 'korail_mobile_api.read_models.CartListResponse'>"
+      "return": "<class 'CartListResponse'>"
     },
     "get_common_code": {
       "parameters": [
@@ -33559,7 +33559,7 @@
           "default": ""
         }
       ],
-      "return": "<class 'korail_mobile_api.models.BaseKorailResponse'>"
+      "return": "<class 'BaseKorailResponse'>"
     },
     "get_commuter_info": {
       "parameters": [
@@ -33571,10 +33571,10 @@
         {
           "name": "request",
           "kind": "POSITIONAL_OR_KEYWORD",
-          "annotation": "korail_mobile_api.read_payloads.CommuterInitialRequest | korail_mobile_api.read_payloads.CommuterPassengerRequest | korail_mobile_api.read_payloads.CommuterTicketInquiryRequest"
+          "annotation": "CommuterInitialRequest | CommuterPassengerRequest | CommuterTicketInquiryRequest"
         }
       ],
-      "return": "<class 'korail_mobile_api.read_models.CommuterInfoResponse'>"
+      "return": "<class 'CommuterInfoResponse'>"
     },
     "get_commuter_kind_menu": {
       "parameters": [
@@ -33589,7 +33589,7 @@
           "annotation": "<class 'str'>"
         }
       ],
-      "return": "<class 'korail_mobile_api.read_models.CommuterKindMenuResponse'>"
+      "return": "<class 'CommuterKindMenuResponse'>"
     },
     "get_crew_request_list": {
       "parameters": [
@@ -33605,7 +33605,7 @@
           "default": null
         }
       ],
-      "return": "<class 'korail_mobile_api.read_models.CrewRequestListResponse'>"
+      "return": "<class 'CrewRequestListResponse'>"
     },
     "get_customer_trip_info": {
       "parameters": [
@@ -33615,7 +33615,7 @@
           "annotation": "<class 'inspect._empty'>"
         }
       ],
-      "return": "<class 'korail_mobile_api.read_models.CustomerTripInfoResponse'>"
+      "return": "<class 'CustomerTripInfoResponse'>"
     },
     "get_delay_certificate": {
       "parameters": [
@@ -33627,10 +33627,10 @@
         {
           "name": "ticket",
           "kind": "POSITIONAL_OR_KEYWORD",
-          "annotation": "<class 'korail_mobile_api.read_payloads.OriginalTicketReference'>"
+          "annotation": "<class 'OriginalTicketReference'>"
         }
       ],
-      "return": "<class 'korail_mobile_api.read_models.DelayCertificateResponse'>"
+      "return": "<class 'DelayCertificateResponse'>"
     },
     "get_delay_discount_tickets": {
       "parameters": [
@@ -33645,7 +33645,7 @@
           "annotation": "<class 'str'>"
         }
       ],
-      "return": "<class 'korail_mobile_api.read_models.DelayDiscountTicketListResponse'>"
+      "return": "<class 'DelayDiscountTicketListResponse'>"
     },
     "get_delay_return_receipt": {
       "parameters": [
@@ -33657,10 +33657,10 @@
         {
           "name": "ticket",
           "kind": "POSITIONAL_OR_KEYWORD",
-          "annotation": "<class 'korail_mobile_api.read_payloads.OriginalTicketReference'>"
+          "annotation": "<class 'OriginalTicketReference'>"
         }
       ],
-      "return": "<class 'korail_mobile_api.read_models.DelayReturnReceiptResponse'>"
+      "return": "<class 'DelayReturnReceiptResponse'>"
     },
     "get_delivery_recipient": {
       "parameters": [
@@ -33672,10 +33672,10 @@
         {
           "name": "ticket",
           "kind": "POSITIONAL_OR_KEYWORD",
-          "annotation": "<class 'korail_mobile_api.read_payloads.OriginalTicketReference'>"
+          "annotation": "<class 'OriginalTicketReference'>"
         }
       ],
-      "return": "<class 'korail_mobile_api.read_models.DeliveryRecipientResponse'>"
+      "return": "<class 'DeliveryRecipientResponse'>"
     },
     "get_deposit_banks": {
       "parameters": [
@@ -33685,7 +33685,7 @@
           "annotation": "<class 'inspect._empty'>"
         }
       ],
-      "return": "<class 'korail_mobile_api.read_models.DepositBankListResponse'>"
+      "return": "<class 'DepositBankListResponse'>"
     },
     "get_discount_card_schedule": {
       "parameters": [
@@ -33697,10 +33697,10 @@
         {
           "name": "request",
           "kind": "POSITIONAL_OR_KEYWORD",
-          "annotation": "<class 'korail_mobile_api.read_payloads.DiscountCardScheduleRequest'>"
+          "annotation": "<class 'DiscountCardScheduleRequest'>"
         }
       ],
-      "return": "<class 'korail_mobile_api.read_models.DiscountCardScheduleResponse'>"
+      "return": "<class 'DiscountCardScheduleResponse'>"
     },
     "get_discount_card_usage_history": {
       "parameters": [
@@ -33715,7 +33715,7 @@
           "annotation": "<class 'str'>"
         }
       ],
-      "return": "<class 'korail_mobile_api.read_models.DiscountCardUsageListResponse'>"
+      "return": "<class 'DiscountCardUsageListResponse'>"
     },
     "get_discount_coupons": {
       "parameters": [
@@ -33737,7 +33737,7 @@
           "default": ""
         }
       ],
-      "return": "<class 'korail_mobile_api.read_models.DiscountCouponListResponse'>"
+      "return": "<class 'DiscountCouponListResponse'>"
     },
     "get_free_seat_car_info": {
       "parameters": [
@@ -33749,10 +33749,10 @@
         {
           "name": "request",
           "kind": "POSITIONAL_OR_KEYWORD",
-          "annotation": "<class 'korail_mobile_api.read_payloads.FreeSeatCarRequest'>"
+          "annotation": "<class 'FreeSeatCarRequest'>"
         }
       ],
-      "return": "<class 'korail_mobile_api.read_models.FreeSeatCarResponse'>"
+      "return": "<class 'FreeSeatCarResponse'>"
     },
     "get_guide_seat_condition": {
       "parameters": [
@@ -33764,10 +33764,10 @@
         {
           "name": "request",
           "kind": "POSITIONAL_OR_KEYWORD",
-          "annotation": "<class 'korail_mobile_api.read_payloads.GuideSeatConditionRequest'>"
+          "annotation": "<class 'GuideSeatConditionRequest'>"
         }
       ],
-      "return": "<class 'korail_mobile_api.read_models.GuideSeatConditionResponse'>"
+      "return": "<class 'GuideSeatConditionResponse'>"
     },
     "get_korail_point_summary": {
       "parameters": [
@@ -33777,7 +33777,7 @@
           "annotation": "<class 'inspect._empty'>"
         }
       ],
-      "return": "<class 'korail_mobile_api.read_models.KorailPointSummaryResponse'>"
+      "return": "<class 'KorailPointSummaryResponse'>"
     },
     "get_limousine_schedules": {
       "parameters": [
@@ -33789,10 +33789,10 @@
         {
           "name": "query",
           "kind": "POSITIONAL_OR_KEYWORD",
-          "annotation": "<class 'korail_mobile_api.limousine_models.LimousineScheduleQuery'>"
+          "annotation": "<class 'LimousineScheduleQuery'>"
         }
       ],
-      "return": "<class 'korail_mobile_api.limousine_models.LimousineScheduleResponse'>"
+      "return": "<class 'LimousineScheduleResponse'>"
     },
     "get_limousine_seat_inventory": {
       "parameters": [
@@ -33804,10 +33804,10 @@
         {
           "name": "query",
           "kind": "POSITIONAL_OR_KEYWORD",
-          "annotation": "<class 'korail_mobile_api.limousine_models.LimousineSeatInventoryQuery'>"
+          "annotation": "<class 'LimousineSeatInventoryQuery'>"
         }
       ],
-      "return": "<class 'korail_mobile_api.limousine_models.LimousineSeatInventoryResponse'>"
+      "return": "<class 'LimousineSeatInventoryResponse'>"
     },
     "get_maas_menu_list": {
       "parameters": [
@@ -33829,7 +33829,7 @@
           "default": null
         }
       ],
-      "return": "<class 'korail_mobile_api.models.MaasMenuListResponse'>"
+      "return": "<class 'MaasMenuListResponse'>"
     },
     "get_maas_service_details": {
       "parameters": [
@@ -33841,11 +33841,11 @@
         {
           "name": "query",
           "kind": "POSITIONAL_OR_KEYWORD",
-          "annotation": "korail_mobile_api.read_payloads.MaasServiceDetailQuery | None",
+          "annotation": "MaasServiceDetailQuery | None",
           "default": null
         }
       ],
-      "return": "<class 'korail_mobile_api.read_models.MaasServiceDetailListResponse'>"
+      "return": "<class 'MaasServiceDetailListResponse'>"
     },
     "get_maas_station_data": {
       "parameters": [
@@ -33860,7 +33860,7 @@
           "annotation": "<class 'str'>"
         }
       ],
-      "return": "<class 'korail_mobile_api.models.StationDataResponse'>"
+      "return": "<class 'StationDataResponse'>"
     },
     "get_merge_seats_inquiry": {
       "parameters": [
@@ -33872,10 +33872,10 @@
         {
           "name": "request",
           "kind": "POSITIONAL_OR_KEYWORD",
-          "annotation": "<class 'korail_mobile_api.read_payloads.MergeSeatsInquiryRequest'>"
+          "annotation": "<class 'MergeSeatsInquiryRequest'>"
         }
       ],
-      "return": "<class 'korail_mobile_api.read_models.MergeSeatsInquiryResponse'>"
+      "return": "<class 'MergeSeatsInquiryResponse'>"
     },
     "get_mileage_history": {
       "parameters": [
@@ -33887,10 +33887,10 @@
         {
           "name": "request",
           "kind": "POSITIONAL_OR_KEYWORD",
-          "annotation": "<class 'korail_mobile_api.read_payloads.MileageHistoryRequest'>"
+          "annotation": "<class 'MileageHistoryRequest'>"
         }
       ],
-      "return": "<class 'korail_mobile_api.read_models.MileageHistoryResponse'>"
+      "return": "<class 'MileageHistoryResponse'>"
     },
     "get_multi_child_discount_targets": {
       "parameters": [
@@ -33905,7 +33905,7 @@
           "annotation": "<class 'str'>"
         }
       ],
-      "return": "<class 'korail_mobile_api.read_models.MultiChildDiscountTargetResponse'>"
+      "return": "<class 'MultiChildDiscountTargetResponse'>"
     },
     "get_notice": {
       "parameters": [
@@ -33921,7 +33921,7 @@
           "default": null
         }
       ],
-      "return": "<class 'korail_mobile_api.models.NoticeResponse'>"
+      "return": "<class 'NoticeResponse'>"
     },
     "get_original_ticket_inquiry": {
       "parameters": [
@@ -33933,7 +33933,7 @@
         {
           "name": "tickets",
           "kind": "POSITIONAL_OR_KEYWORD",
-          "annotation": "collections.abc.Sequence[korail_mobile_api.read_payloads.OriginalTicketReference]"
+          "annotation": "collections.abc.Sequence[OriginalTicketReference]"
         },
         {
           "name": "ticket_count",
@@ -33942,7 +33942,7 @@
           "default": null
         }
       ],
-      "return": "<class 'korail_mobile_api.read_models.OriginalTicketInquiryResponse'>"
+      "return": "<class 'OriginalTicketInquiryResponse'>"
     },
     "get_pass_available_dates": {
       "parameters": [
@@ -33967,7 +33967,7 @@
           "annotation": "<class 'str'>"
         }
       ],
-      "return": "<class 'korail_mobile_api.read_models.PassAvailabilityResponse'>"
+      "return": "<class 'PassAvailabilityResponse'>"
     },
     "get_pass_menu": {
       "parameters": [
@@ -33982,7 +33982,7 @@
           "annotation": "<class 'str'>"
         }
       ],
-      "return": "<class 'korail_mobile_api.read_models.PassMenuResponse'>"
+      "return": "<class 'PassMenuResponse'>"
     },
     "get_pass_schedule": {
       "parameters": [
@@ -33994,10 +33994,10 @@
         {
           "name": "request",
           "kind": "POSITIONAL_OR_KEYWORD",
-          "annotation": "<class 'korail_mobile_api.read_payloads.PassScheduleRequest'>"
+          "annotation": "<class 'PassScheduleRequest'>"
         }
       ],
-      "return": "<class 'korail_mobile_api.read_models.PassScheduleResponse'>"
+      "return": "<class 'PassScheduleResponse'>"
     },
     "get_pbp_acceptance_specifications": {
       "parameters": [
@@ -34009,10 +34009,10 @@
         {
           "name": "tickets",
           "kind": "POSITIONAL_OR_KEYWORD",
-          "annotation": "collections.abc.Sequence[korail_mobile_api.read_payloads.OriginalTicketReference]"
+          "annotation": "collections.abc.Sequence[OriginalTicketReference]"
         }
       ],
-      "return": "<class 'korail_mobile_api.read_models.PbpAcceptanceSpecificationResponse'>"
+      "return": "<class 'PbpAcceptanceSpecificationResponse'>"
     },
     "get_price_fare_quote": {
       "parameters": [
@@ -34024,10 +34024,10 @@
         {
           "name": "request",
           "kind": "POSITIONAL_OR_KEYWORD",
-          "annotation": "<class 'korail_mobile_api.read_payloads.PriceFareQuoteRequest'>"
+          "annotation": "<class 'PriceFareQuoteRequest'>"
         }
       ],
-      "return": "<class 'korail_mobile_api.read_models.PriceFareQuoteResponse'>"
+      "return": "<class 'PriceFareQuoteResponse'>"
     },
     "get_product_detail": {
       "parameters": [
@@ -34048,7 +34048,7 @@
           "default": null
         }
       ],
-      "return": "<class 'korail_mobile_api.read_models.ProductDetailResponse'>"
+      "return": "<class 'ProductDetailResponse'>"
     },
     "get_product_reservations": {
       "parameters": [
@@ -34082,7 +34082,7 @@
           "default": null
         }
       ],
-      "return": "<class 'korail_mobile_api.read_models.ProductReservationListResponse'>"
+      "return": "<class 'ProductReservationListResponse'>"
     },
     "get_recent_delivery_history": {
       "parameters": [
@@ -34092,7 +34092,7 @@
           "annotation": "<class 'inspect._empty'>"
         }
       ],
-      "return": "<class 'korail_mobile_api.read_models.RecentDeliveryHistoryResponse'>"
+      "return": "<class 'RecentDeliveryHistoryResponse'>"
     },
     "get_refund_commission": {
       "parameters": [
@@ -34104,12 +34104,12 @@
         {
           "name": "ticket",
           "kind": "POSITIONAL_OR_KEYWORD",
-          "annotation": "<class 'korail_mobile_api.read_payloads.OriginalTicketReference'>"
+          "annotation": "<class 'OriginalTicketReference'>"
         },
         {
           "name": "companion",
           "kind": "POSITIONAL_OR_KEYWORD",
-          "annotation": "<class 'korail_mobile_api.read_payloads.RefundCompanion'>",
+          "annotation": "<class 'RefundCompanion'>",
           "default": {
             "model": "RefundCompanion",
             "fields": {
@@ -34119,7 +34119,7 @@
           }
         }
       ],
-      "return": "<class 'korail_mobile_api.read_models.RefundCommissionResponse'>"
+      "return": "<class 'RefundCommissionResponse'>"
     },
     "get_refund_ticket_detail": {
       "parameters": [
@@ -34131,7 +34131,7 @@
         {
           "name": "ticket",
           "kind": "POSITIONAL_OR_KEYWORD",
-          "annotation": "<class 'korail_mobile_api.read_payloads.OriginalTicketReference'>"
+          "annotation": "<class 'OriginalTicketReference'>"
         },
         {
           "name": "from_purchase_history",
@@ -34146,7 +34146,7 @@
           "default": null
         }
       ],
-      "return": "<class 'korail_mobile_api.read_models.RefundTicketDetailResponse'>"
+      "return": "<class 'RefundTicketDetailResponse'>"
     },
     "get_reservation_history": {
       "parameters": [
@@ -34156,7 +34156,7 @@
           "annotation": "<class 'inspect._empty'>"
         }
       ],
-      "return": "<class 'korail_mobile_api.read_models.ReservationHistoryResponse'>"
+      "return": "<class 'ReservationHistoryResponse'>"
     },
     "get_reservation_hold": {
       "parameters": [
@@ -34171,7 +34171,7 @@
           "annotation": "<class 'str'>"
         }
       ],
-      "return": "<class 'korail_mobile_api.mutation_models.ReservationHoldResponse'>"
+      "return": "<class 'ReservationHoldResponse'>"
     },
     "get_seat_assignment_schedule": {
       "parameters": [
@@ -34183,7 +34183,7 @@
         {
           "name": "request",
           "kind": "POSITIONAL_OR_KEYWORD",
-          "annotation": "<class 'korail_mobile_api.read_payloads.SeatAssignmentScheduleRequest'>"
+          "annotation": "<class 'SeatAssignmentScheduleRequest'>"
         },
         {
           "name": "peak_season",
@@ -34192,7 +34192,7 @@
           "default": false
         }
       ],
-      "return": "<class 'korail_mobile_api.read_models.SeatAssignmentScheduleResponse'>"
+      "return": "<class 'SeatAssignmentScheduleResponse'>"
     },
     "get_seat_cars": {
       "parameters": [
@@ -34204,7 +34204,7 @@
         {
           "name": "train",
           "kind": "POSITIONAL_OR_KEYWORD",
-          "annotation": "<class 'korail_mobile_api.models.TrainSummary'>"
+          "annotation": "<class 'TrainSummary'>"
         },
         {
           "name": "passenger_count",
@@ -34215,7 +34215,7 @@
         {
           "name": "room_class_code",
           "kind": "KEYWORD_ONLY",
-          "annotation": "typing.Union[typing.Literal['1', '2'], korail_mobile_api.constants.KorailSeatClass]",
+          "annotation": "typing.Union[typing.Literal['1', '2'], KorailSeatClass]",
           "default": "1"
         },
         {
@@ -34225,7 +34225,7 @@
           "default": null
         }
       ],
-      "return": "<class 'korail_mobile_api.models.SeatCarListResponse'>"
+      "return": "<class 'SeatCarListResponse'>"
     },
     "get_seat_inventory": {
       "parameters": [
@@ -34237,7 +34237,7 @@
         {
           "name": "train",
           "kind": "POSITIONAL_OR_KEYWORD",
-          "annotation": "<class 'korail_mobile_api.models.TrainSummary'>"
+          "annotation": "<class 'TrainSummary'>"
         },
         {
           "name": "car_no",
@@ -34253,7 +34253,7 @@
         {
           "name": "room_class_code",
           "kind": "KEYWORD_ONLY",
-          "annotation": "typing.Union[typing.Literal['1', '2'], korail_mobile_api.constants.KorailSeatClass]",
+          "annotation": "typing.Union[typing.Literal['1', '2'], KorailSeatClass]",
           "default": "1"
         },
         {
@@ -34263,7 +34263,7 @@
           "default": null
         }
       ],
-      "return": "<class 'korail_mobile_api.models.SeatInventoryResponse'>"
+      "return": "<class 'SeatInventoryResponse'>"
     },
     "get_self_checkin_info": {
       "parameters": [
@@ -34275,10 +34275,10 @@
         {
           "name": "detail",
           "kind": "POSITIONAL_OR_KEYWORD",
-          "annotation": "<class 'korail_mobile_api.read_models.RefundTicketDetailResponse'>"
+          "annotation": "<class 'RefundTicketDetailResponse'>"
         }
       ],
-      "return": "<class 'korail_mobile_api.read_models.SelfCheckInInfoResponse'>"
+      "return": "<class 'SelfCheckInInfoResponse'>"
     },
     "get_self_seat_change_info": {
       "parameters": [
@@ -34290,10 +34290,10 @@
         {
           "name": "request",
           "kind": "POSITIONAL_OR_KEYWORD",
-          "annotation": "<class 'korail_mobile_api.read_payloads.SelfSeatChangeInfoRequest'>"
+          "annotation": "<class 'SelfSeatChangeInfoRequest'>"
         }
       ],
-      "return": "<class 'korail_mobile_api.read_models.SelfSeatChangeInfoResponse'>"
+      "return": "<class 'SelfSeatChangeInfoResponse'>"
     },
     "get_service_status": {
       "parameters": [
@@ -34309,7 +34309,7 @@
           "default": null
         }
       ],
-      "return": "<class 'korail_mobile_api.read_models.ServiceStatusResponse'>"
+      "return": "<class 'ServiceStatusResponse'>"
     },
     "get_station_data": {
       "parameters": [
@@ -34319,7 +34319,7 @@
           "annotation": "<class 'inspect._empty'>"
         }
       ],
-      "return": "<class 'korail_mobile_api.models.StationDataResponse'>"
+      "return": "<class 'StationDataResponse'>"
     },
     "get_station_info": {
       "parameters": [
@@ -34329,7 +34329,7 @@
           "annotation": "<class 'inspect._empty'>"
         }
       ],
-      "return": "<class 'korail_mobile_api.models.StationInfoResponse'>"
+      "return": "<class 'StationInfoResponse'>"
     },
     "get_ticket_list": {
       "parameters": [
@@ -34363,7 +34363,7 @@
           "default": ""
         }
       ],
-      "return": "<class 'korail_mobile_api.read_models.TicketListResponse'>"
+      "return": "<class 'TicketListResponse'>"
     },
     "get_ticket_receipt": {
       "parameters": [
@@ -34399,7 +34399,7 @@
           "default": null
         }
       ],
-      "return": "<class 'korail_mobile_api.read_models.TicketReceiptResponse'>"
+      "return": "<class 'TicketReceiptResponse'>"
     },
     "get_ticket_reservation_detail": {
       "parameters": [
@@ -34411,10 +34411,10 @@
         {
           "name": "request",
           "kind": "POSITIONAL_OR_KEYWORD",
-          "annotation": "<class 'korail_mobile_api.read_payloads.TicketReservationDetailRequest'>"
+          "annotation": "<class 'TicketReservationDetailRequest'>"
         }
       ],
-      "return": "<class 'korail_mobile_api.read_models.TicketReservationDetailResponse'>"
+      "return": "<class 'TicketReservationDetailResponse'>"
     },
     "get_train_calendar": {
       "parameters": [
@@ -34424,7 +34424,7 @@
           "annotation": "<class 'inspect._empty'>"
         }
       ],
-      "return": "<class 'korail_mobile_api.models.TrainCalendarResponse'>"
+      "return": "<class 'TrainCalendarResponse'>"
     },
     "get_train_schedule": {
       "parameters": [
@@ -34444,7 +34444,7 @@
           "annotation": "<class 'str'>"
         }
       ],
-      "return": "<class 'korail_mobile_api.models.TrainScheduleResponse'>"
+      "return": "<class 'TrainScheduleResponse'>"
     },
     "get_transfer_stations": {
       "parameters": [
@@ -34464,7 +34464,7 @@
           "annotation": "<class 'str'>"
         }
       ],
-      "return": "<class 'korail_mobile_api.models.TransferStationListResponse'>"
+      "return": "<class 'TransferStationListResponse'>"
     },
     "get_trip_change_dates": {
       "parameters": [
@@ -34479,7 +34479,7 @@
           "annotation": "<class 'str'>"
         }
       ],
-      "return": "<class 'korail_mobile_api.read_models.TripChangeDateResponse'>"
+      "return": "<class 'TripChangeDateResponse'>"
     },
     "get_trip_menu": {
       "parameters": [
@@ -34489,7 +34489,7 @@
           "annotation": "<class 'inspect._empty'>"
         }
       ],
-      "return": "<class 'korail_mobile_api.read_models.TripMenuResponse'>"
+      "return": "<class 'TripMenuResponse'>"
     },
     "get_uuid": {
       "parameters": [
@@ -34499,7 +34499,7 @@
           "annotation": "<class 'inspect._empty'>"
         }
       ],
-      "return": "<class 'korail_mobile_api.models.UuidResponse'>"
+      "return": "<class 'UuidResponse'>"
     },
     "login": {
       "parameters": [
@@ -34543,7 +34543,7 @@
           "default": ""
         }
       ],
-      "return": "<class 'korail_mobile_api.models.KorailSession'>"
+      "return": "<class 'KorailSession'>"
     },
     "logout": {
       "parameters": [
@@ -34565,15 +34565,15 @@
         {
           "name": "hold",
           "kind": "POSITIONAL_OR_KEYWORD",
-          "annotation": "<class 'korail_mobile_api.mutation_models.ReservationHoldResponse'>"
+          "annotation": "<class 'ReservationHoldResponse'>"
         },
         {
           "name": "card",
           "kind": "POSITIONAL_OR_KEYWORD",
-          "annotation": "<class 'korail_mobile_api.mutation_models.CardPayment'>"
+          "annotation": "<class 'CardPayment'>"
         }
       ],
-      "return": "<class 'korail_mobile_api.mutation_models.ReservationPaymentResponse'>"
+      "return": "<class 'ReservationPaymentResponse'>"
     },
     "recalculate_price": {
       "parameters": [
@@ -34585,7 +34585,7 @@
         {
           "name": "request",
           "kind": "POSITIONAL_OR_KEYWORD",
-          "annotation": "<class 'korail_mobile_api.mutation_models.PriceRecalculationRequest'>"
+          "annotation": "<class 'PriceRecalculationRequest'>"
         },
         {
           "name": "add_to_cart",
@@ -34594,7 +34594,7 @@
           "default": false
         }
       ],
-      "return": "<class 'korail_mobile_api.mutation_models.ReservationHoldResponse'>"
+      "return": "<class 'ReservationHoldResponse'>"
     },
     "refund": {
       "parameters": [
@@ -34606,7 +34606,7 @@
         {
           "name": "ticket",
           "kind": "POSITIONAL_OR_KEYWORD",
-          "annotation": "<class 'korail_mobile_api.mutation_models.PaidTicket'>"
+          "annotation": "<class 'PaidTicket'>"
         },
         {
           "name": "settle_mileage",
@@ -34623,7 +34623,7 @@
         {
           "name": "commission",
           "kind": "KEYWORD_ONLY",
-          "annotation": "<class 'korail_mobile_api.read_models.RefundCommissionResponse'>"
+          "annotation": "<class 'RefundCommissionResponse'>"
         },
         {
           "name": "latitude",
@@ -34638,7 +34638,7 @@
           "default": null
         }
       ],
-      "return": "<class 'korail_mobile_api.mutation_models.RefundTicketResponse'>"
+      "return": "<class 'RefundTicketResponse'>"
     },
     "register_discount_card": {
       "parameters": [
@@ -34650,10 +34650,10 @@
         {
           "name": "request",
           "kind": "POSITIONAL_OR_KEYWORD",
-          "annotation": "<class 'korail_mobile_api.mutation_models.DiscountCardPurchaseRequest'>"
+          "annotation": "<class 'DiscountCardPurchaseRequest'>"
         }
       ],
-      "return": "<class 'korail_mobile_api.mutation_models.DiscountCardPurchaseResponse'>"
+      "return": "<class 'DiscountCardPurchaseResponse'>"
     },
     "register_self_checkin": {
       "parameters": [
@@ -34665,15 +34665,15 @@
         {
           "name": "detail",
           "kind": "POSITIONAL_OR_KEYWORD",
-          "annotation": "<class 'korail_mobile_api.read_models.RefundTicketDetailResponse'>"
+          "annotation": "<class 'RefundTicketDetailResponse'>"
         },
         {
           "name": "seat",
           "kind": "POSITIONAL_OR_KEYWORD",
-          "annotation": "<class 'korail_mobile_api.read_models.SelfCheckInSeat'>"
+          "annotation": "<class 'SelfCheckInSeat'>"
         }
       ],
-      "return": "<class 'korail_mobile_api.mutation_models.SelfCheckInRegisterResponse'>"
+      "return": "<class 'SelfCheckInRegisterResponse'>"
     },
     "reserve": {
       "parameters": [
@@ -34685,12 +34685,12 @@
         {
           "name": "train",
           "kind": "POSITIONAL_OR_KEYWORD",
-          "annotation": "<class 'korail_mobile_api.models.TrainSummary'>"
+          "annotation": "<class 'TrainSummary'>"
         },
         {
           "name": "passengers",
           "kind": "KEYWORD_ONLY",
-          "annotation": "korail_mobile_api.mutation_models.KorailPassengerCounts | None",
+          "annotation": "KorailPassengerCounts | None",
           "default": null
         },
         {
@@ -34714,7 +34714,7 @@
         {
           "name": "seats",
           "kind": "KEYWORD_ONLY",
-          "annotation": "collections.abc.Sequence[korail_mobile_api.mutation_models.KorailSeatAssignment] | None",
+          "annotation": "collections.abc.Sequence[KorailSeatAssignment] | None",
           "default": null
         },
         {
@@ -34724,7 +34724,7 @@
           "default": null
         }
       ],
-      "return": "<class 'korail_mobile_api.mutation_models.ReservationHoldResponse'>"
+      "return": "<class 'ReservationHoldResponse'>"
     },
     "reserve_limousine": {
       "parameters": [
@@ -34736,7 +34736,7 @@
         {
           "name": "schedule",
           "kind": "POSITIONAL_OR_KEYWORD",
-          "annotation": "<class 'korail_mobile_api.limousine_models.LimousineSchedule'>"
+          "annotation": "<class 'LimousineSchedule'>"
         },
         {
           "name": "seat_nos",
@@ -34746,11 +34746,11 @@
         {
           "name": "passengers",
           "kind": "KEYWORD_ONLY",
-          "annotation": "korail_mobile_api.mutation_models.KorailPassengerCounts | None",
+          "annotation": "KorailPassengerCounts | None",
           "default": null
         }
       ],
-      "return": "<class 'korail_mobile_api.mutation_models.ReservationHoldResponse'>"
+      "return": "<class 'ReservationHoldResponse'>"
     },
     "reserve_merge": {
       "parameters": [
@@ -34762,17 +34762,17 @@
         {
           "name": "standing_hold_train",
           "kind": "POSITIONAL_OR_KEYWORD",
-          "annotation": "<class 'korail_mobile_api.models.TrainSummary'>"
+          "annotation": "<class 'TrainSummary'>"
         },
         {
           "name": "merge_rows",
           "kind": "POSITIONAL_OR_KEYWORD",
-          "annotation": "collections.abc.Sequence[korail_mobile_api.read_models.TrainScheduleItem]"
+          "annotation": "collections.abc.Sequence[TrainScheduleItem]"
         },
         {
           "name": "passengers",
           "kind": "KEYWORD_ONLY",
-          "annotation": "korail_mobile_api.mutation_models.KorailPassengerCounts | None",
+          "annotation": "KorailPassengerCounts | None",
           "default": null
         },
         {
@@ -34800,7 +34800,7 @@
           "default": null
         }
       ],
-      "return": "<class 'korail_mobile_api.mutation_models.ReservationHoldResponse'>"
+      "return": "<class 'ReservationHoldResponse'>"
     },
     "reserve_transfer": {
       "parameters": [
@@ -34812,18 +34812,18 @@
         {
           "name": "legs",
           "kind": "POSITIONAL_OR_KEYWORD",
-          "annotation": "collections.abc.Sequence[korail_mobile_api.models.TrainSummary]"
+          "annotation": "collections.abc.Sequence[TrainSummary]"
         },
         {
           "name": "passengers",
           "kind": "KEYWORD_ONLY",
-          "annotation": "korail_mobile_api.mutation_models.KorailPassengerCounts | None",
+          "annotation": "KorailPassengerCounts | None",
           "default": null
         },
         {
           "name": "seat_classes",
           "kind": "KEYWORD_ONLY",
-          "annotation": "collections.abc.Sequence[korail_mobile_api.constants.KorailSeatClass] | korail_mobile_api.constants.KorailSeatClass",
+          "annotation": "collections.abc.Sequence[KorailSeatClass] | KorailSeatClass",
           "default": {
             "enum": "KorailSeatClass",
             "member": "GENERAL"
@@ -34841,7 +34841,7 @@
         {
           "name": "seats",
           "kind": "KEYWORD_ONLY",
-          "annotation": "collections.abc.Sequence[collections.abc.Sequence[korail_mobile_api.mutation_models.KorailSeatAssignment]] | None",
+          "annotation": "collections.abc.Sequence[collections.abc.Sequence[KorailSeatAssignment]] | None",
           "default": null
         },
         {
@@ -34851,7 +34851,7 @@
           "default": null
         }
       ],
-      "return": "<class 'korail_mobile_api.mutation_models.ReservationHoldResponse'>"
+      "return": "<class 'ReservationHoldResponse'>"
     },
     "reserve_with_discount_card": {
       "parameters": [
@@ -34863,7 +34863,7 @@
         {
           "name": "train",
           "kind": "POSITIONAL_OR_KEYWORD",
-          "annotation": "<class 'korail_mobile_api.models.TrainSummary'>"
+          "annotation": "<class 'TrainSummary'>"
         },
         {
           "name": "card_no",
@@ -34871,7 +34871,7 @@
           "annotation": "<class 'str'>"
         }
       ],
-      "return": "<class 'korail_mobile_api.mutation_models.ReservationHoldResponse'>"
+      "return": "<class 'ReservationHoldResponse'>"
     },
     "retrieve_delivered_ticket": {
       "parameters": [
@@ -34883,10 +34883,10 @@
         {
           "name": "ticket",
           "kind": "POSITIONAL_OR_KEYWORD",
-          "annotation": "<class 'korail_mobile_api.read_models.PbpAcceptanceTicket'>"
+          "annotation": "<class 'PbpAcceptanceTicket'>"
         }
       ],
-      "return": "<class 'korail_mobile_api.mutation_models.DeliveredTicketRetrievalResponse'>"
+      "return": "<class 'DeliveredTicketRetrievalResponse'>"
     },
     "search_trains": {
       "parameters": [
@@ -34898,12 +34898,12 @@
         {
           "name": "query",
           "kind": "POSITIONAL_OR_KEYWORD",
-          "annotation": "<class 'korail_mobile_api.models.TrainSearchQuery'>"
+          "annotation": "<class 'TrainSearchQuery'>"
         },
         {
           "name": "continuation",
           "kind": "KEYWORD_ONLY",
-          "annotation": "korail_mobile_api.models.TrainSearchContinuation | None",
+          "annotation": "TrainSearchContinuation | None",
           "default": null
         },
         {
@@ -34919,7 +34919,7 @@
           "default": false
         }
       ],
-      "return": "<class 'korail_mobile_api.models.TrainSearchResult'>"
+      "return": "<class 'TrainSearchResult'>"
     },
     "search_trains_all": {
       "parameters": [
@@ -34931,7 +34931,7 @@
         {
           "name": "query",
           "kind": "POSITIONAL_OR_KEYWORD",
-          "annotation": "<class 'korail_mobile_api.models.TrainSearchQuery'>"
+          "annotation": "<class 'TrainSearchQuery'>"
         },
         {
           "name": "max_time",
@@ -34946,7 +34946,7 @@
           "default": 15
         }
       ],
-      "return": "list[korail_mobile_api.models.TrainSummary]"
+      "return": "list[TrainSummary]"
     },
     "search_trains_with_transfer_fallback": {
       "parameters": [
@@ -34958,12 +34958,12 @@
         {
           "name": "query",
           "kind": "POSITIONAL_OR_KEYWORD",
-          "annotation": "<class 'korail_mobile_api.models.TrainSearchQuery'>"
+          "annotation": "<class 'TrainSearchQuery'>"
         },
         {
           "name": "continuation",
           "kind": "KEYWORD_ONLY",
-          "annotation": "korail_mobile_api.models.TrainSearchContinuation | None",
+          "annotation": "TrainSearchContinuation | None",
           "default": null
         },
         {
@@ -34979,7 +34979,7 @@
           "default": false
         }
       ],
-      "return": "korail_mobile_api.models.TrainSearchResult | korail_mobile_api.models.TransferSearchResult"
+      "return": "TrainSearchResult | TransferSearchResult"
     },
     "search_transfer_trains": {
       "parameters": [
@@ -34991,12 +34991,12 @@
         {
           "name": "query",
           "kind": "POSITIONAL_OR_KEYWORD",
-          "annotation": "<class 'korail_mobile_api.models.TrainSearchQuery'>"
+          "annotation": "<class 'TrainSearchQuery'>"
         },
         {
           "name": "continuation",
           "kind": "KEYWORD_ONLY",
-          "annotation": "korail_mobile_api.models.TrainSearchContinuation | None",
+          "annotation": "TrainSearchContinuation | None",
           "default": null
         },
         {
@@ -35012,7 +35012,7 @@
           "default": false
         }
       ],
-      "return": "<class 'korail_mobile_api.models.TransferSearchResult'>"
+      "return": "<class 'TransferSearchResult'>"
     },
     "verify_station_ticket_refund": {
       "parameters": [
@@ -35024,10 +35024,10 @@
         {
           "name": "request",
           "kind": "POSITIONAL_OR_KEYWORD",
-          "annotation": "<class 'korail_mobile_api.mutation_models.StationRefundVerificationRequest'>"
+          "annotation": "<class 'StationRefundVerificationRequest'>"
         }
       ],
-      "return": "<class 'korail_mobile_api.mutation_models.StationRefundVerificationResponse'>"
+      "return": "<class 'StationRefundVerificationResponse'>"
     }
   },
   "signatures": {
@@ -35399,16 +35399,16 @@
         {
           "name": "profile",
           "kind": "POSITIONAL_OR_KEYWORD",
-          "annotation": "<class 'korail_mobile_api.device.KorailDeviceProfile'>"
+          "annotation": "<class 'KorailDeviceProfile'>"
         },
         {
           "name": "base",
           "kind": "KEYWORD_ONLY",
-          "annotation": "korail_mobile_api.config.KorailConfig | None",
+          "annotation": "KorailConfig | None",
           "default": null
         }
       ],
-      "return": "<class 'korail_mobile_api.config.KorailConfig'>"
+      "return": "<class 'KorailConfig'>"
     },
     "TrainResource.search": {
       "parameters": [
