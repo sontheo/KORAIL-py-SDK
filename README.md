@@ -1,13 +1,10 @@
 <p align="center">
   <img src="assets/readme-banner.svg" alt="korail-api — Python client, clear boundaries" width="100%">
   <br><br>
-  <strong>STATUS ON MAIN</strong>
-  <a href="https://github.com/thsqaz123-dot/korail-api_v2/actions/workflows/ci.yml"><img src="https://github.com/thsqaz123-dot/korail-api_v2/actions/workflows/ci.yml/badge.svg?branch=main" alt="CI on main"></a>
-  <a href="https://github.com/thsqaz123-dot/korail-api_v2/actions/workflows/security.yml"><img src="https://github.com/thsqaz123-dot/korail-api_v2/actions/workflows/security.yml/badge.svg?branch=main" alt="Security on main"></a>
-  <a href="https://github.com/thsqaz123-dot/korail-api_v2/actions/workflows/docs.yml"><img src="https://github.com/thsqaz123-dot/korail-api_v2/actions/workflows/docs.yml/badge.svg?branch=main" alt="Documentation on main"></a>
+  <img src="assets/api-status.svg" alt="Manually maintained KORAIL API status" width="390">
 </p>
 
-<p align="center"><sub>Green badges mean automated checks passed; they do not report live KORAIL service availability.</sub></p>
+<p align="center"><sub>Maintainer-set status, not a live probe. Toggle with <code>python3 tools/set_api_status.py on|off</code>, then commit and push to publish.</sub></p>
 
 # korail-api
 
@@ -15,7 +12,7 @@
 
 [![Python: 3.11+](https://img.shields.io/badge/Python-3.11%2B-3776AB?logo=python&logoColor=white)](pyproject.toml)
 [![Code license: Apache-2.0](https://img.shields.io/badge/Code_license-Apache--2.0-14b8a6)](LICENSE)
-[![Status: experimental](https://img.shields.io/badge/Status-experimental-f59e0b)](VALIDATION.md)
+[![Stability: experimental](https://img.shields.io/badge/Stability-experimental-f59e0b)](VALIDATION.md)
 
 A synchronous Python client for the KORAIL protocol, organized around separate transport, protocol, service and model layers. Import the public client and models from `korail_api`.
 
