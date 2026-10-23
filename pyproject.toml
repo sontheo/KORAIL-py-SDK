@@ -67,4 +67,4 @@ strict = true
 follow_imports = "silent"
 
 [tool.setuptools.data-files]
-"share/doc/korail-api" = ["README.md", "LEGAL.md", "PROVENANCE.md", "VALIDATION.md", "ARCHITECTURE.md", "CHANGELOG.md", "THIRD_PARTY_NOTICES.md"]
+"share/doc/korail-api" = ["README.md", "docs/LEGAL.md", "docs/PROVENANCE.md", "docs/VALIDATION.md", "docs/ARCHITECTURE.md", "CHANGELOG.md", "THIRD_PARTY_NOTICES.md"]

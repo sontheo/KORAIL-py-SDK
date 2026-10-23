@@ -10,7 +10,7 @@
 - Expose 239 public exports, 86 client methods and typed model/request contracts.
 - Separate protocol, transport, service, configuration, model, message and security responsibilities.
 - Retain tested failure context, queue behavior, error distinctions and transaction protections.
-- Reuse resolved endpoint URLs and simplify common-envelope decoding; see `VALIDATION.md` for offline checks and limits.
+- Reuse resolved endpoint URLs and simplify common-envelope decoding; see [`docs/VALIDATION.md`](docs/VALIDATION.md) for offline checks and limits.
 - Include standalone tests, typed public declarations, isolated artifact verification and CI.
 - Keep runtime annotation installation compatible with Python 3.14's unified union types.
 - Add English documentation, original banner artwork and explicit legal/provenance notices.

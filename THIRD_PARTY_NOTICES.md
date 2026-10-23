@@ -1,6 +1,6 @@
 # Third-party notices
 
-This record covers bundled third-party data, runtime dependencies and technical references. Attribution is not a blanket redistribution grant. See `LEGAL.md` and `PROVENANCE.md` for the distribution boundaries.
+This record covers bundled third-party data, runtime dependencies and technical references. Attribution is not a blanket redistribution grant. See [the legal notice](https://github.com/thsqaz123-dot/korail-api_v2/blob/main/docs/LEGAL.md) and [material provenance](https://github.com/thsqaz123-dot/korail-api_v2/blob/main/docs/PROVENANCE.md) for the distribution boundaries.
 
 ## Bundled KORAIL message text
 

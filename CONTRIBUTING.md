@@ -42,7 +42,7 @@ Use an empty `dist/` directory for a new build:
 
 The checker installs the wheel into a temporary target without index access or dependency downloads, verifies the public namespace with editable startup hooks disabled, and runs the standalone tests from the extracted source archive. Dependencies must already be installed in the invoking environment. Project license/NOTICE files and current legal documentation must remain included; captured observations, reports, validators and performance tools must remain excluded.
 
-Review `LEGAL.md`, `NOTICE`, `THIRD_PARTY_NOTICES.md` and `PROVENANCE.md` before redistributing. Attribution does not establish rights to vendor message text. Do not add third-party code or data without documenting origin and reviewing applicable rights. Building artifacts does not publish a package; this development version is not a PyPI release.
+Review `docs/LEGAL.md`, `NOTICE`, `THIRD_PARTY_NOTICES.md` and `docs/PROVENANCE.md` before redistributing. Attribution does not establish rights to vendor message text. Do not add third-party code or data without documenting origin and reviewing applicable rights. Building artifacts does not publish a package; this development version is not a PyPI release.
 
 ## Documentation
 
@@ -51,4 +51,4 @@ Review `LEGAL.md`, `NOTICE`, `THIRD_PARTY_NOTICES.md` and `PROVENANCE.md` before
 .venv/bin/python -m mkdocs build --strict
 ```
 
-Keep public prose in English. Station names and protocol/vendor text retain the spelling required by their data contracts. See `ARCHITECTURE.md` for responsibility boundaries. GitHub issue and pull request templates describe the information needed to review a change without disclosing sensitive data.
+Keep public prose in English. Station names and protocol/vendor text retain the spelling required by their data contracts. See `docs/ARCHITECTURE.md` for responsibility boundaries. GitHub issue and pull request templates describe the information needed to review a change without disclosing sensitive data.
