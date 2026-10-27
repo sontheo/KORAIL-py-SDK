@@ -20,6 +20,10 @@ CONTRACT = load("public-interface")
 REGISTRY = {}
 
 
+class _DefaultProtocolVersion(str):
+    """Distinguish the omitted default from an explicitly supplied version."""
+
+
 def restore(data):
     if isinstance(data, list):
         return [restore(v) for v in data]
@@ -215,7 +219,9 @@ def _build_models():
                 }
                 if "default" in f:
                     encoded = f["default"]
-                    if encoded is None or type(encoded) in (str, int, bool, float):
+                    if name == "KorailConfig" and f["name"] == "version":
+                        options["default"] = _DefaultProtocolVersion(encoded)
+                    elif encoded is None or type(encoded) in (str, int, bool, float):
                         options["default"] = encoded
                     else:
                         options["default_factory"] = lambda encoded=encoded: restore(copy.deepcopy(encoded))

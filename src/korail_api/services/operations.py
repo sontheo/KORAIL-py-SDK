@@ -24,6 +24,19 @@ def prepare(client, name, arguments, steps, forms):
         forms[-1]["trnNo"] = train_no.zfill(5)
     if name.startswith("search_"):
         _search(arguments, forms[-1])
+        # Only the built-in read-only compatibility profile changes the omitted default.
+        from korail_api.models.records import _DefaultProtocolVersion
+        from korail_api.security.diagnostic import diagnostic_token
+
+        if (
+            name in {"search_trains", "search_transfer_trains"}
+            and not arguments.get("use_special_schedule")
+            and client.config.dynapath.enabled
+            and client.config.dynapath.token_provider is diagnostic_token
+            and steps[-1]["path"] in client.config.dynapath.allowlist_paths
+            and isinstance(client.config.version, _DefaultProtocolVersion)
+        ):
+            forms[-1]["Version"] = "250722001"
         forms[-1]["txtGoStart"] = client._resolve_station_reference(arguments["query"].departure_station_code)
         forms[-1]["txtGoEnd"] = client._resolve_station_reference(arguments["query"].arrival_station_code)
         if arguments.get("use_special_schedule"):

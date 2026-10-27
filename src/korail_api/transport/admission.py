@@ -213,10 +213,12 @@ class Admission:
                 except E.KorailNetFunnelError as error:
                     failures += 1
                     blocked = self.maintenance.failure(self.config.base_url, error)
+                    status = getattr(error, "status_code", None)
+                    retryable = status is None and isinstance(error.__cause__, httpx.TransportError)
                     retry_exhausts_budget = limit is not None and (
                         self._clock() - started + self.config.netfunnel_timeout >= limit
                     )
-                    if blocked or failures >= 2 or retry_exhausts_budget:
+                    if blocked or not retryable or failures >= 2 or retry_exhausts_budget:
                         raise
                     self._sleep(self.config.netfunnel_timeout)
                     continue

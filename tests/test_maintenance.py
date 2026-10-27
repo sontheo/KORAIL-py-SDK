@@ -338,6 +338,33 @@ def test_queue_503_does_not_retry_and_retains_retry_after(clock):
         q.close()
 
 
+@pytest.mark.parametrize("status", [400, 401, 403, 404, 429, 503])
+def test_queue_http_rejection_is_not_retried(clock, status):
+    seen, slept = [], []
+
+    def handle(request):
+        seen.append(request)
+        return httpx.Response(status, headers={"Retry-After": "5000"})
+
+    q = Admission(
+        KorailConfig(base_url=BASE),
+        transport=httpx.MockTransport(handle),
+        maintenance=policy(clock),
+        sleeper=slept.append,
+    )
+    try:
+        with pytest.raises(E.KorailNetFunnelError) as caught:
+            q.run("inquiry", lambda: pytest.fail("API must not be sent"))
+        assert caught.value.status_code == status
+        assert len(seen) == 1
+        assert not slept
+        if status in {429, 503}:
+            assert caught.value.retry_after == 5000
+            assert caught.value.next_probe_at == clock[0] + 5000
+    finally:
+        q.close()
+
+
 @pytest.mark.parametrize("fail_first", [False, True])
 def test_queue_poll_errors_share_retry_budget_and_release_without_bypass(clock, fail_first):
     replies = iter(["error", "wait", "error"] if fail_first else ["wait", "error", "error"])

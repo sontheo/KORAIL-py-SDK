@@ -47,4 +47,8 @@ def diagnostic_header(
 
 
 def diagnostic_token(context=None):
+    # This is an observed compatibility marker, not a native or hardware signature.
+    # Restrict it to the read-only endpoint for which acceptance was measured.
+    if context is not None and context.path == "/classes/com.korail.mobile.seatMovie.ScheduleView":
+        return "201"
     return diagnostic_header(NATIVE_UNAVAILABLE_STATE)

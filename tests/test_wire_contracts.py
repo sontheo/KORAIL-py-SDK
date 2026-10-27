@@ -32,6 +32,13 @@ def test_request_and_result_contract(operation):
         ]:
             assert actual.keys() == wanted.keys()
             for field, values in wanted.items():
+                if (
+                    operation
+                    in {"search_trains", "search_transfer_trains", "search_trains_with_transfer_fallback"}
+                    and request.url.path.endswith(".ScheduleView")
+                    and field == "Version"
+                ):
+                    values = ["250722001"]
                 if values == ["<DYNAMIC>"]:
                     assert len(actual[field]) == 1 and actual[field][0].isdigit()
                 else:

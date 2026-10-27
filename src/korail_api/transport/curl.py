@@ -1,8 +1,8 @@
 """httpx transport boundary with one cookie owner and decoded-body adaptation."""
 
-import os
 import re
 from urllib.parse import urlsplit
+from urllib.request import getproxies_environment, proxy_bypass_environment
 
 import httpx
 
@@ -30,19 +30,23 @@ def validate_proxy(proxy):
         raise ValueError("Invalid proxy URL") from None
 
 
-def env_proxy_url():
-    for key in ("HTTPS_PROXY", "https_proxy", "ALL_PROXY", "all_proxy"):
-        if os.environ.get(key):
-            return os.environ[key]
-    return None
+def env_proxy_url(url=None):
+    proxies = getproxies_environment()
+    if url is not None:
+        parsed = urlsplit(str(url))
+        if parsed.hostname and proxy_bypass_environment(parsed.netloc, proxies):
+            return None
+        return proxies.get(parsed.scheme.lower()) or proxies.get("all")
+    return proxies.get("https") or proxies.get("all")
 
 
 class OkHttpTransport(httpx.BaseTransport):
-    def __init__(self, proxy=None):
+    def __init__(self, proxy=None, *, use_env_proxy=False):
         from curl_cffi import CurlOpt
         from curl_cffi.requests import Session
 
         self.proxy = proxy
+        self._use_env_proxy = use_env_proxy
         options = dict(
             ja3=OKHTTP4_JA3,
             akamai=OKHTTP4_AKAMAI,
@@ -60,6 +64,7 @@ class OkHttpTransport(httpx.BaseTransport):
         from curl_cffi.requests import exceptions as ce
 
         timeout = request.extensions.get("timeout", {}).get("read", 60.0)
+        proxy = env_proxy_url(request.url) if self._use_env_proxy else None
         try:
             result = self._session.request(
                 method=request.method,
@@ -68,6 +73,7 @@ class OkHttpTransport(httpx.BaseTransport):
                 content=request.read(),
                 timeout=timeout,
                 allow_redirects=False,
+                **({"proxy": proxy} if proxy else {}),
             )
         except ce.InvalidURL as error:
             raise httpx.InvalidURL("Invalid transport URL") from error
@@ -113,7 +119,7 @@ def build_transport(config, transport):
     if transport is not None:
         return transport
     if config.transport_profile == "okhttp":
-        return OkHttpTransport(config.proxy if config.proxy is not None else env_proxy_url())
+        return OkHttpTransport(config.proxy, use_env_proxy=config.proxy is None)
     if config.proxy is not None:
         if config.proxy.startswith("https:") and _HTTPX_VERSION < (0, 25):
             raise ValueError("HTTPS proxy requires httpx 0.25 or later")

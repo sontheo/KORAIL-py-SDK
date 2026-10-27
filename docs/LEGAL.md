@@ -6,7 +6,7 @@ This is an unofficial interoperability client. It is not affiliated with, endors
 
 ## Software license and scope
 
-[LICENSE](https://github.com/thsqaz123-dot/korail-api_v2/blob/main/LICENSE) contains the unmodified Apache License, Version 2.0. The maintainer offers material they have authority to license under that license. This statement does not relicense third-party message text, dependencies, trademarks, accounts, application resources or service-access rights. [NOTICE](https://github.com/thsqaz123-dot/korail-api_v2/blob/main/NOTICE) and [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) form part of the distribution's attribution record.
+[LICENSE](https://github.com/sontheo/korail-api_v2/blob/main/LICENSE) contains the unmodified Apache License, Version 2.0. The maintainer offers material they have authority to license under that license. This statement does not relicense third-party message text, dependencies, trademarks, accounts, application resources or service-access rights. [NOTICE](https://github.com/sontheo/korail-api_v2/blob/main/NOTICE) and [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) form part of the distribution's attribution record.
 
 Apache-2.0 permits personal, internal and commercial use subject to its terms. This repository adds no noncommercial restriction to that license. The maintainer requests personal, noncommercial use and asks users not to operate paid booking services, ticket resale, bulk seat acquisition or sales of automated service access. This is a nonbinding project preference, not an amendment to the license or a statement that every commercial use is unlawful. See the [Apache licensing FAQ](https://www.apache.org/foundation/license-faq.html#IsItFree).
 

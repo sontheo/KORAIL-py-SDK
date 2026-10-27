@@ -16,7 +16,7 @@
 
 A synchronous Python client for the KORAIL protocol, organized around separate transport, protocol, service and model layers. Import the public client and models from `korail_api`.
 
-**[Documentation](https://thsqaz123-dot.github.io/korail-api_v2/)** · **[Architecture](docs/ARCHITECTURE.md)** · **[Validation](docs/VALIDATION.md)** · **[Contributing](CONTRIBUTING.md)** · **[Legal notice](docs/LEGAL.md)**
+**[Documentation](https://sontheo.github.io/korail-api_v2/)** · **[Architecture](docs/ARCHITECTURE.md)** · **[Validation](docs/VALIDATION.md)** · **[Contributing](CONTRIBUTING.md)** · **[Legal notice](docs/LEGAL.md)**
 
 ## What it supports
 
@@ -35,7 +35,7 @@ Transaction methods can affect real tickets and money. Automated validation is o
 The distribution is named **`korail-api`**, version **`0.1.0`**. GitHub release `v0.1.0` includes a wheel and source archive; the package has not been uploaded to PyPI. The repository name `korail-api_v2` is separate from the Python distribution and import names.
 
 ```sh
-git clone https://github.com/thsqaz123-dot/korail-api_v2.git
+git clone https://github.com/sontheo/korail-api_v2.git
 cd korail-api_v2
 python -m venv .venv
 .venv/bin/python -m pip install '.[socks]'

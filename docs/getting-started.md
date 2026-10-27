@@ -20,6 +20,32 @@ with KorailClient() as client:
 
 Replace the example date with a valid travel date. Executing this example sends a real schedule request; automated tests do not execute it. Always close clients or use a context manager to release their transports.
 
+The default ordinary schedule request uses an observed compatibility marker, `201`, and protocol version `250722001`. The marker is not a native or device-bound signature; the server may stop accepting it. A rejection raises `KorailDynaPathError` without retrying or trying other tokens. For an authenticated or future protocol, applications can supply a token provider through `DynapathConfig`; explicitly supplied `KorailConfig.version` values are sent unchanged. The compatibility marker and automatic version selection apply only when DynaPath is enabled and the ordinary schedule endpoint is in the configured allowlist. Special schedules and other operations are not covered by the anonymous live check.
+
+For the default OkHttp transport, proxy environment variables are evaluated per request and `NO_PROXY` exclusions are honored. An explicit `KorailConfig(proxy=...)` takes precedence over both proxy environment variables and `NO_PROXY`; a failed explicit proxy is not silently bypassed.
+
+## External request signer
+
+`PreparedRequestSigner` is an optional adapter for a separately supplied signer. It is not a DynaPath implementation and does not register a device. It receives the final HTTP method, URL and SHA-256 digest of the exact body bytes, after URL and body encoding. The signer returns the token header value. `SigningRequest` hides the URL and digest in its representation; the signer must also avoid logging them or its token. The old `token_provider` interface remains supported.
+
+```python
+from korail_api import DynapathConfig, KorailConfig
+from korail_api.security.signing import PreparedRequestSigner, SigningRegistrationRequired
+
+
+def sign_request(request):
+    # Replace this with an independently provisioned signer; never log request data.
+    raise SigningRegistrationRequired()
+
+
+config = KorailConfig(
+    version="250722001",
+    dynapath=DynapathConfig(enabled=True, token_provider=PreparedRequestSigner(sign_request)),
+)
+```
+
+The adapter sends no protected request when signing fails. Errors have codes `SIGNER_REGISTRATION_REQUIRED`, `SIGNER_TIMEOUT`, `SIGNER_UNAVAILABLE`, `SIGNER_FAILED`, or `SIGNER_INVALID_TOKEN`. The signer is responsible for its own timeout, device-registration state, and synchronization of any challenge or counter across callers. No automatic enrollment, state persistence, token fallback or transaction replay is performed. Request event hooks and client authentication are rejected for signed requests because they could modify a request after signing; custom transports must not modify the signed URL or body. This interface does not establish that any signer or registration will be accepted by KORAIL.
+
 For local development:
 
 ```sh

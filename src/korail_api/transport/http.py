@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
+from hashlib import sha256
 from urllib.parse import urlencode
 
 import httpx
@@ -85,7 +86,7 @@ class KorailHttpClient:
             fields["lang"] = c.lang
         return fields
 
-    def _headers(self, route, include_dynapath, method="POST"):
+    def _headers(self, route, include_dynapath, method="POST", *, version=None, request=None):
         c = self.config
         headers = {"User-Agent": c.user_agent, "Accept-Encoding": "gzip", "Connection": "Keep-Alive"}
         paths = c.dynapath.allowlist_paths
@@ -94,6 +95,24 @@ class KorailHttpClient:
                 raise E.KorailDynaPathRequiredError("Login needs a configured protocol token")
             provider = c.dynapath.token_provider or self._dynapath_generator
             if c.dynapath.enabled and provider is not None:
+                from korail_api.security.signing import PreparedRequestSigner, SigningRequest
+
+                if isinstance(provider, PreparedRequestSigner):
+                    if request is None:
+                        raise E.KorailProtocolError("Request must be prepared before signing")
+                    if self.client.event_hooks.get("request") or self.client.auth is not None:
+                        raise E.KorailProtocolError(
+                            "Request hooks and client authentication cannot modify signed requests"
+                        )
+                    signed = SigningRequest(
+                        request.method, request.url.path, str(request.url), sha256(request.content).digest()
+                    )
+                    headers[c.dynapath.header_name] = provider.sign(signed)
+                    if self.client.event_hooks.get("request") or self.client.auth is not None:
+                        raise E.KorailProtocolError(
+                            "Request hooks and client authentication cannot modify signed requests"
+                        )
+                    return headers
                 from korail_api.models.records import DynapathRequestContext
 
                 context = DynapathRequestContext(
@@ -101,7 +120,7 @@ class KorailHttpClient:
                     path=route,
                     url=c.base_url.rstrip("/") + route,
                     device=c.device,
-                    version=c.version,
+                    version=c.version if version is None else version,
                     key=c.key,
                     user_agent=c.user_agent,
                     device_name=c.dynapath.device_name,
@@ -186,7 +205,8 @@ class KorailHttpClient:
                 flat.append(
                     (key, "" if item is None else str(item).lower() if isinstance(item, bool) else str(item))
                 )
-        headers = self._headers(route, include_dynapath, method)
+        wire_version = next((value for key, value in reversed(flat) if key == "Version"), None)
+        headers = {}
         if content_type is not None:
             headers["Content-Type"] = content_type
         options = {"headers": headers}
@@ -197,7 +217,11 @@ class KorailHttpClient:
         else:
             options["content"] = urlencode(flat).encode("utf-8")
         try:
-            response = self.client.request(method, self._endpoint_url(method, route), **options)
+            request = self.client.build_request(method, self._endpoint_url(method, route), **options)
+            request.headers.update(
+                self._headers(route, include_dynapath, method, version=wire_version, request=request)
+            )
+            response = self.client.send(request)
         except (httpx.HTTPError, httpx.InvalidURL) as error:
             raise E.KorailTransportError("HTTP exchange failed; transaction outcome may be unknown") from error
         try:
@@ -211,10 +235,14 @@ class KorailHttpClient:
             raise http_error_details(error, response, self.maintenance.clock())
         protected = route in load("constants")["DYNAPATH_ALLOWLIST_PATHS"]["items"]
         if protected and isinstance(raw, dict):
-            blocked_numbers = {-1203, -1406, -2000, -8005, -8201, -8202, -8203}
-            explicit = raw.get("code") in (-2000, "-2000") and "strResult" not in raw
-            if explicit or any(type(v) is int and v in blocked_numbers for v in raw.values()):
+            blocked_codes = {"-1203", "-1406", "-2000", "-8005", "-8201", "-8202", "-8203"}
+            blocked = next(
+                (str(v) for v in raw.values() if type(v) in (int, str) and str(v) in blocked_codes),
+                None,
+            )
+            if blocked:
                 error = E.KorailDynaPathError("Server rejected protocol access")
+                error.code = blocked
                 error.raw = raw
                 raise http_error_details(error, response, self.maintenance.clock())
         if not response.is_success:

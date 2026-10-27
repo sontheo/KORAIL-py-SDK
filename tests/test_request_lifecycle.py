@@ -71,3 +71,25 @@ def test_repeated_search_updates_tokens_cookies_and_client_headers():
         ]
     finally:
         http.close()
+
+
+def test_token_provider_receives_actual_wire_version():
+    observed = []
+
+    def provider(context):
+        observed.append(context.version)
+        return "synthetic"
+
+    config = KorailConfig(dynapath=DynapathConfig(enabled=True, token_provider=provider))
+    http = KorailHttpClient(
+        config, transport=httpx.MockTransport(lambda _: httpx.Response(200, json={"strResult": "SUCC"}))
+    )
+    try:
+        http.exchange(
+            "/classes/com.korail.mobile.seatMovie.ScheduleView",
+            {"Version": "wire-version"},
+            include_common=False,
+        )
+        assert observed == ["wire-version"]
+    finally:
+        http.close()

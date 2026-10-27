@@ -1,8 +1,8 @@
 site_name: korail-api
-site_url: https://thsqaz123-dot.github.io/korail-api_v2/
+site_url: https://sontheo.github.io/korail-api_v2/
 site_description: Unofficial synchronous KORAIL Python client
-repo_url: https://github.com/thsqaz123-dot/korail-api_v2
-repo_name: thsqaz123-dot/korail-api_v2
+repo_url: https://github.com/sontheo/korail-api_v2
+repo_name: sontheo/korail-api_v2
 edit_uri: edit/main/docs/
 theme:
   name: material

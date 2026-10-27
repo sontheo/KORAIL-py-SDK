@@ -144,3 +144,75 @@ def test_successive_searches_do_not_reuse_previous_request_values():
     assert observed[1]["txtGoHour"] == ["100000"]
     assert observed[1]["txtPsgFlg_1"] == ["2"]
     assert observed[0]["txtPsgFlg_1"] == ["1"]
+
+
+@pytest.mark.parametrize(
+    ("options", "special", "version", "token"),
+    [
+        ({}, False, "250722001", "201"),
+        ({"version": "250601003"}, False, "250601003", "201"),
+        ({"version": "CUSTOM"}, False, "CUSTOM", "201"),
+        ({"disable_dynapath": True}, False, "250601003", None),
+        ({"dynapath": api.DynapathConfig(allowlist_paths=())}, False, "250601003", None),
+        ({}, True, "250601003", "diagnostic"),
+        (
+            {"dynapath": api.DynapathConfig(enabled=True, token_provider=lambda _: "CUSTOM-TOKEN")},
+            False,
+            "250601003",
+            "CUSTOM-TOKEN",
+        ),
+    ],
+)
+def test_schedule_compatibility_preserves_explicit_configuration(options, special, version, token):
+    from urllib.parse import parse_qs
+
+    seen = []
+    response = next(
+        row["response"]
+        for row in CASES["search_trains"]["reference"]["exchanges"]
+        if row["host"] == "api.example.invalid"
+    )
+
+    def handle(request):
+        seen.append(request)
+        return httpx.Response(200, json=response)
+
+    with api.KorailClient(
+        api.KorailConfig(netfunnel_enabled=False, **options), transport=httpx.MockTransport(handle)
+    ) as client:
+        client.search_trains(
+            api.TrainSearchQuery("서울", "부산", "20991230", "090000"), use_special_schedule=special
+        )
+    assert parse_qs(seen[0].content.decode())["Version"] == [version]
+    actual = seen[0].headers.get("x-dynapath-m-token")
+    if token == "diagnostic":
+        assert actual.startswith("2!")
+    else:
+        assert actual == token
+
+
+def test_schedule_default_version_survives_dataclass_replace():
+    original = api.KorailConfig()
+    clone = dataclasses.replace(original, netfunnel_enabled=False)
+    assert type(original.version) is type(clone.version)
+    explicit = dataclasses.replace(original, version="250601003")
+    assert type(explicit.version) is str
+
+
+@pytest.mark.parametrize("code", [-8005, "-8005", -8202, "-8202"])
+def test_dynapath_rejection_preserves_code_and_does_not_retry(code):
+    seen = []
+
+    def reject(request):
+        seen.append(request)
+        return httpx.Response(403, json={"code": code})
+
+    with api.KorailClient(
+        api.KorailConfig(netfunnel_enabled=False), transport=httpx.MockTransport(reject)
+    ) as client:
+        with pytest.raises(api.KorailDynaPathError) as caught:
+            client.search_trains(api.TrainSearchQuery("서울", "부산", "20991230", "090000"))
+    assert len(seen) == 1
+    assert caught.value.code == str(code)
+    assert caught.value.status_code == 403
+    assert caught.value.raw == {"code": code}
