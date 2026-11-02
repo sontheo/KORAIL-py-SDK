@@ -3,6 +3,7 @@
 from typing import assert_type
 
 from korail_api import (
+    DynapathConfig,
     Korail,
     KorailClient,
     KorailConfig,
@@ -13,6 +14,7 @@ from korail_api import (
     TrainSearchResult,
 )
 from korail_api.maintenance import MaintenanceDeferredError, MaintenancePolicy
+from korail_api.security.declaration import DeclarationTokenProvider
 
 
 def example(client: KorailClient, facade: Korail) -> TrainSearchResult:
@@ -23,6 +25,10 @@ def example(client: KorailClient, facade: Korail) -> TrainSearchResult:
 
 
 config: KorailConfig = KorailConfig()
+declaration_config = KorailConfig(
+    dynapath_mode="v2-declaration",
+    dynapath=DynapathConfig(enabled=True, token_provider=DeclarationTokenProvider()),
+)
 passengers = KorailPassengerCounts(adult=2, child=1)
 assert_type(passengers.total, int)
 room = SelfSeatChangeInfoRequest("20991230", "90001", "9001", "9002", "FUTURE")

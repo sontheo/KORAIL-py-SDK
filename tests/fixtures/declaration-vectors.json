@@ -1,0 +1,15 @@
+{
+  "origin": "pykorail recorded emulator r0/r1, libdp_ffi_android.so SHA256 a884a4971dda8b7a1b05f90d331631ea95f65028dc51aba55e2699ac90ed7129",
+  "vectors": [
+    {
+      "nonce": 0,
+      "plaintext": "!v=2&es=533034890897565508&ts=1700000000000&st=Android&sv=2.0.1&ai=korailplus&os=UkVM&dm=TU9ERUxBQUFB&iid=AAAAAAAAAAAAAAAAAAAAAA&mf=TUZS&bd=QkQ&sl=34&sb=1&kl=990094375841594426&ec=978212327729758430",
+      "token_sha256": "c0571ede8f015dff425e1bec8f7a0a51af0e6202b1dbe5362a8889322ba5ae85"
+    },
+    {
+      "nonce": 5,
+      "plaintext": "!v=2&es=533034890897565508&ts=1700000000000&st=Android&sv=2.0.1&ai=korailplus&os=UkVM&dm=TU9ERUxBQUFB&iid=AAAAAAAAAAAAAAAAAAAAAA&mf=TUZS&bd=QkQ&sl=34&sb=1&kl=990094375841594426&ec=978212327729758430",
+      "token_sha256": "ec3e0311ec22e7a8923b0a20071ffee1ae5c2c63caf12c2168170a988dc9b291"
+    }
+  ]
+}

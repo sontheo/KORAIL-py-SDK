@@ -8,6 +8,7 @@ import time
 
 from korail_api.models import errors as E
 from korail_api.models.records import REGISTRY, KorailReservationJobType
+from korail_api.services.compatibility import ordinary_reservation, uses_declaration
 from korail_api.services.payments import _payment
 from korail_api.services.reservations import _reservation
 from korail_api.services.search import _search
@@ -32,7 +33,7 @@ def prepare(client, name, arguments, steps, forms):
             name in {"search_trains", "search_transfer_trains"}
             and not arguments.get("use_special_schedule")
             and client.config.dynapath.enabled
-            and client.config.dynapath.token_provider is diagnostic_token
+            and (client.config.dynapath.token_provider is diagnostic_token or uses_declaration(client.config))
             and steps[-1]["path"] in client.config.dynapath.allowlist_paths
             and isinstance(client.config.version, _DefaultProtocolVersion)
         ):
@@ -46,6 +47,8 @@ def prepare(client, name, arguments, steps, forms):
         return steps, forms
     if name.startswith("reserve"):
         _reservation(name, arguments, forms[-1])
+        if name == "reserve":
+            steps, forms = ordinary_reservation(client.config, arguments, steps, forms)
     if name == "pay_with_card":
         _payment(arguments, forms[-1])
     if name in {"get_seat_inventory", "get_seat_cars"}:
