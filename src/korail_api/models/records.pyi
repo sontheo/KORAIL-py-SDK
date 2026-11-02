@@ -1022,7 +1022,7 @@ class KorailConfig(object):
     disable_dynapath: bool
     app_version: str | None
     proxy: str | None
-    dynapath_mode: typing.Literal["legacy", "v2-diagnostic"]
+    dynapath_mode: typing.Literal["legacy", "v2-diagnostic", "v2-declaration"]
     transport_profile: typing.Literal["okhttp", "httpx"]
     def __init__(
         self,
@@ -1047,7 +1047,7 @@ class KorailConfig(object):
         disable_dynapath: bool = ...,
         app_version: str | None = ...,
         proxy: str | None = ...,
-        dynapath_mode: typing.Literal["legacy", "v2-diagnostic"] = ...,
+        dynapath_mode: typing.Literal["legacy", "v2-diagnostic", "v2-declaration"] = ...,
         transport_profile: typing.Literal["okhttp", "httpx"] = ...,
     ) -> None: ...
 

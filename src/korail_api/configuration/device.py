@@ -24,11 +24,28 @@ def build_dalvik_user_agent(
 
 def build_config_from_profile(profile, *, base=None):
     config = base or KorailConfig()
+    from korail_api.security.declaration import DeclarationTokenProvider
     from korail_api.security.diagnostic import diagnostic_token
 
-    if config.dynapath.token_provider not in (None, diagnostic_token):
+    if config.dynapath.token_provider not in (None, diagnostic_token) and not isinstance(
+        config.dynapath.token_provider, DeclarationTokenProvider
+    ):
         raise ValueError("A device profile requires configurable DynaPath settings")
     token = replace(config.dynapath, device_name=profile.model, os_version=profile.android_release)
+    if isinstance(token.token_provider, DeclarationTokenProvider):
+        token = replace(
+            token,
+            token_provider=replace(
+                token.token_provider,
+                device_id=profile.device_id,
+                model=profile.model,
+                release=profile.android_release,
+                sdk_int=profile.android_sdk_int,
+                manufacturer=("samsung" if profile.model.startswith("SM-") else "")
+                if token.token_provider._managed
+                else token.token_provider.manufacturer,
+            ),
+        )
     if token.token_settings is not None:
         token = replace(
             token,

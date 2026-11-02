@@ -58,6 +58,7 @@ Replace the example date with a valid travel date. Executing this example sends 
 
 - Every search obtains a fresh response; seat availability and transaction outcomes are never cached.
 - Transaction requests are never retried automatically. Check uncertain outcomes through official channels before trying again.
+- The default software declaration profile replaces diagnostic-only tokens; ordinary single-train reservations use the observed GET/query profile. See [configuration and validation limits](docs/getting-started.md).
 - Decode failures retain the whole response in `error.raw`, with nested context in `error.parser_raw` when available. Treat both as potentially sensitive.
 - Pagination detects repeated pages and preserves continuation metadata.
 - Business rejection, malformed responses, session expiry and protocol-access rejection remain distinct.
