@@ -7012,12 +7012,12 @@
         },
         {
           "name": "dynapath_mode",
-          "type": "typing.Literal['legacy', 'v2-diagnostic']",
+          "type": "typing.Literal['legacy', 'v2-diagnostic', 'v2-declaration']",
           "repr": true,
           "init": true,
           "kw_only": false,
           "compare": true,
-          "default": "v2-diagnostic"
+          "default": "v2-declaration"
         },
         {
           "name": "transport_profile",
@@ -7164,8 +7164,8 @@
         {
           "name": "dynapath_mode",
           "kind": "POSITIONAL_OR_KEYWORD",
-          "annotation": "typing.Literal['legacy', 'v2-diagnostic']",
-          "default": "v2-diagnostic"
+          "annotation": "typing.Literal['legacy', 'v2-diagnostic', 'v2-declaration']",
+          "default": "v2-declaration"
         },
         {
           "name": "transport_profile",

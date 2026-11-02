@@ -54,6 +54,8 @@ def _post_init(self):
 
     name = type(self).__name__
     if name == "KorailConfig":
+        from korail_api.security.declaration import DeclarationTokenProvider
+        from korail_api.security.diagnostic import diagnostic_token
         from korail_api.transport.curl import validate_proxy
 
         validate_proxy(self.proxy)
@@ -62,17 +64,23 @@ def _post_init(self):
         ):
             raise ValueError("app_version must be nonempty text or None")
         if self.disable_dynapath and self.dynapath.token_provider is not None:
-            from korail_api.security.diagnostic import diagnostic_token
-
-            if self.dynapath.token_provider is not diagnostic_token:
+            if self.dynapath.token_provider is not diagnostic_token and not (
+                isinstance(self.dynapath.token_provider, DeclarationTokenProvider)
+                and self.dynapath.token_provider._managed
+            ):
                 raise ValueError("Cannot disable an explicitly configured token provider")
-        if self.dynapath_mode not in {"legacy", "v2-diagnostic"}:
+        if self.dynapath_mode not in {"legacy", "v2-diagnostic", "v2-declaration"}:
             raise ValueError("Unsupported dynapath mode")
         if self.transport_profile not in {"httpx", "okhttp"}:
             raise ValueError("Unsupported transport profile")
         token_config = self.dynapath
-        from korail_api.security.diagnostic import diagnostic_token
 
+        if (
+            isinstance(token_config.token_provider, DeclarationTokenProvider)
+            and token_config.token_provider._managed
+        ):
+            if self.dynapath_mode != "v2-declaration":
+                token_config = dc.replace(token_config, enabled=False, token_provider=None)
         if self.dynapath_mode == "legacy" and (
             token_config.token_provider is None or token_config.token_provider is diagnostic_token
         ):
@@ -87,13 +95,26 @@ def _post_init(self):
         if self.disable_dynapath:
             token_config = dc.replace(token_config, enabled=False)
         elif self.dynapath_mode == "v2-diagnostic":
-            from korail_api.security.diagnostic import diagnostic_token
-
             if token_config.token_provider is None:
                 token_config = dc.replace(
                     token_config, enabled=True, token_provider=diagnostic_token, token_settings=None
                 )
         object.__setattr__(self, "dynapath", token_config)
+        if not self.disable_dynapath and self.dynapath_mode == "v2-declaration":
+            if token_config.token_provider in (None, diagnostic_token) and token_config.token_settings is None:
+                provider = DeclarationTokenProvider(
+                    model=token_config.device_name,
+                    release=token_config.os_version,
+                    manufacturer="samsung" if token_config.device_name.startswith("SM-") else "",
+                    sdk_int=self.android_sdk_int,
+                    timestamp_ms_provider=token_config.timestamp_ms_provider,
+                    _managed=True,
+                )
+                object.__setattr__(
+                    self,
+                    "dynapath",
+                    dc.replace(token_config, enabled=True, token_provider=provider, token_settings=None),
+                )
     if name == "KorailPassengerCounts":
         values = [getattr(self, f.name) for f in dc.fields(self)]
         if any(type(v) is not int or v < 0 for v in values) or not 1 <= sum(values) <= 9:

@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased
+
+- Default to software declaration tokens with fresh request timestamps/nonces and a configuration-scoped synthetic identity; retain explicit diagnostic/legacy modes and external signers.
+- Align ordinary immediate reservations without designated seats with the observed GET/query profile, default wire version, blank fields and passenger ordering. Preserve explicit versions and other reservation formats.
+- Verify the codec against recorded emulator output digests and complete ordinary-reservation queries against independently intercepted synthetic reference requests. No live transaction was executed, and no transaction retry or protocol fallback was added.
+
 ## 0.1.0 — 2026-10-23
 
 - Reject invalid result envelopes and prevent queue error retries from exceeding the admission budget.

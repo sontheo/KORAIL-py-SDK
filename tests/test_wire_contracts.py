@@ -52,6 +52,7 @@ def test_request_and_result_contract(operation):
         base_url="https://api.example.invalid",
         netfunnel_url="https://queue.example.invalid",
         key="SYNTHETIC-APP-KEY",
+        dynapath_mode="v2-diagnostic",
     )
     with api.KorailClient(config, transport=httpx.MockTransport(handle)) as client:
         if operation != "login":

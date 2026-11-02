@@ -178,7 +178,8 @@ def test_schedule_compatibility_preserves_explicit_configuration(options, specia
         return httpx.Response(200, json=response)
 
     with api.KorailClient(
-        api.KorailConfig(netfunnel_enabled=False, **options), transport=httpx.MockTransport(handle)
+        api.KorailConfig(netfunnel_enabled=False, dynapath_mode="v2-diagnostic", **options),
+        transport=httpx.MockTransport(handle),
     ) as client:
         client.search_trains(
             api.TrainSearchQuery("서울", "부산", "20991230", "090000"), use_special_schedule=special

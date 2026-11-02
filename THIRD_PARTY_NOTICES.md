@@ -34,4 +34,6 @@ The transport profile uses protocol fingerprint parameters. Historical transport
 
 Selected search/session components from pykorail, korail2 and SRT were inspected for a performance investigation. No implementation from those projects was vendored or installed as a runtime dependency. Their pinned revisions and source links are recorded in `tools/reports/related-projects.md`. Those projects retain their own licenses; consultation is not a license exemption if their code is later incorporated.
 
+Software-declaration format observations and ordinary-reservation requests from pykorail revision `030576a6b41d874f35ebdf6b2d68ed76e70a1af7` also informed the compatibility implementation authored here. The recorded synthetic fixtures, source scope and validation limits are documented in [material provenance](https://github.com/sontheo/korail-api_v2/blob/main/docs/PROVENANCE.md#software-declaration-and-ordinary-reservation-compatibility-2026-11-02). No pykorail implementation or runtime dependency is bundled.
+
 KORAIL, KTX and other third-party names and marks remain the property of their respective owners. No endorsement or trademark grant is implied.

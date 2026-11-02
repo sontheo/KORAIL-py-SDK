@@ -13,6 +13,7 @@ korail-api_v2/
 │       │   ├── authentication.py
 │       │   ├── search.py
 │       │   ├── reservations.py
+│       │   ├── compatibility.py # Observed ordinary reservation wire profile
 │       │   ├── payments.py
 │       │   ├── validation.py
 │       │   └── operations.py # Operation orchestration and remaining read rules
@@ -43,6 +44,7 @@ The wheel contains the runtime namespace and release documentation. The source a
 - Authentication and session transitions: `services/authentication.py`.
 - Search validation and continuation values: `services/search.py`; client pagination is in `api/client.py`.
 - Passenger, journey, designated-seat and limousine reservation rules: `services/reservations.py`.
+- Declaration-provider ordinary reservation selection and query fields: `services/compatibility.py`; token serialization: `security/declaration.py`.
 - Card and settlement validation: `services/payments.py`.
 - Remaining account/product query rules and operation orchestration: `services/operations.py`.
 - Wire field mappings: `resources/contracts/requests.json`; their compilation and fresh per-call forms: `protocol/requests.py`.

@@ -19,8 +19,9 @@ def build(operation, config, supplied):
     del values["self"]
     steps = [row for row in load("requests")[operation]["exchanges"] if row["path"] != "/ts.wseq"]
     forms = [context._build(row["form"], values) for row in steps]
-    _, forms = prepare(context, operation, values, steps, forms)
-    order = list(steps[-1].get("field_order", {}).get("form", ()))
+    steps, forms = prepare(context, operation, values, steps, forms)
+    is_query = steps[-1]["method"] == "GET"
+    order = list(steps[-1].get("field_order", {}).get("query" if is_query else "form", ()))
     if operation == "reserve_transfer":
         forms[-1]["txtGdNo"] = values["legs"][0].goods_no or ""
         if "txtGdNo" not in order:
@@ -33,6 +34,7 @@ def build(operation, config, supplied):
     for key, val in forms[-1].items():
         if val is None or (
             val == ""
+            and not is_query
             and not (
                 (operation == "get_limousine_schedules" and key in {"trnNo", "rsvSaleDvCd"})
                 or (operation == "reserve_transfer" and key == "txtGdNo")

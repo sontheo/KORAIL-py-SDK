@@ -61,6 +61,7 @@ def test_mutation_variant(case):
         base_url="https://api.example.invalid",
         netfunnel_url="https://queue.example.invalid",
         key="SYNTHETIC-APP-KEY",
+        dynapath_mode="v2-diagnostic",
     )
     error = None
     result = None
