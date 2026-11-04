@@ -17,3 +17,6 @@
 4b4ebd5483d824a242fe8b63015c78d71fe1bf2d:tools/validation/observations/decoder-observations.json:generic-api-key:65505
 4b4ebd5483d824a242fe8b63015c78d71fe1bf2d:tools/validation/observations/decoder-observations.json:generic-api-key:66322
 4b4ebd5483d824a242fe8b63015c78d71fe1bf2d:tools/validation/observations/decoder-observations.json:generic-api-key:66339
+# Reviewed declaration token SHA-256 test vectors; see .github/secret-fixtures.md.
+aabd70887713ca6cc8740dde20d9374b329f38b4:tests/fixtures/declaration-vectors.json:generic-api-key:7
+aabd70887713ca6cc8740dde20d9374b329f38b4:tests/fixtures/declaration-vectors.json:generic-api-key:12
