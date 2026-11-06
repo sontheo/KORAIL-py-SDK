@@ -20,3 +20,6 @@
 # Reviewed declaration token SHA-256 test vectors; see .github/secret-fixtures.md.
 aabd70887713ca6cc8740dde20d9374b329f38b4:tests/fixtures/declaration-vectors.json:generic-api-key:7
 aabd70887713ca6cc8740dde20d9374b329f38b4:tests/fixtures/declaration-vectors.json:generic-api-key:12
+# The same reviewed vectors after the contributor-attribution history rewrite.
+4bf710b670cd9dc38a5bbff1d206d409b16bacb7:tests/fixtures/declaration-vectors.json:generic-api-key:7
+4bf710b670cd9dc38a5bbff1d206d409b16bacb7:tests/fixtures/declaration-vectors.json:generic-api-key:12
