@@ -1,6 +1,6 @@
 # Contributing
 
-Use Python 3.11 or newer and a dedicated environment. The project distribution is `korail-api`; the current repository name is `korail-api_v2`.
+Use Python 3.11 or newer and a dedicated environment. The project distribution is `korail-api`; the current repository name is `KORAIL-py-SDK`.
 
 ```sh
 python -m venv .venv

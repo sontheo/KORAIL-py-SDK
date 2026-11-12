@@ -3,7 +3,7 @@
 The distribution exposes a single public namespace, `korail_api`. Its modules separate the API, protocol, transport, services and models.
 
 ```text
-korail-api_v2/
+KORAIL-py-SDK/
 ├── src/
 │   └── korail_api/
 │       ├── api/             # Public client, facade, type attachment

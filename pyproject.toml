@@ -27,9 +27,9 @@ dev = [
 ]
 
 [project.urls]
-Repository = "https://github.com/sontheo/korail-api_v2"
-Issues = "https://github.com/sontheo/korail-api_v2/issues"
-Changelog = "https://github.com/sontheo/korail-api_v2/blob/main/CHANGELOG.md"
+Repository = "https://github.com/sontheo/KORAIL-py-SDK"
+Issues = "https://github.com/sontheo/KORAIL-py-SDK/issues"
+Changelog = "https://github.com/sontheo/KORAIL-py-SDK/blob/main/CHANGELOG.md"
 
 [tool.setuptools.packages.find]
 where = ["src"]
