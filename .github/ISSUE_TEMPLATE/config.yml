@@ -1,5 +1,5 @@
 blank_issues_enabled: false
 contact_links:
   - name: Documentation
-    url: https://sontheo.github.io/korail-api_v2/
+    url: https://sontheo.github.io/KORAIL-py-SDK/
     about: Installation, architecture, validation and legal notices.
