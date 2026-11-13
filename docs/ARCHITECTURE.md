@@ -33,7 +33,7 @@ KORAIL-py-SDK/
 │   ├── validation/          # Captured synthetic decoder comparisons
 │   ├── performance/         # Equivalent benchmarks and profiling
 ├── docs/                    # Current documentation site
-└── THIRD_PARTY_NOTICES.md    # Bundled data and runtime dependency notices
+└── .github/                 # CI and contribution guidance
 ```
 
 The wheel contains the runtime namespace and release documentation. The source archive also contains the standalone tests, artifact checker and catalog importer. Captured decoder outcomes, validators, performance tools and reports are development-only.

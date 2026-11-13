@@ -68,7 +68,7 @@ For local development:
 
 Tests use mock transports. A transaction response that cannot be decoded retains whole-response context in `error.raw` and nested context in `error.parser_raw` when available. Do not automatically retry a reservation or payment after an ambiguous outcome. Handle a business rejection separately from a malformed response or expired session.
 
-The root `CONTRIBUTING.md` documents offline validation, isolated artifact checks and documentation builds. The [validation guide](VALIDATION.md) lists observed results and limitations.
+The repository’s `.github/CONTRIBUTING.md` documents offline validation, isolated artifact checks and documentation builds. The [validation guide](VALIDATION.md) lists observed results and limitations.
 
 ## Maintenance cooldown
 
