@@ -1,5 +1,14 @@
 # Reviewed deterministic encryption test vectors; see .github/secret-fixtures.md.
 # Exact immutable commit/file/rule/line fingerprints only.
+# The same reviewed vectors after the decoder observations were compacted.
+8c90c6372d1117bf87ef60560c065d126057cb6c:tools/validation/observations/decoder-observations.json:generic-api-key:691
+8c90c6372d1117bf87ef60560c065d126057cb6c:tools/validation/observations/decoder-observations.json:generic-api-key:728
+8c90c6372d1117bf87ef60560c065d126057cb6c:tools/validation/observations/decoder-observations.json:generic-api-key:729
+8c90c6372d1117bf87ef60560c065d126057cb6c:tools/validation/observations/decoder-observations.json:generic-api-key:730
+8c90c6372d1117bf87ef60560c065d126057cb6c:tools/validation/observations/decoder-observations.json:generic-api-key:731
+8c90c6372d1117bf87ef60560c065d126057cb6c:tools/validation/observations/decoder-observations.json:generic-api-key:732
+8c90c6372d1117bf87ef60560c065d126057cb6c:tools/validation/observations/decoder-observations.json:generic-api-key:762
+8c90c6372d1117bf87ef60560c065d126057cb6c:tools/validation/observations/decoder-observations.json:generic-api-key:1179
 4b4ebd5483d824a242fe8b63015c78d71fe1bf2d:tests/fixtures/synthetic-cases.json:generic-api-key:86
 4b4ebd5483d824a242fe8b63015c78d71fe1bf2d:tools/validation/observations/decoder-observations.json:generic-api-key:117545
 4b4ebd5483d824a242fe8b63015c78d71fe1bf2d:tools/validation/observations/decoder-observations.json:generic-api-key:117565
