@@ -21,7 +21,7 @@ def check(wheel: Path, sdist: Path | None = None):
         with zipfile.ZipFile(wheel) as archive:
             names = archive.namelist()
             assert any(n.endswith("/licenses/NOTICE") for n in names)
-            assert any(n.endswith("/licenses/THIRD_PARTY_NOTICES.md") for n in names)
+            assert any(n.endswith("/licenses/docs/THIRD_PARTY_NOTICES.md") for n in names)
             assert any(n.endswith("/licenses/LICENSE") for n in names)
             top_level = next(n for n in names if n.endswith(".dist-info/top_level.txt"))
             assert archive.read(top_level).decode().split() == ["korail_api"]

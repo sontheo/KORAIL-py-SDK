@@ -1,3 +1,5 @@
+docs_dir: ../docs
+site_dir: ../site
 site_name: korail-api
 site_url: https://sontheo.github.io/KORAIL-py-SDK/
 site_description: Unofficial synchronous KORAIL Python client
@@ -26,6 +28,7 @@ markdown_extensions:
 nav:
   - Overview: index.md
   - Installation and usage: getting-started.md
+  - Changelog: CHANGELOG.md
   - Architecture: ARCHITECTURE.md
   - Validation: VALIDATION.md
   - Provenance: PROVENANCE.md

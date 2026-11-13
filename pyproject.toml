@@ -9,7 +9,7 @@ description = "Synchronous KORAIL protocol client"
 requires-python = ">=3.11"
 authors = [{name = "sontheo"}]
 license = "Apache-2.0"
-license-files = ["LICENSE", "NOTICE", "THIRD_PARTY_NOTICES.md"]
+license-files = ["LICENSE", "NOTICE", "docs/THIRD_PARTY_NOTICES.md"]
 readme = "README.md"
 dependencies = ["httpx>=0.28.1", "cryptography>=50.0.2", "curl_cffi==0.16.3"]
 
@@ -29,7 +29,7 @@ dev = [
 [project.urls]
 Repository = "https://github.com/sontheo/KORAIL-py-SDK"
 Issues = "https://github.com/sontheo/KORAIL-py-SDK/issues"
-Changelog = "https://github.com/sontheo/KORAIL-py-SDK/blob/main/CHANGELOG.md"
+Changelog = "https://github.com/sontheo/KORAIL-py-SDK/blob/main/docs/CHANGELOG.md"
 
 [tool.setuptools.packages.find]
 where = ["src"]
@@ -67,4 +67,4 @@ strict = true
 follow_imports = "silent"
 
 [tool.setuptools.data-files]
-"share/doc/korail-api" = ["README.md", "docs/LEGAL.md", "docs/PROVENANCE.md", "docs/VALIDATION.md", "docs/ARCHITECTURE.md", "CHANGELOG.md", "THIRD_PARTY_NOTICES.md"]
+"share/doc/korail-api" = ["README.md", "docs/LEGAL.md", "docs/PROVENANCE.md", "docs/VALIDATION.md", "docs/ARCHITECTURE.md", "docs/CHANGELOG.md", "docs/THIRD_PARTY_NOTICES.md"]

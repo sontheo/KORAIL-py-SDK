@@ -27,4 +27,4 @@ python tools/validation/check_decoder_equivalence.py
 python tools/performance/search_matrix.py
 ```
 
-The decoder validator compares retained, distinct synthetic outcomes and prints its results without writing a report. Performance tools use mock transports and do not measure live-service latency or transaction acceptance. See the repository's `CONTRIBUTING.md` for documentation builds and development details.
+The decoder validator compares retained, distinct synthetic outcomes and prints its results without writing a report. Performance tools use mock transports and do not measure live-service latency or transaction acceptance. See the repository's `.github/CONTRIBUTING.md` for documentation builds and development details.
