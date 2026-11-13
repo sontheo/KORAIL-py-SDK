@@ -32,7 +32,6 @@ KORAIL-py-SDK/
 │   ├── catalog/             # Vendor resource importer; explicit input only
 │   ├── validation/          # Captured synthetic decoder comparisons
 │   ├── performance/         # Equivalent benchmarks and profiling
-│   └── reports/             # Comparison evidence and recorded samples
 ├── docs/                    # Current documentation site
 └── THIRD_PARTY_NOTICES.md    # Bundled data and runtime dependency notices
 ```

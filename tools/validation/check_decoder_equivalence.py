@@ -54,8 +54,6 @@ def run():
         except Exception as error:
             counts["error"] += 1
             failures.append({"model": name, "error": str(error), "function": row["function"]})
-    report = {"counts": dict(counts), "failures": failures}
-    (ROOT / "tools/reports/decoder-check-report.json").write_text(json.dumps(report, indent=2) + "\n")
     grouped = Counter((r["model"], tuple(r.get("fields", [])), r.get("error", "")) for r in failures)
     print(dict(counts))
     for key, count in grouped.most_common(35):

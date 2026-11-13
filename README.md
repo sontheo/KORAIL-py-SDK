@@ -1,10 +1,6 @@
 <p align="center">
   <img src="assets/readme-banner.svg" alt="korail-api — Python client, clear boundaries" width="100%">
-  <br><br>
-  <img src="assets/api-status.svg" alt="Manually maintained KORAIL API status" width="390">
 </p>
-
-<p align="center"><sub>Maintainer-set status, not a live probe. Toggle with <code>python3 tools/set_api_status.py on|off</code>, then commit and push to publish.</sub></p>
 
 # korail-api
 
@@ -110,7 +106,7 @@ See [ARCHITECTURE.md](docs/ARCHITECTURE.md) for ownership boundaries and locatio
 
 ## Validation and performance
 
-The standalone suite contains **271 offline tests**. Another **1,915 synthetic decoder outcomes** are checked by the development validator. See [VALIDATION.md](docs/VALIDATION.md) for the checks and their limits.
+The test suite and decoder comparisons use synthetic data. See [VALIDATION.md](docs/VALIDATION.md) for the checks and their limits.
 
 Offline benchmarks exercise mock transports and do not establish real KORAIL request latency or acceptance.
 
@@ -122,13 +118,12 @@ Offline benchmarks exercise mock transports and do not establish real KORAIL req
 .venv/bin/ruff check .
 .venv/bin/ruff format --check .
 .venv/bin/mypy
-.venv/bin/python tools/validation/check_decoder_equivalence.py
 .venv/bin/python -m build
 .venv/bin/python -m twine check dist/*
 .venv/bin/python tools/packaging/check_artifacts.py dist/*.whl --sdist dist/*.tar.gz
 ```
 
-Tests block network traffic and use synthetic data. See [CONTRIBUTING.md](CONTRIBUTING.md) for documentation builds and packaging boundaries. Do not include credentials, passenger data, payment details or unredacted responses in issues.
+Tests block network traffic and use synthetic data. See [CONTRIBUTING.md](CONTRIBUTING.md) for repository-only checks, documentation builds and packaging boundaries. Do not include credentials, passenger data, payment details or unredacted responses in issues.
 
 ## License and provenance
 

@@ -19,7 +19,7 @@ Tests use synthetic data and block socket connections and native curl requests. 
 
 Maintain the `korail_api` public exports, constructor signatures, enum values, request ordering, raw-response identity and error distinctions. Transaction requests must not be retried automatically. Preserve whole-response and nested parser context on failures while treating that context as sensitive. Extend the standalone tests when changing behavior.
 
-Synthetic outcomes under `tools/validation/observations/` are development-only test data and are excluded from release artifacts.
+Synthetic outcomes under `tools/validation/observations/` are development-only test data and are excluded from release artifacts. The decoder comparison command above requires a repository checkout; it is not included in the source distribution. The source distribution includes the standalone tests and packaging checker.
 
 ## Performance
 
