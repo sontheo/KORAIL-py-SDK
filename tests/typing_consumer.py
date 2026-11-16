@@ -7,6 +7,7 @@ from korail_api import (
     Korail,
     KorailClient,
     KorailConfig,
+    KorailDynaPathError,
     KorailPassengerCounts,
     SelfSeatChangeInfoRequest,
     StationDataResponse,
@@ -43,3 +44,10 @@ def maintenance_types(policy: MaintenancePolicy, error: MaintenanceDeferredError
     assert_type(error.retry_after, float)
     assert_type(policy.failure("https://api.example.invalid", error), float | None)
     client.close()
+
+
+def dynapath_types(error: KorailDynaPathError) -> None:
+    assert_type(error.dynapath_code, str | None)
+    assert_type(error.h_msg_cd, str | None)
+    assert_type(error.request_id, str | None)
+    assert_type(error.display_message, str)

@@ -15,6 +15,23 @@ from korail_api.protocol.schema import load
 from korail_api.transport.curl import build_transport
 
 
+def _dynapath_rejection_code(raw, *, protected):
+    blocked_codes = {"-1203", "-1406", "-2000", "-8004", "-8005", "-8201", "-8202", "-8203"}
+    explicit = raw.get("dynaPathResultCode")
+    explicit = str(explicit) if type(explicit) in (int, str) else None
+    macro = raw.get("h_msg_cd") == "macro_err1"
+    if explicit in blocked_codes or (macro and explicit not in (None, "", "0")):
+        return explicit
+    if protected or macro:
+        for name in ("code", "h_msg_cd"):
+            value = raw.get(name)
+            if type(value) in (int, str) and str(value) in blocked_codes:
+                return str(value)
+    if macro:
+        return "macro_err1"
+    return None
+
+
 def parse_base_response(
     raw, *, raise_on_fail=True, require_envelope=True, require_result=None, common_out=None
 ):
@@ -234,16 +251,11 @@ class KorailHttpClient:
                 error.raw = response.content
             raise http_error_details(error, response, self.maintenance.clock())
         protected = route in load("constants")["DYNAPATH_ALLOWLIST_PATHS"]["items"]
-        if protected and isinstance(raw, dict):
-            blocked_codes = {"-1203", "-1406", "-2000", "-8005", "-8201", "-8202", "-8203"}
-            blocked = next(
-                (str(v) for v in raw.values() if type(v) in (int, str) and str(v) in blocked_codes),
-                None,
-            )
+        if isinstance(raw, dict):
+            blocked = _dynapath_rejection_code(raw, protected=protected or include_dynapath)
             if blocked:
-                error = E.KorailDynaPathError("Server rejected protocol access")
+                error = E.KorailDynaPathError("Server rejected protocol access", raw=raw)
                 error.code = blocked
-                error.raw = raw
                 raise http_error_details(error, response, self.maintenance.clock())
         if not response.is_success:
             error = E.KorailTransportError(f"HTTP server returned status {response.status_code}")

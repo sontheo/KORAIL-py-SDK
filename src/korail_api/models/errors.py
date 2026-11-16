@@ -39,7 +39,22 @@ class KorailAuthError(KorailApiError):
 class KorailDynaPathError(KorailApiError):
     def __init__(self, message: str | None = None, *, raw: object | None = None) -> None:
         self.raw = raw
+        payload = raw if isinstance(raw, dict) else {}
+        value = payload.get("dynaPathResultCode")
+        self.dynapath_code = str(value) if type(value) in (int, str) else None
+        self.h_msg_cd = payload.get("h_msg_cd") if isinstance(payload.get("h_msg_cd"), str) else None
+        self.request_id = payload.get("requestId") if isinstance(payload.get("requestId"), str) else None
         super().__init__(message or "Server rejected protocol access")
+
+    @property
+    def display_message(self) -> str:
+        if self.code == "-8202":
+            return "Access was rejected due to a network access policy (VPN or data center)."
+        if self.code == "-8004" or self.h_msg_cd == "macro_err1":
+            return (
+                "Client validation or automation-related access was rejected; the exact cause is unconfirmed."
+            )
+        return "Server rejected protocol access."
 
 
 class KorailAppError(KorailApiError):

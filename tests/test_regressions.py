@@ -200,7 +200,7 @@ def test_schedule_default_version_survives_dataclass_replace():
     assert type(explicit.version) is str
 
 
-@pytest.mark.parametrize("code", [-8005, "-8005", -8202, "-8202"])
+@pytest.mark.parametrize("code", [-8004, "-8004", -8005, "-8005", -8202, "-8202"])
 def test_dynapath_rejection_preserves_code_and_does_not_retry(code):
     seen = []
 

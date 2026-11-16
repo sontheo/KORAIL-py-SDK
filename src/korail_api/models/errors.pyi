@@ -48,6 +48,9 @@ class KorailAuthError(KorailApiError):
     redirect_url: str
 
 class KorailDynaPathError(KorailApiError):
+    dynapath_code: str | None
+    h_msg_cd: str | None
+    request_id: str | None
     raw: object
     parser_raw: object
     code: str | None
