@@ -12,7 +12,7 @@ Apache-2.0 permits personal, internal and commercial use subject to its terms. T
 
 ## Implementation boundary
 
-The code is implemented in `src/korail_api/`, the package's only public namespace. [PROVENANCE.md](PROVENANCE.md) records bundled materials and their origins.
+The code is implemented in `src/korail_py_sdk/`, the package's only public namespace. [PROVENANCE.md](PROVENANCE.md) records bundled materials and their origins.
 
 ## Redistribution
 
@@ -22,7 +22,7 @@ The wheel and source distribution include this project's license and notices for
 
 ## Vendor message data
 
-`src/korail_api/resources/messages/messages.json` contains text extracted from a local KORAIL application resource identified as version `7.0.10`. This text is third-party material, not maintainer-authored text. The source APK and vendor binaries are not distributed. The recorded resource hash and extraction method identify the data but do not authenticate its delivery origin or establish permission to redistribute it.
+`src/korail_py_sdk/resources/messages/messages.json` contains text extracted from a local KORAIL application resource identified as version `7.0.10`. This text is third-party material, not maintainer-authored text. The source APK and vendor binaries are not distributed. The recorded resource hash and extraction method identify the data but do not authenticate its delivery origin or establish permission to redistribute it.
 
 **No separate redistribution license or permission for this vendor message text has been established by this project.** The Apache-2.0 grant for maintainer-authored code does not grant rights to this text. Inclusion and attribution are not a rights clearance. Anyone proposing redistribution must assess and establish the rights required for their use. See [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) and [PROVENANCE.md](PROVENANCE.md).
 

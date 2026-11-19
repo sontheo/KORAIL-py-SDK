@@ -3,7 +3,7 @@ requires = ["setuptools>=84.2.1"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "korail-api"
+name = "korail-py-SDK"
 version = "0.1.0"
 description = "Synchronous KORAIL protocol client"
 requires-python = ">=3.11"
@@ -33,11 +33,11 @@ Changelog = "https://github.com/sontheo/KORAIL-py-SDK/blob/main/docs/CHANGELOG.m
 
 [tool.setuptools.packages.find]
 where = ["src"]
-include = ["korail_api*"]
+include = ["korail_py_sdk*"]
 namespaces = false
 
 [tool.setuptools.package-data]
-korail_api = ["resources/contracts/*.json", "resources/messages/*.json", "py.typed", "*.pyi", "**/*.pyi"]
+korail_py_sdk = ["resources/contracts/*.json", "resources/messages/*.json", "py.typed", "*.pyi", "**/*.pyi"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
@@ -56,9 +56,9 @@ select = ["E4", "E7", "E9", "F", "I"]
 
 [tool.ruff.lint.per-file-ignores]
 # These modules install public declarations from the constructor contract.
-"src/korail_api/models/records.py" = ["F821", "E402"]
-"src/korail_api/__init__.py" = ["F401", "F821"]
-"src/korail_api/**/*.pyi" = ["F401", "F403", "F405"]
+"src/korail_py_sdk/models/records.py" = ["F821", "E402"]
+"src/korail_py_sdk/__init__.py" = ["F401", "F821"]
+"src/korail_py_sdk/**/*.pyi" = ["F401", "F403", "F405"]
 
 [tool.mypy]
 files = ["tests/typing_consumer.py"]
@@ -67,4 +67,4 @@ strict = true
 follow_imports = "silent"
 
 [tool.setuptools.data-files]
-"share/doc/korail-api" = ["README.md", "docs/LEGAL.md", "docs/PROVENANCE.md", "docs/VALIDATION.md", "docs/ARCHITECTURE.md", "docs/CHANGELOG.md", "docs/THIRD_PARTY_NOTICES.md"]
+"share/doc/korail-py-SDK" = ["README.md", "docs/LEGAL.md", "docs/PROVENANCE.md", "docs/VALIDATION.md", "docs/ARCHITECTURE.md", "docs/CHANGELOG.md", "docs/THIRD_PARTY_NOTICES.md"]

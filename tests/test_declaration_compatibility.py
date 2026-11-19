@@ -9,12 +9,12 @@ from urllib.parse import parse_qs
 import httpx
 import pytest
 
-import korail_api as api
-from korail_api.models.records import restore
-from korail_api.protocol.forms import build
-from korail_api.security import declaration
-from korail_api.security.declaration import DeclarationTokenProvider, encode_declaration
-from korail_api.security.signing import PreparedRequestSigner
+import korail_py_sdk as api
+from korail_py_sdk.models.records import restore
+from korail_py_sdk.protocol.forms import build
+from korail_py_sdk.security import declaration
+from korail_py_sdk.security.declaration import DeclarationTokenProvider, encode_declaration
+from korail_py_sdk.security.signing import PreparedRequestSigner
 
 DATA = Path(__file__).parent / "fixtures"
 VECTORS = json.loads((DATA / "declaration-vectors.json").read_text())["vectors"]

@@ -2,8 +2,8 @@
 
 import httpx
 
-from korail_api import KorailConfig
-from korail_api.transport.curl import build_transport
+from korail_py_sdk import KorailConfig
+from korail_py_sdk.transport.curl import build_transport
 
 
 def test_environment_proxy_bypass_and_explicit_proxy_precedence(monkeypatch):

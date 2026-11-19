@@ -8,12 +8,12 @@ from pathlib import Path
 import httpx
 import pytest
 
-import korail_api as api
-import korail_api.protocol.codec as codec
-from korail_api.api.client import KorailClient
-from korail_api.models.records import REGISTRY, restore
-from korail_api.protocol.schema import load
-from korail_api.transport.http import KorailHttpClient
+import korail_py_sdk as api
+import korail_py_sdk.protocol.codec as codec
+from korail_py_sdk.api.client import KorailClient
+from korail_py_sdk.models.records import REGISTRY, restore
+from korail_py_sdk.protocol.schema import load
+from korail_py_sdk.transport.http import KorailHttpClient
 
 CASES = json.loads((Path(__file__).parent / "fixtures/synthetic-cases.json").read_text())
 TRANSACTIONS = [

@@ -8,8 +8,8 @@ from urllib.parse import parse_qs
 import httpx
 import pytest
 
-import korail_api as api
-from korail_api.models.records import restore
+import korail_py_sdk as api
+from korail_py_sdk.models.records import restore
 
 CASES = json.loads((Path(__file__).parents[1] / "tests" / "fixtures" / "synthetic-cases.json").read_text())
 

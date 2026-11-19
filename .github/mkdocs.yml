@@ -1,6 +1,6 @@
 docs_dir: ../docs
 site_dir: ../site
-site_name: korail-api
+site_name: korail-py-SDK
 site_url: https://sontheo.github.io/KORAIL-py-SDK/
 site_description: Unofficial synchronous KORAIL Python client
 repo_url: https://github.com/sontheo/KORAIL-py-SDK

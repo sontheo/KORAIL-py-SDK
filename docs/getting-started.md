@@ -1,16 +1,17 @@
 # Installation and usage
 
-Use Python 3.11 or newer. From a checkout of the current source:
+Use Python 3.11 or newer. The PyPI release is being prepared and is not yet published. Once published, install it with:
 
 ```sh
-python -m venv .venv
-.venv/bin/python -m pip install '.[socks]'
+python -m pip install korail-py-SDK
+# Optional SOCKS proxy support:
+python -m pip install 'korail-py-SDK[socks]'
 ```
 
-Install from source; this package is not available on PyPI. Import the public API from `korail_api`:
+Import the public API from `korail_py_sdk`:
 
 ```python
-from korail_api import KorailClient, TrainSearchQuery
+from korail_py_sdk import KorailClient, TrainSearchQuery
 
 with KorailClient() as client:
     response = client.search_trains(TrainSearchQuery("서울", "부산", "20991230", "090000"))
@@ -34,7 +35,7 @@ DynaPath rejections also include `-8004` and the `h_msg_cd="macro_err1"` marker,
 
 Applications explicitly setting `KORAIL_DYNAPATH_MODE=v2-diagnostic` must select `v2-declaration` after installing the updated package to use the new profile. A package default does not override an explicit application setting; updating this checkout does not redeploy an existing service.
 
-The declaration provider's default board is unspecified and StrongBox is false. Applications can configure accurate additional facts using `korail_api.security.declaration.DeclarationTokenProvider` (`device_id`, `model`, `release`, `manufacturer`, `board`, `sdk_int`, `strongbox`) as their token provider. These inputs are declarations, not proof of hardware or registration. The codec is checked against two recorded emulator vectors and the ordinary-reservation query against 17 independently intercepted synthetic pykorail requests. This checkout has not sent a live transaction to validate the new implementation; server acceptance can change.
+The declaration provider's default board is unspecified and StrongBox is false. Applications can configure accurate additional facts using `korail_py_sdk.security.declaration.DeclarationTokenProvider` (`device_id`, `model`, `release`, `manufacturer`, `board`, `sdk_int`, `strongbox`) as their token provider. These inputs are declarations, not proof of hardware or registration. The codec is checked against two recorded emulator vectors and the ordinary-reservation query against 17 independently intercepted synthetic pykorail requests. This checkout has not sent a live transaction to validate the new implementation; server acceptance can change.
 
 For the default OkHttp transport, proxy environment variables are evaluated per request and `NO_PROXY` exclusions are honored. An explicit `KorailConfig(proxy=...)` takes precedence over both proxy environment variables and `NO_PROXY`; a failed explicit proxy is not silently bypassed.
 
@@ -43,8 +44,8 @@ For the default OkHttp transport, proxy environment variables are evaluated per 
 `PreparedRequestSigner` is an optional adapter for a separately supplied signer. It is not a DynaPath implementation and does not register a device. It receives the final HTTP method, URL and SHA-256 digest of the exact body bytes, after URL and body encoding. The signer returns the token header value. `SigningRequest` hides the URL and digest in its representation; the signer must also avoid logging them or its token. The old `token_provider` interface remains supported.
 
 ```python
-from korail_api import DynapathConfig, KorailConfig
-from korail_api.security.signing import PreparedRequestSigner, SigningRegistrationRequired
+from korail_py_sdk import DynapathConfig, KorailConfig
+from korail_py_sdk.security.signing import PreparedRequestSigner, SigningRegistrationRequired
 
 
 def sign_request(request):
@@ -83,7 +84,7 @@ After the deadline, the application must explicitly request `client.get_service_
 For a single-process application, use the default in-memory policy. No database setup is needed; clients in that process share cooldowns and recovery-probe exclusion. Restarting the process clears this state, so the next call may contact the server again.
 
 ```python
-from korail_api import KorailApiError, KorailClient
+from korail_py_sdk import KorailApiError, KorailClient
 
 with KorailClient() as client:
     try:
@@ -94,6 +95,6 @@ with KorailClient() as client:
         next_check_at = error.next_probe_at  # UTC Unix timestamp for your scheduler.
 ```
 
-SQLite is optional for applications needing restart persistence or multiple processes. Import `MaintenancePolicy` from `korail_api.maintenance`, create it with a shared local `state_path`, and pass it as `KorailClient(maintenance=policy)`. The parent directory must already exist. It stores no credentials or response bodies. Configure `probe_lease` above your maximum status-request duration if you increase timeouts beyond the default 5-minute lease.
+SQLite is optional for applications needing restart persistence or multiple processes. Import `MaintenancePolicy` from `korail_py_sdk.maintenance`, create it with a shared local `state_path`, and pass it as `KorailClient(maintenance=policy)`. The parent directory must already exist. It stores no credentials or response bodies. Configure `probe_lease` above your maximum status-request duration if you increase timeouts beyond the default 5-minute lease.
 
 Server failures expose `status_code`, `retry_after` and `next_probe_at` where available. Invalid result envelopes are rejected; maintenance protection also applies to `raise_on_fail=False`. Queue errors cannot bypass admission. The default queue wait budget is 300 seconds; explicit `netfunnel_wait_limit=None` still permits unlimited normal queue waiting. An already-running request and token cleanup may finish after the budget.

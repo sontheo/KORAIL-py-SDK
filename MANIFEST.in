@@ -2,7 +2,7 @@
 global-exclude *
 include pyproject.toml MANIFEST.in LICENSE NOTICE README.md
 include docs/CHANGELOG.md docs/THIRD_PARTY_NOTICES.md docs/LEGAL.md docs/PROVENANCE.md docs/VALIDATION.md docs/ARCHITECTURE.md
-recursive-include src/korail_api *.py *.pyi py.typed *.json
+recursive-include src/korail_py_sdk *.py *.pyi py.typed *.json
 recursive-include tests *.py
 recursive-include tests/fixtures *.json
 include tools/packaging/check_artifacts.py tools/catalog/import_messages.py

@@ -9,7 +9,7 @@ from curl_cffi.requests import Session
 
 @pytest.fixture(autouse=True)
 def isolate_maintenance(monkeypatch):
-    from korail_api import maintenance
+    from korail_py_sdk import maintenance
 
     monkeypatch.setattr(maintenance, "_DEFAULT_POLICY", maintenance.MaintenancePolicy(jitter=lambda _: 0))
 

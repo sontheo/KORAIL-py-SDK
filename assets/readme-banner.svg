@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1280" height="380" viewBox="0 0 1280 380" role="img" aria-labelledby="title desc">
-<title id="title">korail-api — a Python railway client</title>
+<title id="title">korail-py-SDK — a Python railway client</title>
 <desc id="desc">A dark blue banner with turquoise route lines, modular client architecture and the words Python client. Clear boundaries.</desc>
 <defs>
   <linearGradient id="bg" x2="1" y2="1"><stop stop-color="#0b1220"/><stop offset="1" stop-color="#142c3a"/></linearGradient>
@@ -11,11 +11,11 @@
 <g font-family="Arial, Helvetica, sans-serif">
   <rect x="64" y="52" width="240" height="30" rx="15" fill="#203c48"/>
   <text x="81" y="72" fill="#8ce8d8" font-size="12" letter-spacing="2">UNOFFICIAL PYTHON SDK</text>
-  <text x="60" y="168" fill="#f4f9fc" font-size="76" font-weight="700" letter-spacing="-3">korail-api</text>
+  <text x="60" y="168" fill="#f4f9fc" font-size="76" font-weight="700" letter-spacing="-3">korail-py-SDK</text>
   <text x="64" y="214" fill="#c6d6df" font-size="24">Python client. Clear boundaries.</text>
   <text x="64" y="257" fill="#8daab9" font-size="17">Search · sessions · reservations · payments</text>
   <rect x="64" y="303" width="324" height="30" rx="6" fill="#101f2c" stroke="#304c5b"/>
-  <text x="80" y="323" fill="#bdcbd4" font-family="monospace" font-size="13">from korail_api import KorailClient</text>
+  <text x="80" y="323" fill="#bdcbd4" font-family="monospace" font-size="13">from korail_py_sdk import KorailClient</text>
   <path d="M760 91H960Q1000 91 1000 131V235Q1000 280 1045 280H1208" fill="none" stroke="#294455" stroke-width="18" stroke-linecap="round"/>
   <path d="M760 91H960Q1000 91 1000 131V235Q1000 280 1045 280H1208" fill="none" stroke="url(#rail)" stroke-width="3" stroke-linecap="round"/>
   <path d="M760 280H887Q930 280 930 237V130Q930 91 969 91H1208" fill="none" stroke="#294455" stroke-width="18" stroke-linecap="round"/>

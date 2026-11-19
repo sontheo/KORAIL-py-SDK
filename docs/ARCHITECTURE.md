@@ -1,11 +1,11 @@
 # Source layout
 
-The distribution exposes a single public namespace, `korail_api`. Its modules separate the API, protocol, transport, services and models.
+The distribution exposes a single public namespace, `korail_py_sdk`. Its modules separate the API, protocol, transport, services and models.
 
 ```text
 KORAIL-py-SDK/
 ├── src/
-│   └── korail_api/
+│   └── korail_py_sdk/
 │       ├── api/             # Public client, facade, type attachment
 │       ├── configuration/   # Device and environment configuration
 │       ├── models/          # Value objects and exception hierarchy

@@ -10,8 +10,8 @@ This record covers bundled third-party data, runtime dependencies and technical 
 | Resource | `assets/error_json.json` |
 | SHA-256 of resource | `7b7998f2582217aba20e58a722b3640a6ef3a2751d9816aaf2f78cfc97c74d00` |
 | Codes / translations | 12,430 / 19,381 |
-| Packaged data | `src/korail_api/resources/messages/messages.json` |
-| Packaged provenance | `src/korail_api/resources/messages/message-provenance.json` |
+| Packaged data | `src/korail_py_sdk/resources/messages/messages.json` |
+| Packaged provenance | `src/korail_py_sdk/resources/messages/message-provenance.json` |
 | Rights status | Third-party text; no separate redistribution permission established |
 
 The source artifact's delivery origin was not independently authenticated. The application binary is not distributed. Independent extraction, attribution and recording a hash do not transfer copyright or grant redistribution permission. This project's Apache-2.0 grant does not apply to rights the maintainer does not hold.

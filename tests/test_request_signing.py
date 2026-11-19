@@ -5,9 +5,9 @@ from hashlib import sha256
 import httpx
 import pytest
 
-from korail_api import DynapathConfig, KorailConfig, KorailProtocolError
-from korail_api.security.signing import PreparedRequestSigner, SigningRegistrationRequired
-from korail_api.transport.http import KorailHttpClient
+from korail_py_sdk import DynapathConfig, KorailConfig, KorailProtocolError
+from korail_py_sdk.security.signing import PreparedRequestSigner, SigningRegistrationRequired
+from korail_py_sdk.transport.http import KorailHttpClient
 
 ROUTE = "/classes/com.korail.mobile.seatMovie.ScheduleView"
 
