@@ -1,6 +1,9 @@
 # Changelog
 
-## Unreleased
+## 0.1.1 — 2026-11-19
+
+- Rename the distribution to `korail-py-SDK` and its import namespace to `korail_py_sdk`.
+- Streamline response decoding, request field ordering and model default construction.
 
 - Classify DynaPath `-8004` and `macro_err1` consistently before HTTP/business errors, preserve structured diagnostic metadata, and distinguish network-policy guidance without automatic retries or claims about specific detection triggers.
 - Default to software declaration tokens with fresh request timestamps/nonces and a configuration-scoped synthetic identity; retain explicit diagnostic/legacy modes and external signers.
@@ -22,4 +25,4 @@
 - Keep runtime annotation installation compatible with Python 3.14's unified union types.
 - Add English documentation, original banner artwork and explicit legal/provenance notices.
 
-GitHub release `v0.1.0` includes the wheel and source archive. The package has not been uploaded to PyPI. Offline validation and live-service validation are distinct; this release has no live authentication or transaction acceptance claim.
+GitHub release `v0.1.0` includes the wheel and source archive. That release used the earlier `korail-api` distribution name. Offline validation and live-service validation are distinct; this release has no live authentication or transaction acceptance claim.

@@ -28,7 +28,7 @@ Transaction methods can affect real tickets and money. Automated validation is o
 
 ## Install
 
-The PyPI release is being prepared and is not yet published. Once published, install the `korail-py-SDK` distribution with Python 3.11 or newer:
+Install the `korail-py-SDK` distribution with Python 3.11 or newer:
 
 ```sh
 python -m pip install korail-py-SDK
