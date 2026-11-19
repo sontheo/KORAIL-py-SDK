@@ -71,6 +71,8 @@ jobs:
         run: python -m mypy
       - name: Standalone offline contracts
         run: python -m pytest
+      - name: Traffic archive tests
+        run: python -m pytest tools/traffic/test_collect.py
       - name: Recorded decoder equivalence
         run: python tools/validation/check_decoder_equivalence.py
       - name: Build wheel and source distribution
