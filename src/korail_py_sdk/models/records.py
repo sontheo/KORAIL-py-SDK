@@ -6,7 +6,6 @@ objects hold data and small, independently implemented convenience operations.
 
 from __future__ import annotations
 
-import copy
 import dataclasses as dc
 import re
 import time
@@ -245,7 +244,7 @@ def _build_models():
                     elif encoded is None or type(encoded) in (str, int, bool, float):
                         options["default"] = encoded
                     else:
-                        options["default_factory"] = lambda encoded=encoded: restore(copy.deepcopy(encoded))
+                        options["default_factory"] = lambda encoded=encoded: restore(encoded)
                 elif "factory" in f:
                     options["default_factory"] = lambda: REGISTRY["DynapathConfig"]()
                 annotation = f["type"]
@@ -314,7 +313,8 @@ def _summary(self):
 
     timing = stamp(self.departure_date, self.departure_time) + "~" + stamp(self.arrival_date, self.arrival_time)
     line = f"[{self.train_class_name or '열차'} {self.train_no}] {timing} {self.departure_station_name or '?'}~{self.arrival_station_name or '?'}"
-    return line + (f" ({self.duration_text})" if self.duration_text is not None else "")
+    duration = self.duration_text
+    return line + (f" ({duration})" if duration is not None else "")
 
 
 TrainSummary.duration_text = property(_duration_text)

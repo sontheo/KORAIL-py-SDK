@@ -4,7 +4,6 @@ from __future__ import annotations
 
 import dataclasses
 import inspect
-from functools import lru_cache
 
 from korail_py_sdk.models import errors as E
 from korail_py_sdk.models.records import CONTRACT, REGISTRY, restore
@@ -29,19 +28,13 @@ def _signature(spec):
     return inspect.Signature(parameters)
 
 
-@lru_cache(maxsize=256)
-def _order_members(order):
-    return frozenset(order)
-
-
 def order_fields(values, order):
     if not order:
         return values
-    members = _order_members(tuple(order))
-    return {
-        **{key: values[key] for key in order if key in values},
-        **{key: val for key, val in values.items() if key not in members},
-    }
+    ordered = {key: values[key] for key in order if key in values}
+    # Updating existing keys preserves their wire order and appends the remaining fields.
+    ordered.update(values)
+    return ordered
 
 
 class KorailClient:

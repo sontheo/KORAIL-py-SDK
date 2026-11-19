@@ -10,7 +10,7 @@ import pytest
 
 import korail_py_sdk as api
 import korail_py_sdk.protocol.codec as codec
-from korail_py_sdk.api.client import KorailClient
+from korail_py_sdk.api.client import KorailClient, order_fields
 from korail_py_sdk.models.records import REGISTRY, restore
 from korail_py_sdk.protocol.schema import load
 from korail_py_sdk.transport.http import KorailHttpClient
@@ -105,6 +105,22 @@ def test_model_and_method_surface_matches_packaged_contract():
         if dataclasses.is_dataclass(model):
             assert len(dataclasses.fields(model)) == len(load("public-interface")["models"][name]["fields"])
     assert len(load("public-interface")["client"]) == 86
+
+
+def test_search_results_own_their_default_mappings():
+    first = api.TrainSearchResult([], api.BaseKorailResponse())
+    second = api.TrainSearchResult([], api.BaseKorailResponse())
+    first.raw["changed"] = True
+    first.metadata.raw["changed"] = True
+    assert second.raw == {}
+    assert second.metadata.raw == {}
+
+
+def test_order_fields_preserves_wire_order_and_extra_fields():
+    values = {"extra": 0, "second": 2, "last": None, "first": 1}
+    result = order_fields(values, ["first", "missing", "second", "first"])
+    assert list(result.items()) == [("first", 1), ("second", 2), ("extra", 0), ("last", None)]
+    assert list(values) == ["extra", "second", "last", "first"]
 
 
 def test_message_catalog_records_vendor_origin():
