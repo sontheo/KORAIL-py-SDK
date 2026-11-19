@@ -11,11 +11,11 @@ from threading import Event
 import httpx
 import pytest
 
-from korail_api import KorailClient, KorailConfig
-from korail_api.maintenance import SERVICE_STATUS_PATH, MaintenanceDeferredError, MaintenancePolicy
-from korail_api.models import errors as E
-from korail_api.transport.admission import Admission
-from korail_api.transport.http import KorailHttpClient, parse_base_response
+from korail_py_sdk import KorailClient, KorailConfig
+from korail_py_sdk.maintenance import SERVICE_STATUS_PATH, MaintenanceDeferredError, MaintenancePolicy
+from korail_py_sdk.models import errors as E
+from korail_py_sdk.transport.admission import Admission
+from korail_py_sdk.transport.http import KorailHttpClient, parse_base_response
 
 BASE = "https://maintenance.example.invalid"
 OK = {"strResult": "SUCC"}
@@ -408,7 +408,7 @@ def test_another_process_cannot_take_an_active_persistent_probe(clock, tmp_path)
     code = """
 import sys
 sys.path.insert(0, sys.argv[1])
-from korail_api.maintenance import MaintenancePolicy, MaintenanceDeferredError
+from korail_py_sdk.maintenance import MaintenancePolicy, MaintenanceDeferredError
 p = MaintenancePolicy(state_path=sys.argv[2], clock=lambda: float(sys.argv[3]))
 try:
     with p.request(sys.argv[4], probe=True):
@@ -486,7 +486,7 @@ def test_default_queue_budget_stops_an_endlessly_waiting_queue(clock):
 def test_invalid_first_cancellation_stage_never_sends_second_stage(clock, value):
     import json
 
-    from korail_api.models.records import restore
+    from korail_py_sdk.models.records import restore
 
     cases = json.loads((Path(__file__).parent / "fixtures/synthetic-cases.json").read_text())
     case = cases["cancel_unpaid_hold"]
@@ -498,7 +498,7 @@ def test_invalid_first_cancellation_stage_never_sends_second_stage(clock, value)
 
     config = KorailConfig(base_url=BASE, netfunnel_enabled=False)
     with KorailClient(config, transport=httpx.MockTransport(handle), maintenance=policy(clock)) as c:
-        from korail_api import KorailSession
+        from korail_py_sdk import KorailSession
 
         c.session.current = KorailSession("SYNTHETIC-SESSION", customer_no="SYNTHETIC-CUSTOMER")
         with pytest.raises(E.KorailProtocolError):

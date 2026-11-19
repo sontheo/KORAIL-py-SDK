@@ -2,7 +2,7 @@
 
 ## Implementation and protocol data
 
-The code lives in `src/korail_api/`. Its architecture separates schema-directed requests and decoding, generated value objects, session state, queue admission, HTTP transport and token serialization.
+The code lives in `src/korail_py_sdk/`. Its architecture separates schema-directed requests and decoding, generated value objects, session state, queue admission, HTTP transport and token serialization.
 
 Protocol contracts describe public names, signatures, constructor defaults, wire fields, endpoint paths and serialization order. Synthetic input/output fixtures exercise those contracts. Decoder observations under `tools/validation/observations/` are development-only test data, excluded from release artifacts.
 

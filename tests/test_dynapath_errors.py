@@ -5,8 +5,8 @@ import pickle
 import httpx
 import pytest
 
-import korail_api as api
-from korail_api.transport.http import KorailHttpClient
+import korail_py_sdk as api
+from korail_py_sdk.transport.http import KorailHttpClient
 
 SCHEDULE = "/classes/com.korail.mobile.seatMovie.ScheduleView"
 RESERVATION = "/classes/com.korail.mobile.certification.TicketReservation"

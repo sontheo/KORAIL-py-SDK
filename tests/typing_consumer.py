@@ -2,7 +2,7 @@
 
 from typing import assert_type
 
-from korail_api import (
+from korail_py_sdk import (
     DynapathConfig,
     Korail,
     KorailClient,
@@ -14,8 +14,8 @@ from korail_api import (
     TrainSearchQuery,
     TrainSearchResult,
 )
-from korail_api.maintenance import MaintenanceDeferredError, MaintenancePolicy
-from korail_api.security.declaration import DeclarationTokenProvider
+from korail_py_sdk.maintenance import MaintenanceDeferredError, MaintenancePolicy
+from korail_py_sdk.security.declaration import DeclarationTokenProvider
 
 
 def example(client: KorailClient, facade: Korail) -> TrainSearchResult:

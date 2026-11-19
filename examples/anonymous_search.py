@@ -10,8 +10,8 @@ from zoneinfo import ZoneInfo
 
 import httpx
 
-from korail_api import KorailClient, KorailConfig, TrainSearchQuery
-from korail_api.transport.curl import OkHttpTransport, env_proxy_url
+from korail_py_sdk import KorailClient, KorailConfig, TrainSearchQuery
+from korail_py_sdk.transport.curl import OkHttpTransport, env_proxy_url
 
 
 class ReadOnlyTransport(httpx.BaseTransport):
@@ -54,7 +54,7 @@ def main():
     parser.add_argument("--live", action="store_true", required=True)
     parser.add_argument("--proxy", default=None)
     args = parser.parse_args()
-    logging.getLogger("korail_api.transport.admission").setLevel(logging.CRITICAL)
+    logging.getLogger("korail_py_sdk.transport.admission").setLevel(logging.CRITICAL)
     guard = ReadOnlyTransport(OkHttpTransport(proxy=args.proxy or env_proxy_url()))
     client = KorailClient(
         KorailConfig(timeout=12, netfunnel_timeout=3, netfunnel_wait_limit=15), transport=guard

@@ -5,8 +5,8 @@ from urllib.parse import parse_qs
 import httpx
 import pytest
 
-from korail_api import DynapathConfig, KorailConfig
-from korail_api.transport.http import KorailHttpClient
+from korail_py_sdk import DynapathConfig, KorailConfig
+from korail_py_sdk.transport.http import KorailHttpClient
 
 
 @pytest.mark.parametrize("base", ["https://api.example.invalid", "https://api.example.invalid/mobile/"])

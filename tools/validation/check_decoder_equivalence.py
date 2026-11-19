@@ -5,8 +5,8 @@ import json
 from collections import Counter
 from pathlib import Path
 
-from korail_api.models.records import REGISTRY
-from korail_api.protocol.codec import decode
+from korail_py_sdk.models.records import REGISTRY
+from korail_py_sdk.protocol.codec import decode
 
 ROOT = Path(__file__).resolve().parents[2]
 

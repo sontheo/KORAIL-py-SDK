@@ -7,8 +7,8 @@ from pathlib import Path
 
 import httpx
 
-import korail_api as api
-from korail_api.security.legacy import generate_dynapath_token
+import korail_py_sdk as api
+from korail_py_sdk.security.legacy import generate_dynapath_token
 
 ROOT = Path(__file__).resolve().parents[2]
 case = json.loads((ROOT / "tests/fixtures/synthetic-cases.json").read_text())["search_trains"]

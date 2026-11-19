@@ -9,7 +9,7 @@ response engines, generated value objects, service and transport boundaries,
 token serialization, endpoint URL reuse, failure-context
 preservation, independent tests, packaging and English documentation.
 
-Bundled vendor message text in src/korail_api/resources/messages/ was extracted
+Bundled vendor message text in src/korail_py_sdk/resources/messages/ was extracted
 from a local KORAIL application resource labeled 7.0.10. It is third-party text,
 not maintainer-authored work. No separate redistribution permission has been
 established. Extraction and attribution are not a rights grant.

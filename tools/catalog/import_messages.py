@@ -53,7 +53,9 @@ if __name__ == "__main__":
     parser.add_argument("apk", type=Path)
     parser.add_argument("--version", required=True)
     parser.add_argument(
-        "--target", type=Path, default=Path(__file__).resolve().parents[2] / "src/korail_api/resources/messages"
+        "--target",
+        type=Path,
+        default=Path(__file__).resolve().parents[2] / "src/korail_py_sdk/resources/messages",
     )
     options = parser.parse_args()
     print(json.dumps(extract(options.apk, options.version, options.target)))

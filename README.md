@@ -1,18 +1,18 @@
 <p align="center">
-  <img src="assets/readme-banner.svg" alt="korail-api — Python client, clear boundaries" width="100%">
+  <img src="https://raw.githubusercontent.com/sontheo/KORAIL-py-SDK/main/assets/readme-banner.svg" alt="korail-py-SDK — Python client, clear boundaries" width="100%">
 </p>
 
-# korail-api
+# korail-py-SDK
 
-> **Legal notice:** This is an unofficial client, unaffiliated with KORAIL. Apache-2.0 covers material the maintainer can license; it grants no service-access or trademark rights. Vendor message data has separate rights, and no independent redistribution grant has been established. Read [LEGAL.md](docs/LEGAL.md), [NOTICE](NOTICE), [third-party notices](docs/THIRD_PARTY_NOTICES.md) and [provenance](docs/PROVENANCE.md) before use or redistribution.
+> **Legal notice:** This is an unofficial client, unaffiliated with KORAIL. Apache-2.0 covers material the maintainer can license; it grants no service-access or trademark rights. Vendor message data has separate rights, and no independent redistribution grant has been established. Read [LEGAL.md](https://github.com/sontheo/KORAIL-py-SDK/blob/main/docs/LEGAL.md), [NOTICE](https://github.com/sontheo/KORAIL-py-SDK/blob/main/NOTICE), [third-party notices](https://github.com/sontheo/KORAIL-py-SDK/blob/main/docs/THIRD_PARTY_NOTICES.md) and [provenance](https://github.com/sontheo/KORAIL-py-SDK/blob/main/docs/PROVENANCE.md) before use or redistribution.
 
-[![Python: 3.11+](https://img.shields.io/badge/Python-3.11%2B-3776AB?logo=python&logoColor=white)](pyproject.toml)
-[![Code license: Apache-2.0](https://img.shields.io/badge/Code_license-Apache--2.0-14b8a6)](LICENSE)
-[![Stability: experimental](https://img.shields.io/badge/Stability-experimental-f59e0b)](docs/VALIDATION.md)
+[![Python: 3.11+](https://img.shields.io/badge/Python-3.11%2B-3776AB?logo=python&logoColor=white)](https://github.com/sontheo/KORAIL-py-SDK/blob/main/pyproject.toml)
+[![Code license: Apache-2.0](https://img.shields.io/badge/Code_license-Apache--2.0-14b8a6)](https://github.com/sontheo/KORAIL-py-SDK/blob/main/LICENSE)
+[![Stability: experimental](https://img.shields.io/badge/Stability-experimental-f59e0b)](https://github.com/sontheo/KORAIL-py-SDK/blob/main/docs/VALIDATION.md)
 
-A synchronous Python client for the KORAIL protocol, organized around separate transport, protocol, service and model layers. Import the public client and models from `korail_api`.
+A synchronous Python client for the KORAIL protocol, organized around separate transport, protocol, service and model layers. Import the public client and models from `korail_py_sdk`.
 
-**[Documentation](https://sontheo.github.io/KORAIL-py-SDK/)** · **[Architecture](docs/ARCHITECTURE.md)** · **[Validation](docs/VALIDATION.md)** · **[Contributing](.github/CONTRIBUTING.md)** · **[Legal notice](docs/LEGAL.md)**
+**[Documentation](https://sontheo.github.io/KORAIL-py-SDK/)** · **[Architecture](https://github.com/sontheo/KORAIL-py-SDK/blob/main/docs/ARCHITECTURE.md)** · **[Validation](https://github.com/sontheo/KORAIL-py-SDK/blob/main/docs/VALIDATION.md)** · **[Contributing](https://github.com/sontheo/KORAIL-py-SDK/blob/main/.github/CONTRIBUTING.md)** · **[Legal notice](https://github.com/sontheo/KORAIL-py-SDK/blob/main/docs/LEGAL.md)**
 
 ## What it supports
 
@@ -26,21 +26,22 @@ A synchronous Python client for the KORAIL protocol, organized around separate t
 
 Transaction methods can affect real tickets and money. Automated validation is offline; these capabilities are not a claim of current live-service acceptance.
 
-## Install from source
+## Install
 
-The distribution is named **`korail-api`**, version **`0.1.0`**. GitHub release `v0.1.0` includes a wheel and source archive; the package has not been uploaded to PyPI. The repository name `KORAIL-py-SDK` is separate from the Python distribution and import names.
+The PyPI release is being prepared and is not yet published. Once published, install the `korail-py-SDK` distribution with Python 3.11 or newer:
 
 ```sh
-git clone https://github.com/sontheo/KORAIL-py-SDK.git
-cd KORAIL-py-SDK
-python -m venv .venv
-.venv/bin/python -m pip install '.[socks]'
+python -m pip install korail-py-SDK
+# Optional SOCKS proxy support:
+python -m pip install 'korail-py-SDK[socks]'
 ```
+
+The Python import name is `korail_py_sdk`.
 
 ## Search example
 
 ```python
-from korail_api import KorailClient, TrainSearchQuery
+from korail_py_sdk import KorailClient, TrainSearchQuery
 
 with KorailClient() as client:
     response = client.search_trains(TrainSearchQuery("서울", "부산", "20991230", "090000"))
@@ -54,7 +55,7 @@ Replace the example date with a valid travel date. Executing this example sends 
 
 - Every search obtains a fresh response; seat availability and transaction outcomes are never cached.
 - Transaction requests are never retried automatically. Check uncertain outcomes through official channels before trying again.
-- The default software declaration profile replaces diagnostic-only tokens; ordinary single-train reservations use the observed GET/query profile. See [configuration and validation limits](docs/getting-started.md).
+- The default software declaration profile replaces diagnostic-only tokens; ordinary single-train reservations use the observed GET/query profile. See [configuration and validation limits](https://github.com/sontheo/KORAIL-py-SDK/blob/main/docs/getting-started.md).
 - Decode failures retain the whole response in `error.raw`, with nested context in `error.parser_raw` when available. Treat both as potentially sensitive.
 - Pagination detects repeated pages and preserves continuation metadata.
 - Business rejection, malformed responses, session expiry and protocol-access rejection remain distinct.
@@ -69,7 +70,7 @@ During cooldown, login, queue admission and ordinary API calls fail locally. Onc
 For a single-process application, use the default in-memory policy with no database configuration. Clients in that process share cooldowns and recovery-probe exclusion. Restarting the process clears this state, so the next call may contact the server again.
 
 ```python
-from korail_api import KorailApiError, KorailClient
+from korail_py_sdk import KorailApiError, KorailClient
 
 with KorailClient() as client:
     try:
@@ -80,7 +81,7 @@ with KorailClient() as client:
         next_check_at = error.next_probe_at  # Schedule; do not loop immediately.
 ```
 
-SQLite remains an optional advanced setting for restart persistence or multiple processes: create a `MaintenancePolicy(state_path="/app/data/korail-maintenance.sqlite3")` from `korail_api.maintenance` and pass it as `KorailClient(maintenance=policy)`. The parent directory must already exist on a local filesystem. The database stores only origins, counters, deadlines and probe leases, without credentials or response bodies; separate hosts need application-level coordination. Set `probe_lease` longer than your longest possible status request when customizing timeouts beyond the default 5-minute lease. Separate policy objects without `state_path` have independent state.
+SQLite remains an optional advanced setting for restart persistence or multiple processes: create a `MaintenancePolicy(state_path="/app/data/korail-maintenance.sqlite3")` from `korail_py_sdk.maintenance` and pass it as `KorailClient(maintenance=policy)`. The parent directory must already exist on a local filesystem. The database stores only origins, counters, deadlines and probe leases, without credentials or response bodies; separate hosts need application-level coordination. Set `probe_lease` longer than your longest possible status request when customizing timeouts beyond the default 5-minute lease. Separate policy objects without `state_path` have independent state.
 
 Queue transport errors no longer bypass admission to send the API request. Error retries check the remaining queue budget before sleeping or sending again, and there is no sleep after the final failure. Queue admission has a 300-second default budget; explicitly setting `KorailConfig(netfunnel_wait_limit=None)` restores unlimited normal queue waiting. The budget does not cancel an already-running HTTP request or delay token cleanup.
 
@@ -90,7 +91,7 @@ These are deliberate behavior corrections: `raise_on_fail=False` cannot bypass m
 
 ```text
 src/
-└── korail_api/
+└── korail_py_sdk/
     ├── api/             Public client and convenience resources
     ├── services/        Authentication, search and transaction rules
     ├── protocol/        Request compilation and response decoding
@@ -102,11 +103,11 @@ src/
     └── resources/       Protocol contracts and vendor message data
 ```
 
-See [ARCHITECTURE.md](docs/ARCHITECTURE.md) for ownership boundaries and locations for behavioral changes. The package builds and runs from this repository.
+See [ARCHITECTURE.md](https://github.com/sontheo/KORAIL-py-SDK/blob/main/docs/ARCHITECTURE.md) for ownership boundaries and locations for behavioral changes. The package builds and runs from this repository.
 
 ## Validation and performance
 
-The test suite and decoder comparisons use synthetic data. See [VALIDATION.md](docs/VALIDATION.md) for the checks and their limits.
+The test suite and decoder comparisons use synthetic data. See [VALIDATION.md](https://github.com/sontheo/KORAIL-py-SDK/blob/main/docs/VALIDATION.md) for the checks and their limits.
 
 Offline benchmarks exercise mock transports and do not establish real KORAIL request latency or acceptance.
 
@@ -123,10 +124,10 @@ Offline benchmarks exercise mock transports and do not establish real KORAIL req
 .venv/bin/python tools/packaging/check_artifacts.py dist/*.whl --sdist dist/*.tar.gz
 ```
 
-Tests block network traffic and use synthetic data. See [CONTRIBUTING.md](.github/CONTRIBUTING.md) for repository-only checks, documentation builds and packaging boundaries. Do not include credentials, passenger data, payment details or unredacted responses in issues.
+Tests block network traffic and use synthetic data. See [CONTRIBUTING.md](https://github.com/sontheo/KORAIL-py-SDK/blob/main/.github/CONTRIBUTING.md) for repository-only checks, documentation builds and packaging boundaries. Do not include credentials, passenger data, payment details or unredacted responses in issues.
 
 ## License and provenance
 
-The maintainer-authored software is offered under [Apache-2.0](LICENSE), subject to the scope and notices in [LEGAL.md](docs/LEGAL.md), [NOTICE](NOTICE) and [THIRD_PARTY_NOTICES.md](docs/THIRD_PARTY_NOTICES.md).
+The maintainer-authored software is offered under [Apache-2.0](https://github.com/sontheo/KORAIL-py-SDK/blob/main/LICENSE), subject to the scope and notices in [LEGAL.md](https://github.com/sontheo/KORAIL-py-SDK/blob/main/docs/LEGAL.md), [NOTICE](https://github.com/sontheo/KORAIL-py-SDK/blob/main/NOTICE) and [THIRD_PARTY_NOTICES.md](https://github.com/sontheo/KORAIL-py-SDK/blob/main/docs/THIRD_PARTY_NOTICES.md).
 
-Material provenance is recorded in [PROVENANCE.md](docs/PROVENANCE.md). Third-party data, runtime dependencies, trademarks and service-access permissions retain their respective rights. No live login, reservation, cancellation, payment or refund has been used to validate this release.
+Material provenance is recorded in [PROVENANCE.md](https://github.com/sontheo/KORAIL-py-SDK/blob/main/docs/PROVENANCE.md). Third-party data, runtime dependencies, trademarks and service-access permissions retain their respective rights. No live login, reservation, cancellation, payment or refund has been used to validate this release.
