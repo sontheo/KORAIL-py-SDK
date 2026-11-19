@@ -1,6 +1,6 @@
 # Installation and usage
 
-Use Python 3.11 or newer. The PyPI release is being prepared and is not yet published. Once published, install it with:
+Use Python 3.11 or newer and install the package with:
 
 ```sh
 python -m pip install korail-py-SDK

@@ -1,6 +1,6 @@
 # korail-py-SDK
 
-A synchronous, unofficial Python client for KORAIL. The repository root contains the current implementation and builds the `korail-py-SDK` distribution, version `0.1.0`. The PyPI release is being prepared and is not yet published.
+A synchronous, unofficial Python client for KORAIL. The repository root contains the current implementation and builds the `korail-py-SDK` distribution, version `0.1.1`.
 
 The `korail_py_sdk` namespace exposes the client, models and exceptions. The offline contract includes 239 root exports and 86 public client methods, covering authentication, train search, reservations, payments, refunds, account reads and product operations.
 
