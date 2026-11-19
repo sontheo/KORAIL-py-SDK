@@ -15,26 +15,31 @@ MISSING = object()
 
 
 def path_value(raw, path):
-    if not path:
-        return raw
-    key, *tail = path
-    if key == "*":
-        if not isinstance(raw, (list, tuple)):
+    keys = iter(path or ())
+    for key in keys:
+        if key == "*":
+            if not isinstance(raw, (list, tuple)):
+                return MISSING
+            tail = tuple(keys)
+            result = []
+            for row in raw:
+                child = path_value(row, tail)
+                if isinstance(child, list):
+                    result.extend(child)
+                elif child is not MISSING:
+                    result.append(child)
+            return result
+        if type(raw) is dict:
+            raw = raw.get(key, MISSING)
+        elif isinstance(raw, Mapping) and key in raw:
+            raw = raw[key]
+        else:
             return MISSING
-        result = []
-        for row in raw:
-            child = path_value(row, tail)
-            if child is MISSING:
-                continue
-            result.extend(child if isinstance(child, list) else [child])
-        return result
-    if not isinstance(raw, Mapping) or key not in raw:
-        return MISSING
-    return path_value(raw[key], tail)
+    return raw
 
 
 def scalar(value, kind="str", *, required=False):
-    valid = type(value) in {str, int, float} if kind == "float" else type(value) in {str, int}
+    valid = type(value) in (str, int, float) if kind == "float" else type(value) in (str, int)
     if not valid:
         if required:
             raise KorailProtocolError("Response contains an invalid required scalar")
@@ -177,7 +182,7 @@ def _decode(name, raw):
             not isinstance(row, Mapping) or "prsFlg" not in row for row in raw["prsList"]
         ):
             raise KorailProtocolError("Ticket retrieval row is missing its result")
-    if name in {"TrainSummary", "TrainSearchMetadata", "BaseKorailResponse"}:
+    if name in {"TrainSummary", "TrainSearchMetadata"}:
         return _decode_flat(name, raw)
     if (
         name in {"LimousineScheduleResponse", "LimousineSeatInventoryResponse"}
@@ -244,11 +249,7 @@ def _decode(name, raw):
                         continue
                     if all(
                         k not in row
-                        or (
-                            type(row[k]) in (str, int, float)
-                            and scalar(row[k], "float") is not None
-                            and math.isfinite(scalar(row[k], "float"))
-                        )
+                        or ((ratio := scalar(row[k], "float")) is not None and math.isfinite(ratio))
                         for k in ("st_loc_rt", "cls_loc_rt")
                     ):
                         valid.append(row)
@@ -287,9 +288,7 @@ def _decode(name, raw):
                 if annotation.startswith("float")
                 else "str"
             )
-            kwargs[key] = scalar(item, kind, required="None" not in annotation and name != "TrainSummary")
-            if name == "TrainSummary" and key == "train_no" and kwargs[key] is None:
-                kwargs[key] = ""
+            kwargs[key] = scalar(item, kind, required="None" not in annotation)
     if name == "AppDataResponse" and not isinstance(raw.get("notice"), Mapping):
         kwargs["notice"] = None
     if name == "CommuterInfoResponse":
@@ -306,7 +305,7 @@ def _decode(name, raw):
             return None
 
         declared = money(raw.get("h_tot_rcvd_amt"))
-        amounts = []
+        total = 0
         invalid = False
         for journey in kwargs.get("journeys", ()):
             container = journey.raw.get("seat_infos")
@@ -318,11 +317,10 @@ def _decode(name, raw):
                 if parsed is None:
                     invalid = True
                 else:
-                    amounts.append(parsed)
-        computed = sum(amounts) if amounts and not invalid else None
-        if declared is not None and computed is not None and computed > 0 and declared != computed:
+                    total += parsed
+        if not invalid and total > 0 and declared is not None and declared != total:
             raise KorailProtocolError("Reservation settlement total does not match seat amounts")
-        amount = None if invalid else computed if computed is not None and computed > 0 else declared
+        amount = None if invalid else total or declared
         try:
             kwargs["received_amount"] = str(amount) if amount is not None else None
         except ValueError as error:
