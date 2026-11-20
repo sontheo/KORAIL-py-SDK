@@ -155,7 +155,7 @@
   },
   "rolling_14_days": {
     "2026-11-20": {
-      "collected_at": "2026-11-20T02:39:25Z",
+      "collected_at": "2026-11-20T05:29:30Z",
       "views": {
         "count": 753,
         "uniques": 181
@@ -167,8 +167,8 @@
     }
   },
   "collection": {
-    "last_attempt_at": "2026-11-20T02:39:25Z",
+    "last_attempt_at": "2026-11-20T05:29:30Z",
     "last_attempt_status": "success",
-    "last_success_at": "2026-11-20T02:39:25Z"
+    "last_success_at": "2026-11-20T05:29:30Z"
   }
 }
