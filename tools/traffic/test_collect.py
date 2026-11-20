@@ -12,38 +12,44 @@ spec.loader.exec_module(traffic)
 
 def response(metric, *entries):
     return {
+        "count": sum(count for _, count, _ in entries),
+        "uniques": max((unique for _, _, unique in entries), default=0),
         metric: [
             {"timestamp": f"{date}T00:00:00Z", "count": count, "uniques": unique}
             for date, count, unique in entries
-        ]
+        ],
     }
 
 
-def test_merge_replaces_overlaps_and_preserves_history(tmp_path):
+def test_migrates_and_merges_without_losing_old_dates(tmp_path):
     path = tmp_path / "traffic.json"
-    old = {
-        "views": response("views", ("2026-01-01", 3, 2), ("2026-01-02", 5, 3)),
-        "clones": response("clones", ("2026-01-01", 2, 1)),
+    path.write_text(
+        json.dumps(
+            {
+                "version": 1,
+                "repository": "owner/repo",
+                "views": {"2026-01-01": {"count": 3, "uniques": 2}, "2026-01-02": {"count": 5, "uniques": 3}},
+                "clones": {"2026-01-01": {"count": 2, "uniques": 1}},
+            }
+        )
+    )
+    data = {
+        "views": response("views", ("2026-01-02", 7, 4)),
+        "clones": response("clones", ("2026-01-02", 4, 2)),
     }
-    with patch.object(traffic, "fetch", side_effect=lambda repo, token, metric: old[metric]):
+    with patch.object(traffic, "fetch", side_effect=lambda repo, token, metric: data[metric]):
         traffic.collect(path, "owner/repo", "token")
-    new = {"views": response("views", ("2026-01-02", 7, 4)), "clones": response("clones", ("2026-01-02", 4, 2))}
-    with patch.object(traffic, "fetch", side_effect=lambda repo, token, metric: new[metric]):
         traffic.collect(path, "owner/repo", "token")
-        before = path.read_bytes()
-        modified = path.stat().st_mtime_ns
-        traffic.collect(path, "owner/repo", "token")
-    archive = json.loads(before)
-    assert archive["views"] == {
-        "2026-01-01": {"count": 3, "uniques": 2},
-        "2026-01-02": {"count": 7, "uniques": 4},
+    archive = json.loads(path.read_text())
+    assert archive["version"] == 2
+    assert archive["daily"] == {
+        "2026-01-01": {"views": {"count": 3, "uniques": 2}, "clones": {"count": 2, "uniques": 1}},
+        "2026-01-02": {"views": {"count": 7, "uniques": 4}, "clones": {"count": 4, "uniques": 2}},
     }
-    assert archive["clones"] == {
-        "2026-01-01": {"count": 2, "uniques": 1},
-        "2026-01-02": {"count": 4, "uniques": 2},
-    }
-    assert path.read_bytes() == before
-    assert path.stat().st_mtime_ns == modified
+    (snapshot,) = archive["rolling_14_days"].values()
+    assert snapshot["views"] == {"count": 7, "uniques": 4}
+    assert snapshot["clones"] == {"count": 4, "uniques": 2}
+    assert archive["collection"]["last_attempt_status"] == "success"
 
 
 @pytest.mark.parametrize(
@@ -54,12 +60,19 @@ def test_merge_replaces_overlaps_and_preserves_history(tmp_path):
         {"clones": [{"timestamp": "bad", "count": 1, "uniques": 1}]},
         response("clones", ("2026-01-01", 1, 2)),
         response("clones", ("2026-01-01", 1, 1), ("2026-01-01", 1, 1)),
+        {"clones": [], "count": 1, "uniques": 2},
     ],
 )
-def test_invalid_response_preserves_archive(tmp_path, invalid):
+def test_invalid_response_records_failure_without_partial_update(tmp_path, invalid):
     path = tmp_path / "traffic.json"
-    path.write_text(json.dumps({"version": 1, "repository": "owner/repo", "views": {}, "clones": {}}))
-    before = path.read_bytes()
+    old = {
+        "version": 2,
+        "repository": "owner/repo",
+        "daily": {"old": {"views": {"count": 1, "uniques": 1}}},
+        "rolling_14_days": {"old": {}},
+        "collection": {"last_success_at": "previous"},
+    }
+    path.write_text(json.dumps(old))
     with patch.object(
         traffic,
         "fetch",
@@ -69,11 +82,24 @@ def test_invalid_response_preserves_archive(tmp_path, invalid):
     ):
         with pytest.raises(ValueError):
             traffic.collect(path, "owner/repo", "token")
-    assert path.read_bytes() == before
+    archive = json.loads(path.read_text())
+    assert archive["daily"] == old["daily"]
+    assert archive["rolling_14_days"] == old["rolling_14_days"]
+    assert archive["collection"]["last_success_at"] == "previous"
+    assert archive["collection"]["last_attempt_status"] == "failed"
 
 
-def test_api_failure_does_not_create_archive(tmp_path):
+def test_api_failure_records_failure(tmp_path):
     path = tmp_path / "traffic.json"
     with patch.object(traffic, "fetch", side_effect=ValueError("API error")), pytest.raises(ValueError):
         traffic.collect(path, "owner/repo", "token")
-    assert not path.exists()
+    assert json.loads(path.read_text())["collection"]["last_attempt_status"] == "failed"
+
+
+def test_invalid_archive_is_not_overwritten(tmp_path):
+    path = tmp_path / "traffic.json"
+    path.write_text('{"version": 10, "repository": "owner/repo"}')
+    before = path.read_bytes()
+    with pytest.raises(ValueError):
+        traffic.collect(path, "owner/repo", "token")
+    assert path.read_bytes() == before

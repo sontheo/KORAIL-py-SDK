@@ -53,29 +53,31 @@ def buckets(payload, metric):
     return result
 
 
-def collect(path, repository, token):
-    if not token:
-        raise ValueError("TRAFFIC_TOKEN is not set")
-    if len(repository.split("/")) != 2 or not all(repository.split("/")):
-        raise ValueError("GITHUB_REPOSITORY must be OWNER/REPO")
+def load_archive(path, repository):
     if path.exists():
         archive = json.loads(path.read_text(encoding="utf-8"))
-        if (
-            not isinstance(archive, dict)
-            or archive.get("version") != 1
-            or archive.get("repository") != repository
-            or not isinstance(archive.get("views"), dict)
-            or not isinstance(archive.get("clones"), dict)
-        ):
+        if not isinstance(archive, dict) or archive.get("repository") != repository:
             raise ValueError("Invalid or mismatched traffic archive")
+        if archive.get("version") == 1:
+            if not all(isinstance(archive.get(metric), dict) for metric in ("views", "clones")):
+                raise ValueError("Invalid traffic archive")
+            daily = {}
+            for metric in ("views", "clones"):
+                for date, value in archive[metric].items():
+                    daily.setdefault(date, {})[metric] = value
+            archive = {"version": 2, "repository": repository, "daily": daily, "rolling_14_days": {}}
+        elif (
+            archive.get("version") != 2
+            or not isinstance(archive.get("daily"), dict)
+            or not isinstance(archive.get("rolling_14_days"), dict)
+        ):
+            raise ValueError("Invalid traffic archive")
     else:
-        archive = {"version": 1, "repository": repository, "views": {}, "clones": {}}
+        archive = {"version": 2, "repository": repository, "daily": {}, "rolling_14_days": {}}
+    return archive
 
-    # Fetch and validate both responses before changing the archive.
-    updates = {metric: buckets(fetch(repository, token, metric), metric) for metric in ("views", "clones")}
-    for metric, daily in updates.items():
-        archive[metric].update(daily)
-        archive[metric] = dict(sorted(archive[metric].items()))
+
+def save_archive(path, archive):
     content = json.dumps(archive, indent=2, ensure_ascii=False) + "\n"
     if path.exists() and path.read_text(encoding="utf-8") == content:
         return
@@ -89,6 +91,45 @@ def collect(path, repository, token):
     finally:
         if temporary is not None:
             temporary.unlink(missing_ok=True)
+
+
+def collect(path, repository, token):
+    if len(repository.split("/")) != 2 or not all(repository.split("/")):
+        raise ValueError("GITHUB_REPOSITORY must be OWNER/REPO")
+    archive = load_archive(path, repository)
+    timestamp = datetime.now(timezone.utc).isoformat(timespec="seconds").replace("+00:00", "Z")
+    try:
+        if not token:
+            raise ValueError("TRAFFIC_TOKEN is not set")
+        payloads = {metric: fetch(repository, token, metric) for metric in ("views", "clones")}
+        daily = {metric: buckets(payloads[metric], metric) for metric in payloads}
+        totals = {}
+        for metric, payload in payloads.items():
+            count, uniques = payload.get("count"), payload.get("uniques")
+            if type(count) is not int or type(uniques) is not int or min(count, uniques) < 0 or uniques > count:
+                raise ValueError(f"Invalid {metric} 14-day totals")
+            totals[metric] = {"count": count, "uniques": uniques}
+    except ValueError:
+        archive["collection"] = {
+            **archive.get("collection", {}),
+            "last_attempt_at": timestamp,
+            "last_attempt_status": "failed",
+        }
+        save_archive(path, archive)
+        raise
+
+    for metric, values in daily.items():
+        for date, value in values.items():
+            archive["daily"].setdefault(date, {})[metric] = value
+    archive["daily"] = dict(sorted(archive["daily"].items()))
+    archive["rolling_14_days"][timestamp[:10]] = {"collected_at": timestamp, **totals}
+    archive["rolling_14_days"] = dict(sorted(archive["rolling_14_days"].items()))
+    archive["collection"] = {
+        "last_attempt_at": timestamp,
+        "last_attempt_status": "success",
+        "last_success_at": timestamp,
+    }
+    save_archive(path, archive)
 
 
 if __name__ == "__main__":
