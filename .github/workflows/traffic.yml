@@ -3,6 +3,7 @@ name: Archive repository traffic
 on:
   schedule:
     - cron: '0 0 * * *' # 09:00 KST
+    - cron: '17 0 * * *' # 09:17 KST backup
   workflow_dispatch:
 
 permissions:
@@ -31,10 +32,13 @@ jobs:
             git -C "$RUNNER_TEMP/traffic-stats" switch --orphan traffic-stats
           fi
       - name: Collect and merge traffic
+        id: collect
+        continue-on-error: true
         env:
           TRAFFIC_TOKEN: ${{ secrets.TRAFFIC_TOKEN }}
         run: python3 tools/traffic/collect.py "$RUNNER_TEMP/traffic-stats/traffic.json"
       - name: Commit changes
+        if: always() && steps.collect.outcome != 'skipped'
         shell: bash
         run: |
           cd "$RUNNER_TEMP/traffic-stats"
@@ -45,3 +49,6 @@ jobs:
             git commit -m 'Update traffic statistics'
             git push origin HEAD:refs/heads/traffic-stats
           fi
+      - name: Report collection failure
+        if: always() && steps.collect.outcome == 'failure'
+        run: exit 1
