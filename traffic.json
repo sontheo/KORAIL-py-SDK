@@ -181,6 +181,26 @@
         "count": 47,
         "uniques": 25
       }
+    },
+    "2026-11-22": {
+      "views": {
+        "count": 21,
+        "uniques": 6
+      },
+      "clones": {
+        "count": 12,
+        "uniques": 5
+      }
+    },
+    "2026-11-23": {
+      "views": {
+        "count": 16,
+        "uniques": 11
+      },
+      "clones": {
+        "count": 39,
+        "uniques": 18
+      }
     }
   },
   "rolling_14_days": {
@@ -227,11 +247,22 @@
         "count": 529,
         "uniques": 218
       }
+    },
+    "2026-11-24": {
+      "collected_at": "2026-11-24T08:06:23Z",
+      "views": {
+        "count": 657,
+        "uniques": 182
+      },
+      "clones": {
+        "count": 526,
+        "uniques": 219
+      }
     }
   },
   "collection": {
-    "last_attempt_at": "2026-11-23T07:43:24Z",
+    "last_attempt_at": "2026-11-24T08:06:23Z",
     "last_attempt_status": "success",
-    "last_success_at": "2026-11-23T07:43:24Z"
+    "last_success_at": "2026-11-24T08:06:23Z"
   }
 }
