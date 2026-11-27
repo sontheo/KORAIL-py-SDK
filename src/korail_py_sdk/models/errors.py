@@ -50,6 +50,13 @@ class KorailDynaPathError(KorailApiError):
     def display_message(self) -> str:
         if self.code == "-8202":
             return "Access was rejected due to a network access policy (VPN or data center)."
+        if self.code == "-2000":
+            return (
+                "Server-side protocol validation rejected the request; the client cannot observe "
+                "which validation check failed."
+            )
+        if self.code == "-4001":
+            return "The request carried a missing or malformed protocol token."
         if self.code == "-8004" or self.h_msg_cd == "macro_err1":
             return (
                 "Client validation or automation-related access was rejected; the exact cause is unconfirmed."
