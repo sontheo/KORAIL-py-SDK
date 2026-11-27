@@ -32,3 +32,15 @@ aabd70887713ca6cc8740dde20d9374b329f38b4:tests/fixtures/declaration-vectors.json
 # The same reviewed vectors after the contributor-attribution history rewrite.
 4bf710b670cd9dc38a5bbff1d206d409b16bacb7:tests/fixtures/declaration-vectors.json:generic-api-key:7
 4bf710b670cd9dc38a5bbff1d206d409b16bacb7:tests/fixtures/declaration-vectors.json:generic-api-key:12
+ca5f47b8dba0411cabc9c04e5a2fb1ce6ce50410:tests/fixtures/declaration-vectors.json:generic-api-key:7
+ca5f47b8dba0411cabc9c04e5a2fb1ce6ce50410:tests/fixtures/declaration-vectors.json:generic-api-key:12
+8c7a4c47f97ece79d3a6542e7ddac14b1fba6baf:tests/fixtures/declaration-vectors.json:generic-api-key:7
+8c7a4c47f97ece79d3a6542e7ddac14b1fba6baf:tests/fixtures/declaration-vectors.json:generic-api-key:12
+81d9860a8ace856939f8fc59d9c1bdd6903cde7f:tools/validation/observations/decoder-observations.json:generic-api-key:691
+81d9860a8ace856939f8fc59d9c1bdd6903cde7f:tools/validation/observations/decoder-observations.json:generic-api-key:728
+81d9860a8ace856939f8fc59d9c1bdd6903cde7f:tools/validation/observations/decoder-observations.json:generic-api-key:729
+81d9860a8ace856939f8fc59d9c1bdd6903cde7f:tools/validation/observations/decoder-observations.json:generic-api-key:730
+81d9860a8ace856939f8fc59d9c1bdd6903cde7f:tools/validation/observations/decoder-observations.json:generic-api-key:731
+81d9860a8ace856939f8fc59d9c1bdd6903cde7f:tools/validation/observations/decoder-observations.json:generic-api-key:732
+81d9860a8ace856939f8fc59d9c1bdd6903cde7f:tools/validation/observations/decoder-observations.json:generic-api-key:762
+81d9860a8ace856939f8fc59d9c1bdd6903cde7f:tools/validation/observations/decoder-observations.json:generic-api-key:1179

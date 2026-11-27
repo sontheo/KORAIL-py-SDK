@@ -14,3 +14,5 @@ Two additional `generic-api-key` findings in `tests/fixtures/declaration-vectors
 The contributor-attribution history rewrite changed the commit ID containing those same unchanged vectors. The ignore list records both the original and rewritten commit fingerprints because both histories remain reachable.
 
 Compacting the synthetic decoder observations moved eight findings to new lines. Each detected value was checked against the two fixture digests above; the ignore list records the exact new commit and line fingerprints.
+
+The personal email history rewrite changed commit IDs for previously reviewed fixtures. The ignore list includes the corresponding exact rewritten fingerprints.
