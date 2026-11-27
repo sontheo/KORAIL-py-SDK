@@ -300,11 +300,22 @@
         "count": 575,
         "uniques": 244
       }
+    },
+    "2026-11-27": {
+      "collected_at": "2026-11-27T06:26:29Z",
+      "views": {
+        "count": 768,
+        "uniques": 208
+      },
+      "clones": {
+        "count": 575,
+        "uniques": 244
+      }
     }
   },
   "collection": {
-    "last_attempt_at": "2026-11-26T08:25:07Z",
+    "last_attempt_at": "2026-11-27T06:26:29Z",
     "last_attempt_status": "success",
-    "last_success_at": "2026-11-26T08:25:07Z"
+    "last_success_at": "2026-11-27T06:26:29Z"
   }
 }
