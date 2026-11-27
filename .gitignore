@@ -7,6 +7,8 @@
 # without a word.
 /analysis/
 *.apk
+/results/*
+/AGENTS.md
 
 # Local secrets at any depth. Examples must contain placeholders only.
 .env
