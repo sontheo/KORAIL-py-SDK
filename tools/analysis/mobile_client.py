@@ -19,7 +19,7 @@ from cryptography.hazmat.primitives import padding
 from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
 
 from korail_py_sdk.models.records import REGISTRY
-from korail_py_sdk.security.declaration import DeclarationTokenProvider
+from korail_py_sdk.security.declaration import DeclarationTokenProvider, encode_declaration
 from korail_py_sdk.security.legacy import generate_dynapath_token
 
 BASE = "https://smart.letskorail.com"
@@ -82,18 +82,22 @@ class MobileScheduleClient:
         *,
         app_start_ts: int | None = None,
         token_mode: str = "v2",
+        token_format: str = "full",
         base_url: str = BASE,
         netfunnel: bool = False,
         sid: bool = False,
+        proxy: str | None = None,
         timeout: float = 30.0,
         transport: httpx.BaseTransport | None = None,
     ) -> None:
         if token_mode not in {"v1", "v2"}:
             raise ValueError("token_mode must be v1 or v2")
         self.token_mode = token_mode
+        self.token_format = token_format
         self.base_url = base_url.rstrip("/")
         self.netfunnel = netfunnel
         self.sid = sid
+        self.proxy = proxy
         self.device_id = device_id or secrets.token_hex(16 if token_mode == "v1" else 8)
         now = int(time.time() * 1000)
         self.app_start_ts = app_start_ts or now
@@ -112,7 +116,7 @@ class MobileScheduleClient:
             if token_mode == "v2"
             else None
         )
-        self._client = httpx.Client(timeout=timeout, transport=transport)
+        self._client = httpx.Client(timeout=timeout, transport=transport, proxy=proxy)
 
     def close(self) -> None:
         self._client.close()
@@ -125,6 +129,8 @@ class MobileScheduleClient:
 
     def _token(self, now_ms: int) -> str:
         if self._declaration is not None:
+            if self.token_format == "captured-data":
+                return self._captured_data_token(now_ms)
             return self._declaration()
         interval = max(0, now_ms - self._last_request_ms)
         self._intervals.append(interval)
@@ -144,6 +150,25 @@ class MobileScheduleClient:
             random_text=nonce,
             recent_intervals=tuple(self._intervals),
         )
+
+    def _captured_data_token(self, now_ms: int) -> str:
+        def b64(value: str) -> str:
+            return base64.urlsafe_b64encode(value.encode("utf-8")).decode("ascii").rstrip("=")
+
+        payload = "&".join(
+            [
+                "!v=2",
+                "es=893617653734745139",
+                f"ts={now_ms}",
+                "st=Android",
+                "sv=2.0.1",
+                "ai=korailplus",
+                f"os={b64(OS_RELEASE)}",
+                f"dm={b64(DEVICE_MODEL)}",
+                f"iid={b64(self.device_id)}",
+            ]
+        ).encode("ascii")
+        return encode_declaration(payload, secrets.randbits(32))
 
     def _form(self, leg: SearchLeg, timestamp_ms: int) -> dict[str, str]:
         form = {
@@ -195,7 +220,9 @@ class MobileScheduleClient:
             from korail_py_sdk.models.records import KorailConfig
             from korail_py_sdk.transport.admission import Admission
 
-            admission = Admission(KorailConfig(netfunnel_enabled=True, base_url=self.base_url))
+            admission = Admission(
+                KorailConfig(netfunnel_enabled=True, base_url=self.base_url, proxy=self.proxy)
+            )
             try:
                 with admission.enter("act_8", success_only=False):
                     response = self._send(leg)
@@ -226,6 +253,7 @@ class MobileScheduleClient:
             "train_count": len((body.get("trn_infos") or {}).get("trn_info") or []),
             "device_id": self.device_id,
             "token_mode": self.token_mode,
+            "token_format": self.token_format,
             "host": self.base_url,
             "intervals": list(self._intervals),
         }
@@ -243,8 +271,10 @@ def main() -> None:
     parser.add_argument("--device-id", default="")
     parser.add_argument("--token-mode", choices=["v1", "v2"], default="v2")
     parser.add_argument("--host", choices=["smart", "www"], default="smart")
+    parser.add_argument("--token-format", choices=["full", "captured-data"], default="full")
     parser.add_argument("--netfunnel", action="store_true")
     parser.add_argument("--sid", action="store_true")
+    parser.add_argument("--proxy", default=None)
     parser.add_argument("--departure", default="서울")
     parser.add_argument("--arrival", default="부산")
     parser.add_argument("--run-date", default="")
@@ -263,7 +293,13 @@ def main() -> None:
     )
     base_url = "https://smart.letskorail.com" if args.host == "smart" else "https://www.korail.com"
     client = MobileScheduleClient(
-        args.device_id or None, token_mode=args.token_mode, base_url=base_url, netfunnel=args.netfunnel, sid=args.sid
+        args.device_id or None,
+        token_mode=args.token_mode,
+        token_format=args.token_format,
+        base_url=base_url,
+        netfunnel=args.netfunnel,
+        sid=args.sid,
+        proxy=args.proxy,
     )
     rows: list[dict[str, Any]] = []
     for index in range(args.repeat):

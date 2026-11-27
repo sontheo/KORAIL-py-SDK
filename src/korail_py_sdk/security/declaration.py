@@ -75,24 +75,67 @@ class DeclarationTokenProvider:
             if provider is not None and not callable(provider):
                 raise TypeError("Declaration input providers must be callable")
 
-    def __call__(self, context=None) -> str:
-        stamp = self.timestamp_ms_provider() if self.timestamp_ms_provider else time.time_ns() // 1_000_000
-        nonce = self.nonce_provider() if self.nonce_provider else secrets.randbits(32)
-        if type(stamp) is not int or not 0 <= stamp < 2**63:
-            raise ValueError("Invalid declaration timestamp")
-        facts = ["!v=2", "es=288904575606514493", f"ts={stamp}", "st=Android", "sv=2.0.1", "ai=korailplus"]
-        for name, value in zip(
-            ("os", "dm", "iid", "mf", "bd"),
-            (self.release, self.model, self.device_id, self.manufacturer, self.board),
-        ):
-            encoded = base64.urlsafe_b64encode(value.encode("utf-8")).decode("ascii").rstrip("=")
-            facts.append(f"{name}={encoded}")
+    @staticmethod
+    def _b64(value: str) -> str:
+        return base64.urlsafe_b64encode(value.encode("utf-8")).decode("ascii").rstrip("=")
+
+    def _prefix(self, stamp: int, op_id: int) -> list[str]:
+        return ["!v=2", f"es={op_id}", f"ts={stamp}", "st=Android", "sv=2.0.1", "ai=korailplus"]
+
+    def _data_facts(self, stamp: int) -> list[str]:
+        facts = self._prefix(stamp, 893617653734745139)
         facts.extend(
             (
+                f"os={self._b64(self.release)}",
+                f"dm={self._b64(self.model)}",
+                f"iid={self._b64(self.device_id)}",
+            )
+        )
+        return facts
+
+    def _login_facts(self, stamp: int) -> list[str]:
+        facts = self._prefix(stamp, 893617653734745139)
+        facts.extend(
+            (
+                f"os={self._b64(self.release)}",
+                f"dm={self._b64(self.model)}",
+                f"iid={self._b64(self.device_id)}",
+                f"mf={self._b64(self.manufacturer)}",
+                f"bd={self._b64(self.board)}",
+                f"sl={self.sdk_int}",
+                f"sb={int(self.strongbox)}",
+                "kl=990094375841594426",
+            )
+        )
+        return facts
+
+    def _default_facts(self, stamp: int) -> list[str]:
+        facts = self._prefix(stamp, 288904575606514493)
+        facts.extend(
+            (
+                f"os={self._b64(self.release)}",
+                f"dm={self._b64(self.model)}",
+                f"iid={self._b64(self.device_id)}",
+                f"mf={self._b64(self.manufacturer)}",
+                f"bd={self._b64(self.board)}",
                 f"sl={self.sdk_int}",
                 f"sb={int(self.strongbox)}",
                 "kl=990094375841594426",
                 "ec=978212327729758430",
             )
         )
+        return facts
+
+    def __call__(self, context=None) -> str:
+        stamp = self.timestamp_ms_provider() if self.timestamp_ms_provider else time.time_ns() // 1_000_000
+        nonce = self.nonce_provider() if self.nonce_provider else secrets.randbits(32)
+        if type(stamp) is not int or not 0 <= stamp < 2**63:
+            raise ValueError("Invalid declaration timestamp")
+        path = getattr(context, "path", "") if context is not None else ""
+        if context is None:
+            facts = self._default_facts(stamp)
+        elif "login.Login" in path:
+            facts = self._login_facts(stamp)
+        else:
+            facts = self._data_facts(stamp)
         return encode_declaration("&".join(facts).encode("ascii"), nonce)

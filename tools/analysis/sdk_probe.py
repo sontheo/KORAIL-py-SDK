@@ -62,13 +62,14 @@ def mock_probe() -> dict:
     return {"mode": "mock", "requests": captured}
 
 
-def live_probe(netfunnel: bool) -> dict:
+def live_probe(netfunnel: bool, proxy: str | None = None) -> dict:
     tomorrow = (date.today() + timedelta(days=1)).strftime("%Y%m%d")
     config = KorailConfig(
         dynapath_mode="v2-declaration",
         netfunnel_enabled=netfunnel,
         timeout=30,
         netfunnel_wait_limit=15,
+        proxy=proxy,
     )
     client = KorailClient(config)
     result = {
@@ -77,6 +78,7 @@ def live_probe(netfunnel: bool) -> dict:
         "netfunnel": netfunnel,
         "version_default": config.version,
         "user_agent": config.user_agent,
+        "proxy": bool(proxy),
     }
     try:
         page = client.search_trains(TrainSearchQuery("서울", "부산", tomorrow, "090000"))
@@ -107,8 +109,9 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--live", action="store_true")
     parser.add_argument("--netfunnel", action="store_true")
+    parser.add_argument("--proxy", default=None)
     args = parser.parse_args()
-    print(json.dumps(live_probe(args.netfunnel) if args.live else mock_probe(), ensure_ascii=False, indent=2))
+    print(json.dumps(live_probe(args.netfunnel, args.proxy) if args.live else mock_probe(), ensure_ascii=False, indent=2))
 
 
 if __name__ == "__main__":
