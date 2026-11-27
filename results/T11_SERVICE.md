@@ -53,6 +53,16 @@ pagination:
 - SDK: `409 passed`
 - `ruff check` 통과
 
+### 컨테이너 SDK 토큰 형식
+
+배포 컨테이너의 `korail_py_sdk.security.declaration.DeclarationTokenProvider`를 직접 호출해 데이터 요청 봉투를 확인했다.
+
+```text
+!v=2&es=893617653734745139&ts=…&st=Android&sv=2.0.1&ai=korailplus&os=…&dm=…&iid=…
+```
+
+`mf/bd/sl/sb/kl/ec`는 포함되지 않았다. 실행 중인 봇이 짧은 데이터 봉투를 생성하는 코드를 사용한다.
+
 ## 판정
 
 배포된 봇에서 `-2000` 없이 검색·로그인·예약 내역 읽기가 통과했다. 서비스 레벨의 모바일 DynaPath 문제는 해결됐다.
