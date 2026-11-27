@@ -1,0 +1,31 @@
+#!/bin/sh
+set -eu
+
+root=$(git rev-parse --show-toplevel)
+cd "$root"
+
+if git config --get core.hooksPath >/dev/null; then
+    printf '%s\n' 'Cannot install: core.hooksPath is configured. Review that hook path first.' >&2
+    exit 1
+fi
+
+source=.githooks/pre-push
+destination=$(git rev-parse --git-path hooks/pre-push)
+if [ -L "$destination" ]; then
+    printf '%s\n' 'Cannot install: the existing pre-push hook is a symlink. Review it first.' >&2
+    exit 1
+fi
+if [ -e "$destination" ]; then
+    if ! cmp -s "$source" "$destination"; then
+        printf '%s\n' 'Cannot install: a different pre-push hook already exists. Review it first.' >&2
+        exit 1
+    fi
+    chmod 700 "$destination"
+    printf '%s\n' 'Push guard is already installed.'
+    exit 0
+fi
+
+mkdir -p "$(dirname "$destination")"
+(umask 077; set -C; cat "$source" > "$destination")
+chmod 700 "$destination"
+printf '%s\n' 'Push guard installed.'

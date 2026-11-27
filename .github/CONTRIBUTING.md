@@ -15,6 +15,10 @@ python -m venv .venv
 
 Tests use synthetic data and block socket connections and native curl requests. Do not add live authentication, reservations, cancellation, payment or refund to automated checks. Keep credentials, account identifiers, passenger details and payment data out of fixtures, logs and issue reports.
 
+## Local push guard
+
+Run `tools/install-push-guard` in each clone to install the repository's pre-push guard. The installer preserves a different existing hook and reports custom hook paths for manual review. The guard blocks pushes of internal Git references and remote branch deletion; it does not inspect every commit for sensitive content, and `--no-verify` bypasses it.
+
 ## Public API
 
 Maintain the `korail_py_sdk` public exports, constructor signatures, enum values, request ordering, raw-response identity and error distinctions. Transaction requests must not be retried automatically. Preserve whole-response and nested parser context on failures while treating that context as sensitive. Extend the standalone tests when changing behavior.

@@ -10,6 +10,14 @@ Sensitive by default:
 
 Do not commit, paste into issues, or share without stripping tokens, cookies, request IDs, and `di` values.
 
+Run analysis commands in a private file-creation context:
+
+```sh
+(umask 077; .venv/bin/python tools/analysis/mobile_client.py --dry-run --jsonl results/example.jsonl)
+```
+
+The mobile client also sets this mask when executed directly. Existing files keep their current permissions; shell redirections should be placed inside the private context.
+
 Current files:
 
 - `403_map.tsv` — T1 mobile 8×3 table.

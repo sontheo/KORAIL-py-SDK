@@ -1,0 +1,19 @@
+#!/bin/sh
+while read -r local_ref local_oid remote_ref remote_oid; do
+    for ref in "$local_ref" "$remote_ref"; do
+        case "$ref" in
+            refs/t3/*|refs/remotes/*)
+                printf '%s\n' 'Push blocked: internal Git references must not be published.' >&2
+                exit 1
+                ;;
+        esac
+    done
+    case "$remote_ref" in
+        refs/heads/*)
+            if [ "$local_ref" = '(delete)' ]; then
+                printf '%s\n' 'Push blocked: remote branch deletion requires bypassing the local guard.' >&2
+                exit 1
+            fi
+            ;;
+    esac
+done

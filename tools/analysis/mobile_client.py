@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import base64
 import json
+import os
 import secrets
 import string
 import time
@@ -328,4 +329,5 @@ def main() -> None:
 
 
 if __name__ == "__main__":
+    os.umask(0o077)
     main()
