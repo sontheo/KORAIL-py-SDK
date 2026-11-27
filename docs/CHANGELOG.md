@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.2 — 2026-11-28
+
+- Use request-specific declaration token profiles for login and data operations.
+- Describe DynaPath `-2000` and `-4001` responses without attributing an unconfirmed cause.
+
 ## 0.1.1 — 2026-11-19
 
 - Rename the distribution to `korail-py-SDK` and its import namespace to `korail_py_sdk`.
