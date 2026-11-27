@@ -28,3 +28,4 @@ Current files:
 - `T10_SOLUTION.md` — short v2 data envelope fix.
 - `T11_SERVICE.md` — deployed korail-bot verification.
 - `T12_WEB_NODEVTOOLS.md` — web block without DevTools.
+- `T13_SDK_ANONYMOUS.md` — short-envelope anonymous SDK smoke, 3/3.
