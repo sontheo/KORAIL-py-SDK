@@ -54,7 +54,7 @@
 ## live 검증
 
 - 데이터센터 direct: `403 -2000`
-- dpbokji exit node: `403 -2000`
+- private egress exit node: `403 -2000`
 
 둘 다 현재 차단/합성 경로라 홈 direct의 제품 SDK 통과 여부를 대체하지 못한다. **홈 direct에서 `sdk_probe.py --live --netfunnel` 1회가 남은 결정적 테스트**다.
 

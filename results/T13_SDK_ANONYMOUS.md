@@ -4,7 +4,7 @@
 
 - 봇 제외, SDK만 검증
 - 로그인 호출 없음 (`accounts_used: false`)
-- egress: dpbokji SOCKS5 `<dpbokji-socks>:1055`
+- egress: private egress SOCKS5 `<private-egress>:1055`
 - 모드: `v2-declaration`, 짧은 데이터 봉투
 
 ## 도구
@@ -13,7 +13,7 @@
 
 ```bash
 PYTHONPATH=src .venv/bin/python tools/analysis/sdk_anonymous_smoke.py \
-  --proxy socks5h://<dpbokji-socks>:1055 --repeat 3
+  --proxy socks5h://<private-egress>:1055 --repeat 3
 ```
 
 ## 결과: 3/3 통과

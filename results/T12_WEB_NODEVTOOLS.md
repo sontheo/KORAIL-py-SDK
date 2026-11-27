@@ -10,7 +10,7 @@
 - Chrome for Testing 159.0.8154.6, Xvfb `:102`
 - `--remote-debugging-port` 없음, Playwright/CDP 미사용
 - 주소 입력·클릭·스크롤은 `xdotool`, 화면은 `ffmpeg x11grab`
-- 경로 A: dpbokji SOCKS5 `<dpbokji-socks>:1055` (egress `<dpbokji-egress>`)
+- 경로 A: private egress SOCKS5 `<private-egress>:1055` (egress `<private-egress-address>`)
 - 경로 B: 프록시 없음 (서버 direct `<server-direct-egress>`)
 - 서울→부산, 기본 날짜/시간으로 `열차 조회하기` 클릭
 
@@ -18,19 +18,19 @@
 
 | 경로 | 도달 URL | 코드 | 메시지 |
 |---|---|---|---|
-| dpbokji, DevTools 없음 | `/ticket/search/list` | `-8004` | 매크로, 개발자도구 등 미허가 도구 사용 시 이용이 제한될 수 있습니다 |
+| private egress, DevTools 없음 | `/ticket/search/list` | `-8004` | 매크로, 개발자도구 등 미허가 도구 사용 시 이용이 제한될 수 있습니다 |
 | 서버 direct, DevTools 없음 | `/ticket/search/list` | `-8202` | VPN 또는 데이터센터를 통해서는 서비스를 이용할 수 없습니다 |
-| dpbokji, DevTools/CDP (T2) | `/ticket/search/list` | `-8003` | 매크로, 개발자도구 등 미허가 도구 사용 시 이용이 제한될 수 있습니다 |
+| private egress, DevTools/CDP (T2) | `/ticket/search/list` | `-8003` | 매크로, 개발자도구 등 미허가 도구 사용 시 이용이 제한될 수 있습니다 |
 
 화면 증거:
 
-- `/tmp/opencode/korail-dynapath/web-nodevtools-5.png` — dpbokji, `-8004`
+- `/tmp/opencode/korail-dynapath/web-nodevtools-5.png` — private egress, `-8004`
 - `/tmp/opencode/korail-dynapath/web-direct-3.png` — direct, `-8202`
 
 ## 해석
 
 - DevTools를 없애도 웹 검색은 차단된다. `-8003`은 DevTools 전용 신호가 아니며, 같은 차단이 `-8004`로 나타난다.
-- direct는 `-8202`(VPN/데이터센터)이고 dpbokji는 `-8202`가 아니다. dpbokji IP는 VPN/데이터센터로 분류되지 않는다.
+- direct는 `-8202`(VPN/데이터센터)이고 private egress는 `-8202`가 아니다. private egress IP는 VPN/데이터센터로 분류되지 않는다.
 - 웹은 모바일 API와 별도의 클라이언트 검증을 한다. 모바일 v2 짧은 봉투 수정은 이 웹 차단을 바꾸지 않는다.
 - 봇의 텔레그램 예약 흐름은 모바일 API를 사용하므로 이 웹 차단의 영향을 받지 않는다.
 

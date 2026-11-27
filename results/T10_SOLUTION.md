@@ -18,11 +18,11 @@
 
 ## 검증
 
-### 제품 SDK live (dpbokji)
+### 제품 SDK live (private egress)
 
 ```bash
 PYTHONPATH=src .venv/bin/python tools/analysis/sdk_probe.py \
-  --live --netfunnel --proxy socks5h://<dpbokji-socks>:1055
+  --live --netfunnel --proxy socks5h://<private-egress>:1055
 ```
 
 3회 연속:
@@ -31,21 +31,21 @@ PYTHONPATH=src .venv/bin/python tools/analysis/sdk_probe.py \
 {"query_success": true, "app_result": "SUCC", "train_count": 10}
 ```
 
-### 도구 live (dpbokji)
+### 도구 live (private egress)
 
 ```bash
 PYTHONPATH=src .venv/bin/python tools/analysis/mobile_client.py \
   --host smart --token-mode v2 --token-format captured-data \
-  --proxy socks5h://<dpbokji-socks>:1055
+  --proxy socks5h://<private-egress>:1055
 ```
 
 3회 연속 `SUCC / 10 trains`.
 
 ### 대조
 
-- 같은 dpbokji 경로에서 **긴 full 봉투** → `403 -2000`
+- 같은 private egress 경로에서 **긴 full 봉투** → `403 -2000`
 - **v1** (같은 한국 프록시) → `200 -8204` (버전 게이트) → IP는 차단되지 않음
-- **WARP** + 짧은 봉투 → `403 -2000` + `VPN 또는 데이터센터...` → WARP egress는 별도로 차단
+- **alternate egress** + 짧은 봉투 → `403 -2000` + `VPN 또는 데이터센터...` → alternate egress egress는 별도로 차단
 - 테스트: `409 passed`
 
 ## 산출물
@@ -59,5 +59,5 @@ PYTHONPATH=src .venv/bin/python tools/analysis/mobile_client.py \
 ## 남은 일
 
 - `login.Login`의 짧은/긴 봉투 조합은 실제 로그인 없이 검증하지 못했다. 예약/로그인 흐름은 별도 확인이 필요하다.
-- `korail-bot` 컨테이너는 이미 설치된 SDK를 사용하므로, 이 수정을 반영하려면 이미지 재빌드/재배포가 필요하다.
+- `consumer service` 컨테이너는 이미 설치된 SDK를 사용하므로, 이 수정을 반영하려면 이미지 재빌드/재배포가 필요하다.
 - 웹 `-8003`은 DevTools를 닫은 수동 조회로 별도 확인해야 한다.

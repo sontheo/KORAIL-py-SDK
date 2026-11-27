@@ -26,6 +26,6 @@ Current files:
 - `t5_runs.jsonl` — T5 30-run raw.
 - `tools/analysis/mobile_client.py` — T5 client (v2 default, Sid, dynamic rt for v1).
 - `T10_SOLUTION.md` — short v2 data envelope fix.
-- `T11_SERVICE.md` — deployed korail-bot verification.
+- `T11_SERVICE.md` — deployed consumer service verification.
 - `T12_WEB_NODEVTOOLS.md` — web block without DevTools.
 - `T13_SDK_ANONYMOUS.md` — short-envelope anonymous SDK smoke, 3/3.
