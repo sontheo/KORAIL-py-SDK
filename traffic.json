@@ -323,7 +323,7 @@
       }
     },
     "2026-11-28": {
-      "collected_at": "2026-11-28T06:01:49Z",
+      "collected_at": "2026-11-28T07:53:27Z",
       "views": {
         "count": 974,
         "uniques": 221
@@ -335,8 +335,8 @@
     }
   },
   "collection": {
-    "last_attempt_at": "2026-11-28T06:01:49Z",
+    "last_attempt_at": "2026-11-28T07:53:27Z",
     "last_attempt_status": "success",
-    "last_success_at": "2026-11-28T06:01:49Z"
+    "last_success_at": "2026-11-28T07:53:27Z"
   }
 }
